@@ -3,6 +3,7 @@ import axios from "axios";
 import ErrorMessage from "./ErrorMessage";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
+import Statistics from "./Statistics";
 
 
 function LoginPage () {
@@ -12,7 +13,7 @@ function LoginPage () {
     const[type, setType] = useState("login");
     const[errorCode, setErrorCode] = useState(0);
     const navigate = useNavigate();
-
+    const user = {username: "user" , password :"123456" , token:"123456user123456"}
 
     useEffect(() => {
         const token = Cookies.get("token");
@@ -41,31 +42,35 @@ function LoginPage () {
 
 
     const submit = () => {
-        if (type == "signUp") {
-            axios.post("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/sign-up", null, {
-                params: {username,  password}
-            }).then((response) => {
-                if (response.data.success) {
-                    setErrorCode(0)
-                    alert ("OK")
-                } else {
-                    setErrorCode(response.data.errorCode);
-                }
-            })
-        } else {
-            axios.post("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/login", null, {
-                params: {username,  password}
-            }).then((response) => {
-                if (response.data.success) {
-                    setErrorCode(0)
-                    Cookies.set("token", response.data.token);
-                    navigate("../dashboard")
-                } else {
-                    setErrorCode(response.data.errorCode);
-                }
-            })
-
+        if (type=="login"){
+            Cookies.set("token", user.token);
         }
+
+        // if (type == "signUp") {
+        //     axios.post("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/sign-up", null, {
+        //         params: {username,  password}
+        //     }).then((response) => {
+        //         if (response.data.success) {
+        //             setErrorCode(0)
+        //             alert ("OK")
+        //         } else {
+        //             setErrorCode(response.data.errorCode);
+        //         }
+        //     })
+        // } else {
+        //     axios.post("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/login", null, {
+        //         params: {username,  password}
+        //     }).then((response) => {
+        //         // if (response.data.success) {
+        //         //     setErrorCode(0)
+        //         //     Cookies.set("token", response.data.token);
+        //         //     navigate("../dashboard")
+        //         // } else {
+        //         //     setErrorCode(response.data.errorCode);
+        //         // }
+        //     })
+
+        // }
     }
 
     return (
@@ -126,6 +131,8 @@ function LoginPage () {
                 (password != password2 && type == "signUp") ||
                 username.length == 0
             }>{type == "signUp" ? "Sign Up" : "Login"}</button>
+
+            <Statistics/>
 
         </div>
     )

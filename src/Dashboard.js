@@ -4,7 +4,9 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Message from "./Message";
 
-function DashboardPage () {
+function Dashboard () {
+
+    //העלאת מוצר - טופס
 
     const[username, setUsername] = useState("");
     const[recipients, setRecipients] = useState([]);
@@ -146,4 +148,4 @@ function DashboardPage () {
     )
 }
 
-export default DashboardPage;
+export default Dashboard;
