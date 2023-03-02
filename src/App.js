@@ -5,6 +5,7 @@ import Dashboard from "./Dashboard";
 import ManagePage from "./ManagePage";
 import CreateProduct from "./CreateProduct";
 import OpenAuctions from "./OpenAuctions";
+import MyProductsPage from "./MyProductsPage";
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
                 <Route path={"/login"} element={<LoginPage/>}></Route>
                 <Route path={"/dashboard"} element={<Dashboard/>}></Route>
                 <Route path={"/createProduct"} element={<CreateProduct/>}></Route>
-                <Route path={"/openAuctions"} element={<OpenAuctions/>}></Route>
+                <Route path={"/myProductsPage"} element={<MyProductsPage/>}></Route>
 
             </Routes>
         </BrowserRouter>

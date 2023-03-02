@@ -17,19 +17,19 @@ const UserMenu = () => {
     return (
         <div>
 
-            <BrowserRouter>
-                <nav className={"navMenu"}>
+            {/*<BrowserRouter>*/}
+            {/*    <nav className={"navMenu"}>*/}
 
-                    {
-                        links.map((link)=>{
-                            return(
-                                <NavLink to={link.to} className={activeMenuClass}> {link.text} <br/></NavLink>
+            {/*        {*/}
+            {/*            links.map((link)=>{*/}
+            {/*                return(*/}
+            {/*                    <NavLink to={link.to} className={activeMenuClass}> {link.text} <br/></NavLink>*/}
 
-                            )
-                        })
-                    }
-                    <div id="indicator"></div>
-                </nav>
+            {/*                )*/}
+            {/*            })*/}
+            {/*        }*/}
+            {/*        <div id="indicator"></div>*/}
+            {/*    </nav>*/}
 
                 <Routes>
                     <Route path={links[4].to} element={<Home/>}/>
