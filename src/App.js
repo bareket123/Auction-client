@@ -3,10 +3,11 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import LoginPage from "./LoginPage";
 import Dashboard from "./Dashboard";
 import ManagePage from "./ManagePage";
-import Statistics from "./Statistics";
 import CreateProduct from "./CreateProduct";
+import OpenAuctions from "./OpenAuctions";
 
 function App() {
+
     return (
         <BrowserRouter>
             <Routes>
@@ -15,6 +16,7 @@ function App() {
                 <Route path={"/login"} element={<LoginPage/>}></Route>
                 <Route path={"/dashboard"} element={<Dashboard/>}></Route>
                 <Route path={"/createProduct"} element={<CreateProduct/>}></Route>
+                <Route path={"/openAuctions"} element={<OpenAuctions/>}></Route>
 
             </Routes>
         </BrowserRouter>
