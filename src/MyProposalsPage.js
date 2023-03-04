@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useState} from "react";
-import axios from "axios";
+import UserMenu from "./UserMenu";
 
 
 function MyProposalsPage() {
@@ -29,6 +29,7 @@ function MyProposalsPage() {
 
     return (
         <div>
+            <UserMenu/>
             <br/>
             <table border={1}>
                 <tr>

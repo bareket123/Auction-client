@@ -1,16 +1,21 @@
 import React from 'react';
 import {useEffect, useState} from "react";
-import axios from "axios";
 import Cookies from "js-cookie";
-import ErrorMessage from "./ErrorMessage";
-
+import UserMenu from "./UserMenu";
+import {useNavigate} from "react-router-dom";
 
 function MyProductsPage() {
+    const[token, setToken] = useState(" ");
     const[productName, setProductName] = useState(0);
     const[amountOfferHighest, setAmountOfferHighest] = useState(0);
     const[tenderStatus, setTenderStatus] = useState(0);
     const[OfferStatusOpen, setOfferStatusOpen] = useState(0);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        setToken ( Cookies.get("token") ) ;
+        //הוספת שליחת בקשה לשרת לקבלת כל המכרזים של היוזר לפי תוקן
+    }, [])
 
     useEffect(() => {
         setProductName("computer");
@@ -28,9 +33,13 @@ function MyProductsPage() {
         setOfferStatusOpen("yes")
     }, [])
 
+    const onClickAdd = () =>{
+        navigate("../createProduct");
+    }
 
     return (
         <div>
+            <UserMenu/>
             <br/>
             <table border={1}>
                 <tr>
@@ -44,11 +53,9 @@ function MyProductsPage() {
                     <td> {amountOfferHighest}</td>
                     <td> {tenderStatus}</td>
                     <td> {OfferStatusOpen}</td>
-
-
-
-
                 </tr>
+                <button onClick={onClickAdd}>Add Product</button>
+
             </table>
         </div>
     );

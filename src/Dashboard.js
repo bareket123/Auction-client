@@ -3,10 +3,13 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Message from "./Message";
+import UserMenu from "./UserMenu";
 
 function Dashboard () {
 
     //העלאת מוצר - טופס
+    const [isAdmin,setIsAdmin]=useState(false);
+    const [credit,setCredit]=useState(0);
 
     const[username, setUsername] = useState("");
     const[recipients, setRecipients] = useState([]);
@@ -33,7 +36,7 @@ function Dashboard () {
                 .then(response => {
                     setRecipients(response.data.recipients);
                 })
-
+        setIsAdmin(Cookies.get("isAdmin"));
 
         }
     }, []);
@@ -94,12 +97,26 @@ function Dashboard () {
 
     }
 
+    const updateCredit =()=>{
+        const updatedCredits = credit
+        axios.post("http://localhost:8989/update-credits", null, {
+            params: {
+                token, updatedCredits
+            }
+        }).then((response) => {
+            if (response.data.success) {
+               alert("success")
+
+            }
+        })
+    }
+
     return (
         <div>
             <div id={"header"}>
+                <UserMenu/>
                 This is the header
                 Hello {username}
-                <button onClick={logout}>Logout</button>
             </div>
             <div id={"page"}>
                 <div id={"sideBar"}>
@@ -144,6 +161,12 @@ function Dashboard () {
                 </div>
 
             </div>
+            {
+                isAdmin && <div style={{color:"red"}}>
+                    change credit <input type={"number"} value={credit} onChange={(event)=>{setCredit(event.target.value)}}/>
+                    <button onClick={updateCredit}>update</button>
+                </div>
+            }
         </div>
     )
 }

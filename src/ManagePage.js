@@ -10,13 +10,13 @@ function ManagePage () {
 
 
     useEffect(() => {
-        axios.get("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/get-all-users")
+        axios.get("http://localhost:8989/get-all-users")
             .then(response => {
                 if (response.data.success) {
                     setUsers(response.data.users)
-                }
+                }else alert("failed")
             })
-    }, [])
+    },[])
 
     const loginAs = (token) => {
         Cookies.set("token", token);

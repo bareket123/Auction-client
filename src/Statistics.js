@@ -18,8 +18,14 @@ function Statistics() {
 
     // שליחת בקשה לשרת לקבלת מספר היוזרים העדכני במערכת ועדכון
     useEffect(() => {
-      setUsers(10);
-    }, [])
+        axios.get("http://localhost:8989/get-all-users")
+            .then(response => {
+                if (response.data.success) {
+                    setUsers(response.data.users.length)
+                }else alert("failed")
+            })
+    },[]) //לא מתעדכן בלייב רק ברענון דף
+
 
     //שליחת בקשה לשרת למספר מכרזים קיימים במערכת (פתוחים וסגורים)
     useEffect(() => {
@@ -34,6 +40,7 @@ function Statistics() {
 
     return (
         <div>
+
             <br/>
             <table border={1}>
                 <tr>

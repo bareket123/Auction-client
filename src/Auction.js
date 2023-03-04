@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState,useEffect} from "react";
 import Cookies from "js-cookie";
+import UserMenu from "./UserMenu";
 
 
 /*
@@ -21,7 +22,6 @@ const Auction = (props) => {
 
 
 
-
     useEffect(() => {
         setToken ( Cookies.get("token") ) ;
     }, [])
@@ -29,6 +29,7 @@ const Auction = (props) => {
 
     return (
         <div>
+            <UserMenu/>
             <div>   Product Name:             <br/>  {props.object.name} </div>
             <br/>
 

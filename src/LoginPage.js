@@ -18,6 +18,7 @@ function LoginPage () {
     useEffect(() => {
         const token = Cookies.get("token");
         if (token == undefined) {
+            navigate("../login")
         } else {
             navigate("../dashboard")
         }
@@ -46,31 +47,31 @@ function LoginPage () {
             Cookies.set("token", user.token);
         }
 
-        // if (type == "signUp") {
-        //     axios.post("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/sign-up", null, {
-        //         params: {username,  password}
-        //     }).then((response) => {
-        //         if (response.data.success) {
-        //             setErrorCode(0)
-        //             alert ("OK")
-        //         } else {
-        //             setErrorCode(response.data.errorCode);
-        //         }
-        //     })
-        // } else {
-        //     axios.post("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/login", null, {
-        //         params: {username,  password}
-        //     }).then((response) => {
-        //         // if (response.data.success) {
-        //         //     setErrorCode(0)
-        //         //     Cookies.set("token", response.data.token);
-        //         //     navigate("../dashboard")
-        //         // } else {
-        //         //     setErrorCode(response.data.errorCode);
-        //         // }
-        //     })
+        if (type == "signUp") {
+            axios.post("http://localhost:8989/sign-up", null, {
+                params: {username,  password}
+            }).then((response) => {
+                if (response.data.success) {
+                    setErrorCode(0)
+                    alert ("OK")
+                } else {
+                    setErrorCode(response.data.errorCode);
+                }
+            })
+        } else {
+            axios.post("http://localhost:8989/login", null, {
+                params: {username,  password}
+            }).then((response) => {
+                if (response.data.success) {
+                    setErrorCode(0)
+                    Cookies.set("token", response.data.token);
+                    navigate("../dashboard")
+                } else {
+                    setErrorCode(response.data.errorCode);
+                }
+            })
 
-        // }
+        }
     }
 
     return (
