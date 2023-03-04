@@ -48,9 +48,9 @@ function MyProductsPage() {
             <table border={1}>
                 <tr>
                     <th> Product Name</th>
-                    <th> The amount of the offer the highest</th>
-                    <th> Is the tender open/closed?</th>
-                    <th> If the auction is open - the auction end button for that product</th>
+                    <th> Highest proposal</th>
+                    <th> Auction status</th>
+                    <th> Proposal status open</th>
                 </tr>
 
                     {
