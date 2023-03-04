@@ -20,6 +20,7 @@ function ManagePage () {
 
     const loginAs = (token) => {
         Cookies.set("token", token);
+        Cookies.set("isAdmin", true);
         navigate("../dashboard");
     }
 
