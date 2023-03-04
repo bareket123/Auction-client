@@ -1,6 +1,9 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import UserMenu from "./UserMenu";
+import axios from "axios";
+import {BrowserRouter, NavLink, Route, Routes,Router,Switch} from "react-router-dom";
+import Auction from "./Auction";
 
 
 const OpenAuctions = () => {
@@ -26,20 +29,19 @@ const OpenAuctions = () => {
     const[filteredList, setFilteredList] = useState([]);
     const [search,setSearch] = useState("");
     const productPreview = {name: "" , pictureLink:"" , creationDate:"" , amountProposals : 0 };
-
     useEffect(() => {
-        setOpenAuctions([ {name: "dog" , pictureLink:"http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" , creationDate:"wwwww" , amountProposals : 1 },
-            {name: "cffff" , pictureLink:"http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" , creationDate:"wwwww" , amountProposals : 2 },
-            {name: "and" , pictureLink:"http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" , creationDate:"wwwww" , amountProposals : 3 },
-            {name: "vvcff" , pictureLink:"http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcQkrjYxSfSHeCEA7hkPy8e2JphDsfFHZVKqx-3t37E4XKr-AT7DML8IwtwY0TnZsUcQ" , creationDate:"wwwww" , amountProposals : 4 }]);
+        axios.get("http://localhost:8989/get-open-auctions")
+            .then(response => {
+                setOpenAuctions(response.data)
+            })
     },[])
 
     const filterAuctions = (event) =>{
         setSearch(event.target.value)
         if (search==="" || search.length===0)
             return setFilteredList(openAuctions)
-       else{
-           return setFilteredList(openAuctions.filter((auction)=>auction.name.includes(search)))
+        else{
+            return setFilteredList(openAuctions.filter((auction)=>auction.name.includes(search)))
         }
     }
 
@@ -51,42 +53,53 @@ const OpenAuctions = () => {
             <UserMenu/>
             <h1> open auctions: </h1>
             <table border={1}>
-          <tr>
-              <td>
-              search product :  <input placeholder={"search"} value={search} type={"text"} onChange={ filterAuctions}/>
-          </td>
-          </tr>
+                <tr>
+                    <td>
+                        search product :  <input placeholder={"search"} value={search} type={"text"} onChange={ filterAuctions}/>
+                    </td>
+                </tr>
 
                 <div className="wrapper" >
-                    {
 
-                        filteredList.map((auction)=>{
-                           return(
-                            <div>
-                                <div>{auction.name} </div>
-                                <img src={auction.pictureLink} alt={auction.name}  />
-                                <div>  {auction.creationDate}   </div>
-                                <div>  {auction.amountProposals}   </div>
-                            </div>
-                               )
-                           }
-                       )
-                    }
+                            {
+
+                                filteredList.map((auction)=>{
+                                        const link = auction.product.name;
+                                        return(
+                                            <div style={{background:"pink"}}>
+                                                <NavLink to={link} >
+                                                    <div>{auction.product.name} </div>
+                                                    <img src={auction.product.photo} alt={auction.product.name}  />
+                                                    <div> Open date : <br/> {auction.openDate}   </div>
+                                                    <div> Amount of offers : {auction.saleOffers.length}   </div>
+                                                </NavLink>
+
+                                            </div>
+                                        )
+                                    }
+                                )
+                            }
+
                 </div>
-        </table>
+            </table>
 
+            {/*<Router>*/}
+            {/*    <Switch>*/}
+            {/*        {*/}
+            {/*            openAuctions.map((auction)=>{*/}
+            {/*                return(*/}
+            {/*                    <div>*/}
+            {/*                        <Route exact path="/products" render={() => <Auction object={auction} />} />*/}
+            {/*                        <Route exact path="/products/:id" component={Auction} />*/}
+            {/*                    </div>*/}
 
-            {/*<BrowserRouter>*/}
-            {/*<Routes>*/}
-            {/*{*/}
-            {/*    openAuctions.map((auction)=>{*/}
-            {/*        return (*/}
-            {/*                    <Route path={"/"+auction.name} elmanageement={<Auction object={auction}/>}></Route>*/}
-            {/*    )*/}
-            {/*    })*/}
-            {/*}*/}
-            {/*    </Routes>*/}
-            {/*    </BrowserRouter>*/}
+            {/*                    )*/}
+
+            {/*            })*/}
+            {/*        }*/}
+
+            {/*    </Switch>*/}
+            {/*</Router>*/}
         </div>
     );
 };

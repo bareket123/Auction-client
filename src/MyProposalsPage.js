@@ -34,8 +34,8 @@ function MyProposalsPage() {
             <table border={1}>
                 <tr>
                     <th> product name</th>
-                    <th> The amount of the offer</th>
-                    <th> Tender-open/closed</th>
+                    <th> amount proposal</th>
+                    <th>  Auction status</th>
                     <th> Whether the bid was won or not (closed tender)</th>
                 </tr>
                 <tr>

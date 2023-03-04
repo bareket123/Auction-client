@@ -1,13 +1,8 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
-// import Paper from '@mui/material/Paper';
-// import {
-//     Chart,
-//     PieSeries,
-//     Title,
-// } from '@devexpress/dx-react-chart-material-ui';
-// import { Animation } from '@devexpress/dx-react-chart';
+
+// import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from '@mui/charts';
 
 function Statistics() {
     const[users, setUsers] = useState(0);
@@ -54,6 +49,15 @@ function Statistics() {
                     <td> {proposals}</td>
                 </tr>
             </table>
+
+            {/*<BarChart width={500} height={300} data={[{users},{auctions},{proposals}]} >*/}
+            {/*    <CartesianGrid strokeDasharray="3 3" />*/}
+            {/*    <XAxis />*/}
+            {/*    <YAxis />*/}
+            {/*    <Tooltip />*/}
+            {/*    <Legend />*/}
+            {/*    <Bar dataKey="value" fill="#8884d8" />*/}
+            {/*</BarChart>*/}
         </div>
 
 
