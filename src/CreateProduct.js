@@ -26,7 +26,10 @@ const CreateProduct = () => {
                         }
                 }).then((response) => {
                         if (response.data.success) {
+                            alert("working")
                                 navigate("../myProductsPage")
+                        }else {
+                            alert("not working")
                         }
                 })
         }
