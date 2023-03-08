@@ -30,35 +30,35 @@ const Auction = (props) => {
     return (
         <div>
             <UserMenu/>
-            <div>   Product Name:             <br/>  {props.object.name} </div>
+            <div>   Product Name:             <br/>  {props.data.product.name} </div>
             <br/>
 
-            <img src={props.object.pictureLink} alt={props.object.name}/>
+            <img src={props.data.product.photo} alt={props.data.product.name}/>
             <br/>
 
-            <div> Product description:            <br/> {props.object.description} </div>
+            <div> Product description:            <br/> {props.data.product.description} </div>
             <br/>
 
-            <div> creation date :{props.object.creationDate}   </div>
+            <div> creation date :{props.data.openDate}   </div>
             <br/>
 
-            <div> start price: {props.object.startPrice}   </div>
+            <div> start price: {props.data.initialPrice}   </div>
             <br/>
 
-            <div>amount proposals: {props.object.amountProposals} </div>
+            <div>amount proposals: {props.data.saleOffers.length} </div>
             <br/>
 
-            <div> publisher :{props.object.publisher} </div>
+            <div> publisher :{props.data.submitUser.username} </div>
             <br/>
 
 
-            { props.object.myProposals.length!=0 &&
+            { props.data.saleOffers.length!=0 &&
                 <div> my proposals :
                     <table>
-                        {  props.object.myProposals.map((proposal)=>{
+                        {  props.data.saleOffers.map((proposal)=>{
                             return(
-                                <tr> <td>{ proposal.creationDate} </td>
-                                    <td>{ proposal.price}</td>
+                                <tr> <td>{ proposal.openDate} </td>
+                                    <td>{ proposal.offerPrice}</td>
                                 </tr>
                             )
                         })}
@@ -78,7 +78,7 @@ const Auction = (props) => {
                 addProposal &&  <div>      <input type={"number"} />      <button > send </button>   </div>
             }
             {
-                token == props.object.publisher.token &&
+                token == props.data.submitUser.token &&
                 <button> finish auction </button>
             }
         </div>

@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #DC143C;
 }
 .active-menu{
   color:#4169E1;
@@ -85,4 +85,7 @@ img{
   width: 100px;
   height: 100px;
 }
+
+
+
 

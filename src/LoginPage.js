@@ -13,7 +13,6 @@ function LoginPage () {
     const[type, setType] = useState("login");
     const[errorCode, setErrorCode] = useState(0);
     const navigate = useNavigate();
-    const user = {username: "user" , password :"123456" , token:"123456user123456"}
 
     useEffect(() => {
         const token = Cookies.get("token");
@@ -43,10 +42,6 @@ function LoginPage () {
 
 
     const submit = () => {
-        if (type=="login"){
-            Cookies.set("token", user.token);
-        }
-
         if (type == "signUp") {
             axios.post("http://localhost:8989/sign-up", null, {
                 params: {username,  password}

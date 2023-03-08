@@ -24,18 +24,26 @@ const OpenAuctions = () => {
     useEffect(() => {
         axios.get("http://localhost:8989/get-open-auctions")
             .then(response => {
-                setOpenAuctions(response.data)
+                setOpenAuctions(response.data.auctions)
             })
     },[])
 
-    const filterAuctions = (event) =>{
-        setSearch(event.target.value)
-        if (search==="" || search.length===0)
-            return setFilteredList(openAuctions)
-        else{
-            return setFilteredList(openAuctions.filter((auction)=>auction.name.includes(search)))
-        }
+    const filter=()=>{
+        const originalArray=openAuctions
+       if (originalArray.length>0){
+           let filterArray=originalArray.filter((auction)=>{
+               let allow=false;
+               if (auction.product.name.includes(search)){
+                   allow=true;
+               }
+               return allow;
+           })
+           return filterArray;
+       }else return originalArray;
+
     }
+
+
 
 
 
@@ -47,15 +55,14 @@ const OpenAuctions = () => {
             <table border={1}>
                 <tr>
                     <td>
-                        search product :  <input placeholder={"search"} value={search} type={"text"} onChange={ filterAuctions}/>
+                        search product :  <input placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
                     </td>
                 </tr>
 
                 <div className="wrapper" >
 
                             {
-
-                                filteredList.map((auction)=>{
+                                filter().map((auction)=>{
                                         const link = auction.product.name;
                                         return(
                                             <div style={{background:"pink"}}>

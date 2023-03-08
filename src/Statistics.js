@@ -6,31 +6,61 @@ import axios from "axios";
 
 function Statistics() {
     const[users, setUsers] = useState(0);
-    const[auctions, setAuctions] = useState(0);
+    const[openAuctions, setOpenAuctions] = useState(0);
+    const[closeAuctions, setCloseAuctions] = useState(0);
     const[proposals, setProposals] = useState(0);
 
 
 
     // שליחת בקשה לשרת לקבלת מספר היוזרים העדכני במערכת ועדכון
     useEffect(() => {
-        axios.get("http://localhost:8989/get-all-users")
+        axios.get("http://localhost:8989/get-users-size")
             .then(response => {
-                if (response.data.success) {
-                    setUsers(response.data.users.length)
-                }else alert("failed")
+                    setUsers(response.data)
             })
-    },[]) //לא מתעדכן בלייב רק ברענון דף
+    },[])
+    //לא מתעדכן בלייב רק ברענון דף
 
-
-    //שליחת בקשה לשרת למספר מכרזים קיימים במערכת (פתוחים וסגורים)
+    // שליחת בקשה לשרת לקבלת מספר המכרזים פתוחים וסגורים
     useEffect(() => {
-        setAuctions(2)
-    }, [])
+        axios.get("http://localhost:8989/get-open-auction-size")
+            .then(response => {
+                    setOpenAuctions(response.data)
 
-    //שליחת בקשה לשרת למספר הצעות קיימים במערכת (למכרזים פתוחים וסגורים)
+            })
+
+        axios.get("http://localhost:8989/get-close-auction-size")
+            .then(response => {
+                setCloseAuctions(response.data)
+            })
+    },[])
+
+
     useEffect(() => {
-        setProposals(8)
-    }, [])
+        axios.get("http://localhost:8989/get-all-sale-offers-size")
+            .then(response => {
+                    setProposals(response.data)
+            })
+    },[])
+
+
+
+
+
+
+
+
+
+
+    // //שליחת בקשה לשרת למספר מכרזים קיימים במערכת (פתוחים וסגורים)
+    // useEffect(() => {
+    //     setAuctions(2)
+    // }, [])
+    //
+    // //שליחת בקשה לשרת למספר הצעות קיימים במערכת (למכרזים פתוחים וסגורים)
+    // useEffect(() => {
+    //     setProposals(8)
+    // }, [])
 
 
     return (
@@ -45,7 +75,7 @@ function Statistics() {
                 </tr>
                 <tr>
                     <td> {users}</td>
-                    <td> {auctions}</td>
+                    <td> {openAuctions+closeAuctions}</td>
                     <td> {proposals}</td>
                 </tr>
             </table>
