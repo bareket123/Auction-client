@@ -99,6 +99,7 @@ const OpenAuctions = () => {
 
             {/*    </Switch>*/}
             {/*</Router>*/}
+
         </div>
     );
 };
