@@ -23,8 +23,6 @@ function MyProductsPage() {
     const navigate = useNavigate();
 
 
-
-
     const CustomButton = styled(Button)({
         backgroundColor: 'red',
         color: 'white',
@@ -37,11 +35,18 @@ function MyProductsPage() {
     useEffect(() => {
         const token = Cookies.get("token");
         setToken(token);
-        axios.get("http://localhost:8989/get-all-auctions-by-token?token=" + token)
+        axios.get("http://localhost:8989/get-Model-all-auctions-by-token?token="+token)
             .then(response => {
-                setMyAuctions(response.data)
+                if (response.data!=null){
+                    setMyAuctions(response.data)
+                    console.log(response.data.shift().productName)
+
+                }else {
+                    alert("response is null")
+                }
+
             })
-    }, []);
+    },[]);
 
 
 
@@ -51,13 +56,27 @@ function MyProductsPage() {
 
     const getHighestOffer=(auctionId)=>{
         let currentHighest=0;
-        axios.post("http://localhost:8989/get-sorted-sale-offres-by-auction?auctionId="+auctionId).then((res)=>{
+        axios.get("http://localhost:8989/get-sorted-sale-offres-by-auction?auctionId="+auctionId).then((res)=>{
             // setAmountOfferHighest(res.data.saleOfferList.get(0).offerPrice);
             if(res.data.success){
                 currentHighest=res.data.saleOfferList.shift().offerPrice;
                 setAmountOfferHighest(currentHighest)
             }else {
                 alert("not ok")
+            }
+
+        });
+
+    }
+    const endAuction=(auctionId)=>{
+        axios.post("http://localhost:8989/close-exist-auction?auctionId="+auctionId,null,{
+            params:{
+                auctionId
+            }
+        }).then((res)=>{
+            if(res.data.success){
+            }else {
+                alert("not end ok")
             }
 
         });
@@ -75,28 +94,50 @@ function MyProductsPage() {
                     <th style={{fontWeight:"bold"}}>Product Name</th>
                     <th style={{fontWeight: "bold"}}>Highest proposal</th>
                     <th style={{fontWeight: "bold"}}>Auction status</th>
-                    <th style={{fontWeight: "bold"}}> Proposal status open</th>
+                    <th style={{fontWeight: "bold"}}> Close auction</th>
                 </tr>
                 {
 
                 myAuctions.map((auction)=>{
-                    getHighestOffer(auction.id)
+                    //getHighestOffer(auction.id)
                         return(
                             <tr>
-                                <td> {auction.product.name}</td>
-                                 <td>{amountOfferHighest} </td>
-                                <td> {auction.open ? "true" : "false"}</td>
+                                <td> {auction.productName}</td>
+
+                                {
+                                    auction.highestOffer!=null ?
+                                        <td>{auction.highestOffer.offerPrice} </td>
+                                        :
+                                        <td> no offers</td>
+                                }
+                                 {/*<td>{auction.highestOffer.offerPrice} </td>*/}
+                                <td> {auction.auctionOpen ? "open" : "close"}</td>
                                <td>
-                               {auction.open &&
-                                 <button>End Auction</button>
-                               }
+                                   <button disabled={!auction.auctionOpen} onClick={
+                                       ()=>{ endAuction(auction.auctionId);
+                                           window.location.reload(false)
+                                       }
+                                   }>
+                                   End</button>
+
+
+
                                </td>
                             </tr>
                         );
                     })
                 }
+                <tr>
+                    <td>
+                        <button onClick={onClickAdd}>Add Product</button>
+                    </td>
+
+                </tr>
             </table>
 
+                {/*<CustomButton variant="contained">*/}
+                {/*    Click me!*/}
+                {/*</CustomButton>*/}
 
 
 
@@ -136,15 +177,16 @@ function MyProductsPage() {
             {/*{*/}
 
 
-            {/*    myAuctions.map((auction, index) => {*/}
-            {/*        return (*/}
-            {/*            <BrowserRouter>*/}
-            {/*                <Router>*/}
-            {/*                    <Routes path={"/product" + index} render={() => <Auction data={auction} />} />*/}
-            {/*                </Router>*/}
-            {/*            </BrowserRouter>*/}
-            {/*        )  } )*/}
-            {/*}*/}
+
+                {/*myAuctions.map((auction, index) => {*/}
+                {/*    return (*/}
+                {/*        <BrowserRouter>*/}
+                {/*            <Router>*/}
+                {/*                <Routes path={"/product" + index} render={() => <Auction data={auction} />} />*/}
+                {/*            </Router>*/}
+                {/*        </BrowserRouter>*/}
+                {/*    )  })*/}
+
         </div>
     );
 }

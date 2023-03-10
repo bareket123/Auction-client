@@ -30,13 +30,13 @@ const Auction = (props) => {
     return (
         <div>
             <UserMenu/>
-            <div>   Product Name:             <br/>  {props.data.product.name} </div>
+            <div>   Product Name:             <br/>  {props.data.productName} </div>
             <br/>
 
-            <img src={props.data.product.photo} alt={props.data.product.name}/>
+            <img src={props.data.productPhoto} alt={props.data.productName}/>
             <br/>
 
-            <div> Product description:            <br/> {props.data.product.description} </div>
+            <div> Product description:            <br/> {props.data.productDescription} </div>
             <br/>
 
             <div> creation date :{props.data.openDate}   </div>

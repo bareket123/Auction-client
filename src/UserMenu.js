@@ -18,7 +18,7 @@ const UserMenu = () => {
     // },[])
 
     const links=[{to:"/dashboard",text:"Home"},
-        {to:"/myProposals",text:"My Proposals"},
+        {to:"/myProposalsPage",text:"My Proposals"},
         {to:"/myProductsPage",text:"My Products"},
         {to:"/openAuctions",text:"Open Auctions"},
         {to:"/MyNotifications",text:"My Notifications "}

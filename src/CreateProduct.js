@@ -22,7 +22,7 @@ const CreateProduct = () => {
 
                 axios.post("http://localhost:8989/create-new-auction", null, {
                         params: {
-                                submitUser, initialPrice, name ,photo ,description
+                                submitUser, initialPrice, productName:name ,productPhoto:photo ,productDescription:description
                         }
                 }).then((response) => {
                         if (response.data.success) {
