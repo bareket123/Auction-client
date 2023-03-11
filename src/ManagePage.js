@@ -4,10 +4,8 @@ import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 
 function ManagePage () {
-
     const[users, setUsers] = useState([]);
     const navigate = useNavigate();
-
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-all-users")
@@ -43,5 +41,4 @@ function ManagePage () {
         </div>
     )
 }
-
 export default ManagePage;

@@ -13,13 +13,12 @@ const CreateProduct = () => {
         const [photo,setPhoto]=useState("");
         const [initialPrice,setInitialPrice]=useState(0);
         const navigate = useNavigate();
-        useEffect(() => {
-                setSubmitUser(Cookies.get("token"));
 
+        useEffect(() => {
+            setSubmitUser(Cookies.get("token"));
         }, [])
 
         const submit = () => {
-
                 axios.post("http://localhost:8989/create-new-auction", null, {
                         params: {
                                 submitUser, initialPrice, productName:name ,productPhoto:photo ,productDescription:description

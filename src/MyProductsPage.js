@@ -2,15 +2,10 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import UserMenu from "./UserMenu";
-
 import axios from "axios";
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
-import Auction from "./Auction";
 import {useNavigate} from "react-router-dom";
-// import { Router, Route, Routes, NavLink,BrowserRouterProps } from 'react-router-dom';
-import { BrowserRouter, Router, Routes, NavLink } from 'react-router-dom';
-
 
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
@@ -22,7 +17,6 @@ function MyProductsPage() {
     const [test, setTest] = useState([]);
     const navigate = useNavigate();
 
-
     const CustomButton = styled(Button)({
         backgroundColor: 'red',
         color: 'white',
@@ -30,7 +24,6 @@ function MyProductsPage() {
             backgroundColor: 'darkred',
         },
     });
-
 
     useEffect(() => {
         const token = Cookies.get("token");
@@ -48,8 +41,6 @@ function MyProductsPage() {
             })
     },[]);
 
-
-
     const onClickAdd = (auction) => {
         navigate("../createProduct");
     }
@@ -66,8 +57,8 @@ function MyProductsPage() {
             }
 
         });
-
     }
+
     const endAuction=(auctionId)=>{
         axios.post("http://localhost:8989/close-exist-auction?auctionId="+auctionId,null,{
             params:{
@@ -78,17 +69,13 @@ function MyProductsPage() {
             }else {
                 alert("not end ok")
             }
-
         });
-
     }
-
 
     return (
         <div>
             <UserMenu />
             <br />
-
             <table style={{border:"1px solid black"}}>
                 <tr>
                     <th style={{fontWeight:"bold"}}>Product Name</th>
@@ -97,13 +84,11 @@ function MyProductsPage() {
                     <th style={{fontWeight: "bold"}}> Close auction</th>
                 </tr>
                 {
-
                 myAuctions.map((auction)=>{
                     //getHighestOffer(auction.id)
                         return(
                             <tr>
                                 <td> {auction.productName}</td>
-
                                 {
                                     auction.highestOffer!=null ?
                                         <td>{auction.highestOffer.offerPrice} </td>
@@ -119,9 +104,6 @@ function MyProductsPage() {
                                        }
                                    }>
                                    End</button>
-
-
-
                                </td>
                             </tr>
                         );
@@ -131,7 +113,6 @@ function MyProductsPage() {
                     <td>
                         <button onClick={onClickAdd}>Add Product</button>
                     </td>
-
                 </tr>
             </table>
 

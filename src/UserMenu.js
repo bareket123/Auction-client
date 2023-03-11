@@ -3,27 +3,45 @@ import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
 import {useState,useEffect} from "react";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const UserMenu = () => {
 
-    const[token, setToken] = useState();
+    const[token, setToken] = useState("");
     const activeMenuClass=({isActive})=>(isActive ? "active-menu":"non-active-menu")
     const navigate = useNavigate();
+    const [userCredit,setUserCredit]=useState(0);
 
-    // useEffect(()=>{
-    //    setToken(Cookies.get("token")) ;
-    //     if (token == undefined) {
-    //         navigate("../login");
-    //     }
-    // },[])
+    useEffect(()=>{
+       setToken(Cookies.get("token")) ;
+        // if (token == undefined) {
+        //     navigate("../login");
+        // }
+    },[])
 
     const links=[{to:"/dashboard",text:"Home"},
         {to:"/myProposalsPage",text:"My Proposals"},
         {to:"/myProductsPage",text:"My Products"},
         {to:"/openAuctions",text:"Open Auctions"},
         {to:"/MyNotifications",text:"My Notifications "}
-        ,{to:"/MyCredit",text:"My Credit"},
     ]
+    // useEffect(() => {
+    //     setToken(Cookies.get("token"));
+    // },[]);
+
+    useEffect(() => {
+        if (token!==""){
+        axios.get("http://localhost:8989/get-user-credits?userToken="+token)
+            .then(response => {
+                if (response.data.success) {
+                    setUserCredit(response.data.credit)
+                }
+                // }else {
+                //     alert("there is a problem and the token is: " + token)
+                // }
+            })
+        }
+    });
 
     return (
         <div>
@@ -39,29 +57,15 @@ const UserMenu = () => {
                             )
                         })
                     }
-                    <th><button onClick={()=>{Cookies.remove("token"); Cookies.remove("isAdmin") }}>log out</button></th>
+                    <th>my credit: {userCredit}</th>
+                    <th><button onClick={()=>{
+                        Cookies.remove("token"); Cookies.remove("isAdmin")
+                        navigate("../");
+                    }}>log out</button></th>
                 </tr>
             </table>
-
-            {/*<BrowserRouter>*/}
-            {/*    <Routes>*/}
-            {/*        <Route path={"/dashboard"} element={<Dashboard/>}></Route>*/}
-            {/*        <Route path={"/createProduct"} element={<CreateProduct/>}></Route>*/}
-            {/*        <Route path={"/myProductsPage"} element={<MyProductsPage/>}></Route>*/}
-            {/*        <Route path={"/user"} element={<UserMenu/>}></Route>*/}
-            {/*        <Route path={"/openAuctions"} element={<OpenAuctions/>}></Route>*/}
-            {/*        <Route path={"/myProposalsPage"} element={<MyProposalsPage/>}></Route>*/}
-            {/*    </Routes>*/}
-            {/*</BrowserRouter>*/}
-
-
-
-
-
-
 
         </div>
     );
 };
-
 export default UserMenu;

@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 import Statistics from "./Statistics";
 
-
 function LoginPage () {
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
@@ -17,7 +16,7 @@ function LoginPage () {
     useEffect(() => {
         const token = Cookies.get("token");
         if (token == undefined) {
-            navigate("../login")
+            navigate("../")
         } else {
             navigate("../dashboard")
         }
@@ -38,8 +37,6 @@ function LoginPage () {
     const typeChanged = (event) => {
         setType(event.target.value);
     }
-
-
 
     const submit = () => {
         if (type == "signUp") {
@@ -65,7 +62,6 @@ function LoginPage () {
                     setErrorCode(response.data.errorCode);
                 }
             })
-
         }
     }
 
@@ -115,9 +111,7 @@ function LoginPage () {
                         </td>
                     </tr>
                 }
-
             </table>
-
             {
                 errorCode > 0 &&
                 <ErrorMessage message={errorCode} lineBreak={true}/>
@@ -127,11 +121,8 @@ function LoginPage () {
                 (password != password2 && type == "signUp") ||
                 username.length == 0
             }>{type == "signUp" ? "Sign Up" : "Login"}</button>
-
             <Statistics/>
-
         </div>
     )
 }
-
 export default LoginPage;

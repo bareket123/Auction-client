@@ -7,10 +7,8 @@ import UserMenu from "./UserMenu";
 
 function Dashboard () {
 
-    //העלאת מוצר - טופס
     const [isAdmin,setIsAdmin]=useState(false);
     const [credit,setCredit]=useState(0);
-
     const[username, setUsername] = useState("");
     const[recipients, setRecipients] = useState([]);
     const[token, setToken] = useState("");
@@ -37,7 +35,6 @@ function Dashboard () {
                     setRecipients(response.data.recipients);
                 })
         setIsAdmin(Cookies.get("isAdmin"));
-
         }
     }, []);
 
@@ -47,7 +44,6 @@ function Dashboard () {
     }
 
     const showConversation = (recipient) => {
-        debugger
         setRecipientId(recipient.id);
         setCurrentRecipient(recipient.username)
         axios.get("http://ec2-18-221-114-107.us-east-2.compute.amazonaws.com:8989/get-conversation?token=" + token + "&recipientId=" + recipient.id)
@@ -69,7 +65,6 @@ function Dashboard () {
                    newConversation.push(newMessage);
                    return newConversation;
                });
-
             }
         }
     }
@@ -94,7 +89,6 @@ function Dashboard () {
                 setNewMessage("");
             }
         })
-
     }
 
     const updateCredit =()=>{
@@ -132,7 +126,6 @@ function Dashboard () {
                         })
                     }
                 </div>
-
                 <div id={"content"}>
                     {
                         conversation.map(message => {
@@ -155,7 +148,6 @@ function Dashboard () {
                                 <input value={newMessage} onChange={newMessageChanged}/>
                                 <button onClick={send} disabled={newMessage == ""}>SEND</button>
                             </div>
-
                         }
                     </div>
                 </div>

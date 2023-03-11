@@ -2,93 +2,128 @@ import React from 'react';
 import {useState,useEffect} from "react";
 import Cookies from "js-cookie";
 import UserMenu from "./UserMenu";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-
-/*
-פרטי המוצר-שם המוצר,תמונה,תאריך פתיחת המכרז, מחיר מינימלי עבור המוצר , כמות הצעות המכרז, שם משתמש שהציע את המוצר למכירה,ההצעות שלי על המוצר.
-            אפשרות להגשת הצעה על המכרז- צריך להיות גבוהה מההצעות הקודמות שלי על המכרז.
-            ניקח את הערך הגבוהה למוצר שהצעתי מבין ההצעות.
-            כפתור לסיום מכרז במידה והמוצר הינו של המשתמש
- */
-
-//ההצעות שלי על המוצר-מימוש בצד שרת, נצטרך לעשות מתודה שתקבל מכרז ויוזר מהשרת ומחזירה רשימת הצעות שכל הצעה תכיל מחיר ותאריך.
-
-
-const Auction = (props) => {
+const Auction = () => {
 
     const[addProposal, setAddProposal] = useState(false);
     const[token, setToken] = useState(" ");
-    const[highestProposal, setHighestProposal] = useState(" ");
-
+    const[offerPrice, setOfferPrice] = useState(0);
+    const[auction, setAuction] = useState({});
+    const[offerByUser, setOfferByUser] = useState([]);
+    const [isPublisher,setIsPublisher]=useState(false);
+    const {id} = useParams();
 
 
     useEffect(() => {
-        setToken ( Cookies.get("token") ) ;
+        setToken ( Cookies.get("token") );
+
+
     }, [])
+
+    useEffect(()=>{
+        axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
+            if (response.data.success){
+                setAuction(response.data.productModels)
+                setIsPublisher(response.data.publisher)
+                setOfferByUser(response.data.productModels.saleOffersByUser)
+
+            }
+
+        }))
+
+    })
+
+const addNewOffer=()=>{
+        axios.post(("http://localhost:8989/create-sale-offer"), null, {
+            params: {
+                token:token, offerPrice:offerPrice, auctionId: id
+            }
+         }).then((res) =>{
+             if (res.data.success){
+                 alert("working")
+             }else {
+                 alert("not working")
+             }
+             console.log(res.data)
+        })
+    setOfferPrice(0);
+}
 
 
     return (
         <div>
+
             <UserMenu/>
-            <div>   Product Name:             <br/>  {props.data.productName} </div>
+            <div>   Product Name:   {auction.productName} </div>
+                <br/>
+
+            <img src={auction.productPhoto} alt={"no picture"}/>
             <br/>
 
-            <img src={props.data.productPhoto} alt={props.data.productName}/>
+            <div> Product description:  {auction.productDescription} </div>
             <br/>
 
-            <div> Product description:            <br/> {props.data.productDescription} </div>
+            <div> creation date : {auction.creationDate}   </div>
             <br/>
 
-            <div> creation date :{props.data.openDate}   </div>
+            <div> start price : {auction.initialPrice}   </div>
             <br/>
 
-            <div> start price: {props.data.initialPrice}   </div>
+            <div>amount proposals : {auction.numberOffers} </div>
             <br/>
 
-            <div>amount proposals: {props.data.saleOffers.length} </div>
+            <div> publisher : {auction.publisher} </div>
             <br/>
+            {
+                isPublisher ?
+                    <button> finish auction </button>
 
-            <div> publisher :{props.data.submitUser.username} </div>
-            <br/>
 
+                    :
 
-            { props.data.saleOffers.length!=0 &&
-                <div> my proposals :
+                    // <div>
+
+                    offerByUser.length !== 0 &&
+
+                    <div>
+
+                <div>
+                    my proposals :
                     <table>
-                        {  props.data.saleOffers.map((proposal)=>{
+                        <ol>
+                        {
+                            auction.saleOffersByUser.map((proposal)=>{
                             return(
-                                <tr> <td>{ proposal.openDate} </td>
-                                    <td>{ proposal.offerPrice}</td>
+                                <tr>
+                                    <td><li>{proposal.offerPrice}</li></td>
                                 </tr>
                             )
                         })}
+                        </ol>
                     </table>
                 </div>
+
+
+
+
+
+                </div>
+
             }
+            <div>
+                <button onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
+                {
+                    addProposal &&
+                    <div>
+                        <input type={"number"} onChange={(event)=>setOfferPrice(event.target.value)} value={offerPrice} />
+                        <button onClick={addNewOffer} > send </button>
+                    </div>
+                }
 
-
-
-
-
-            <button onClick={ ()=>{
-                setAddProposal(!addProposal)
-            }
-            } > add proposal </button>
-            {
-                addProposal &&  <div>      <input type={"number"} />      <button > send </button>   </div>
-            }
-            {
-                token == props.data.submitUser.token &&
-                <button> finish auction </button>
-            }
+            </div>
         </div>
     );
 }
-
-
-
-
-
-
-
 export default Auction;

@@ -2,26 +2,19 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-// import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from '@mui/charts';
-
 function Statistics() {
     const[users, setUsers] = useState(0);
     const[openAuctions, setOpenAuctions] = useState(0);
     const[closeAuctions, setCloseAuctions] = useState(0);
     const[proposals, setProposals] = useState(0);
 
-
-
-    // שליחת בקשה לשרת לקבלת מספר היוזרים העדכני במערכת ועדכון
     useEffect(() => {
         axios.get("http://localhost:8989/get-users-size")
             .then(response => {
                     setUsers(response.data)
             })
     },[])
-    //לא מתעדכן בלייב רק ברענון דף
 
-    // שליחת בקשה לשרת לקבלת מספר המכרזים פתוחים וסגורים
     useEffect(() => {
         axios.get("http://localhost:8989/get-open-auction-size")
             .then(response => {
@@ -42,26 +35,6 @@ function Statistics() {
                     setProposals(response.data)
             })
     },[])
-
-
-
-
-
-
-
-
-
-
-    // //שליחת בקשה לשרת למספר מכרזים קיימים במערכת (פתוחים וסגורים)
-    // useEffect(() => {
-    //     setAuctions(2)
-    // }, [])
-    //
-    // //שליחת בקשה לשרת למספר הצעות קיימים במערכת (למכרזים פתוחים וסגורים)
-    // useEffect(() => {
-    //     setProposals(8)
-    // }, [])
-
 
     return (
         <div>
