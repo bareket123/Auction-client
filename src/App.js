@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Routes, Route, Router} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import LoginPage from "./LoginPage";
 import Dashboard from "./Dashboard";
 import ManagePage from "./ManagePage";
@@ -8,32 +8,15 @@ import OpenAuctions from "./OpenAuctions";
 import MyProductsPage from "./MyProductsPage";
 import UserMenu from "./UserMenu";
 import MyProposalsPage from "./MyProposalsPage";
-import {useEffect, useState} from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
 import Auction from "./Auction";
 
 
 
 function App() {
-    const [auctions,setAuctions]=useState([]);
 
-    // useEffect(() => {
-    //     axios.get("http://localhost:8989/get-all-auctions").then(response=>{
-    //         setAuctions(response.data)
-    //     })
-    // }, []);
 
     return (
         <div>
-
-            {/*<Router>*/}
-
-
-            {/*</Router>*/}
-
-
-
             <BrowserRouter>
             <Routes>
                 <Route path={"/"} element={<LoginPage/>}></Route>

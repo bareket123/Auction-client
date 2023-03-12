@@ -4,31 +4,32 @@ import Cookies from "js-cookie";
 import UserMenu from "./UserMenu";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Error from "./Error";
 
 const Auction = () => {
 
     const[addProposal, setAddProposal] = useState(false);
-    const[token, setToken] = useState(" ");
+    const[token, setToken] = useState("");
     const[offerPrice, setOfferPrice] = useState(0);
     const[auction, setAuction] = useState({});
     const[offerByUser, setOfferByUser] = useState([]);
     const [isPublisher,setIsPublisher]=useState(false);
     const {id} = useParams();
+    const [errorCode,setErrorCode]=useState(0);
 
 
-    useEffect(() => {
-        setToken ( Cookies.get("token") );
-
-
-    }, [])
 
     useEffect(()=>{
+        setToken ( Cookies.get("token") );
+        if (token!=undefined)
         axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
             if (response.data.success){
                 setAuction(response.data.productModels)
                 setIsPublisher(response.data.publisher)
                 setOfferByUser(response.data.productModels.saleOffersByUser)
 
+            }else{
+                setErrorCode(response.data.errorCode)
             }
 
         }))
@@ -42,11 +43,9 @@ const addNewOffer=()=>{
             }
          }).then((res) =>{
              if (res.data.success){
-                 alert("working")
-             }else {
-                 alert("not working")
-             }
-             console.log(res.data)
+                 alert("added successfully")
+                 setErrorCode(0)
+             }else setErrorCode(res.data.errorCode)
         })
     setOfferPrice(0);
 }
@@ -58,7 +57,7 @@ const addNewOffer=()=>{
         }).then((res)=>{
             if(res.data.success){
             }else {
-                alert("not end ok")
+                setErrorCode(res.data.errorCode)
             }
         });
     }
@@ -119,9 +118,7 @@ const addNewOffer=()=>{
 
                     :
 
-                    // <div>
-
-                    offerByUser.length !== 0 &&
+                 offerByUser.length !== 0 &&
 
                     <div>
 
@@ -163,6 +160,9 @@ const addNewOffer=()=>{
                 }
 
             </div>
+            {
+                errorCode!==0 && <Error message={errorCode} />
+            }
         </div>
     );
 }

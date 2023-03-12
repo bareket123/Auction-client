@@ -41,6 +41,7 @@ function Statistics() {
 
             <br/>
             <table border={1}>
+                Statistics :
                 <tr>
                     <th> Users</th>
                     <th> Auctions</th>
@@ -52,15 +53,6 @@ function Statistics() {
                     <td> {proposals}</td>
                 </tr>
             </table>
-
-            {/*<BarChart width={500} height={300} data={[{users},{auctions},{proposals}]} >*/}
-            {/*    <CartesianGrid strokeDasharray="3 3" />*/}
-            {/*    <XAxis />*/}
-            {/*    <YAxis />*/}
-            {/*    <Tooltip />*/}
-            {/*    <Legend />*/}
-            {/*    <Bar dataKey="value" fill="#8884d8" />*/}
-            {/*</BarChart>*/}
         </div>
 
 

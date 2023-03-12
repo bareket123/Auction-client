@@ -36,7 +36,7 @@ function MyProductsPage() {
             })
     },[]);
 
-    const onClickAdd = (auction) => {
+    const onClickAdd = () => {
         navigate("../createProduct");
     }
 
@@ -81,7 +81,6 @@ function MyProductsPage() {
                 {
                 myAuctions.map((auction)=>{
                     const link = auction.auctionId;
-                    //getHighestOffer(auction.id)
                         return(
                             <NavLink to={"/product/"+link}>
                             <tr>
@@ -92,7 +91,6 @@ function MyProductsPage() {
                                         :
                                         <td> no offers</td>
                                 }
-                                 {/*<td>{auction.highestOffer.offerPrice} </td>*/}
                                 <td> {auction.auctionOpen ? "open" : "close"}</td>
                                <td>
                                    <button disabled={!auction.auctionOpen} onClick={

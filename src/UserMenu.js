@@ -14,9 +14,9 @@ const UserMenu = () => {
 
     useEffect(()=>{
        setToken(Cookies.get("token")) ;
-        // if (token == undefined) {
-        //     navigate("../login");
-        // }
+        if (token == undefined) {
+            navigate("../");
+        }
     },[])
 
     const links=[{to:"/dashboard",text:"Home"},
@@ -57,7 +57,7 @@ const UserMenu = () => {
                             )
                         })
                     }
-                    <th>my credit: {userCredit}</th>
+                    <th>my credit : {userCredit}</th>
                     <th><button onClick={()=>{
                         Cookies.remove("token"); Cookies.remove("isAdmin")
                         navigate("../");

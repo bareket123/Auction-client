@@ -3,16 +3,21 @@ import {useEffect, useState} from "react";
 import UserMenu from "./UserMenu";
 import axios from "axios";
 import {BrowserRouter, NavLink, Route, Routes,Router,Switch} from "react-router-dom";
+import Error from "./Error";
 
 const OpenAuctions = () => {
 
     const[openAuctions, setOpenAuctions] = useState([]);
     const[filteredList, setFilteredList] = useState([]);
     const [search,setSearch] = useState("");
+    const [errorCode,setErrorCode]=useState(0);
+
     useEffect(() => {
         axios.get("http://localhost:8989/get-open-auctions")
             .then(response => {
+                if (response.data.success)
                 setOpenAuctions(response.data.auctions)
+                else setErrorCode(response.data.errorCode)
             })
     },[])
 
@@ -62,23 +67,10 @@ const OpenAuctions = () => {
                             }
                 </div>
             </table>
-            {/*<Router>*/}
-            {/*    <BrowserRouter>*/}
-        {/*            {*/}
-        {/*                openAuctions.map((auction)=>{*/}
-        {/*                    return(*/}
-        {/*                        <div>*/}
-        {/*                            <Route exact path="/products" render={() => <Auction object={auction} />} />*/}
-        {/*                            <Route exact path="/products/:id" component={Auction} />*/}
-        {/*                        </div>*/}
 
-        {/*                        )*/}
-
-        {/*                })*/}
-        {/*            }*/}
-
-        {/*        </BrowserRouter>*/}
-        {/*    </Router>*/}
+            {
+                errorCode!=0 && <Error message={errorCode} />
+            }
         </div>
     );
 };

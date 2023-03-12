@@ -2,17 +2,20 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
+import Error from "./Error";
+import React from "react";
 
 function ManagePage () {
     const[users, setUsers] = useState([]);
     const navigate = useNavigate();
+    const [errorCode,setErrorCode]=useState(0);
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-all-users")
             .then(response => {
                 if (response.data.success) {
                     setUsers(response.data.users)
-                }else alert("failed")
+                }else setErrorCode(response.data.errorCode)
             })
     },[])
 
@@ -38,6 +41,9 @@ function ManagePage () {
                     })
                 }
             </table>
+            {
+                errorCode!=0 && <Error message={errorCode} />
+            }
         </div>
     )
 }

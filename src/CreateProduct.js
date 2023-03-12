@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import UserMenu from "./UserMenu";
+import Error from "./Error";
 
 const CreateProduct = () => {
 
@@ -13,24 +14,31 @@ const CreateProduct = () => {
         const [photo,setPhoto]=useState("");
         const [initialPrice,setInitialPrice]=useState(0);
         const navigate = useNavigate();
+        const [errorCode,setErrorCode]=useState(0);
 
-        useEffect(() => {
+
+    useEffect(() => {
             setSubmitUser(Cookies.get("token"));
         }, [])
 
         const submit = () => {
-                axios.post("http://localhost:8989/create-new-auction", null, {
+                if (name!=="" && description!=="" && photo!==""){
+                    axios.post("http://localhost:8989/create-new-auction", null, {
                         params: {
-                                submitUser, initialPrice, productName:name ,productPhoto:photo ,productDescription:description
+                            submitUser, initialPrice, productName:name ,productPhoto:photo ,productDescription:description
                         }
-                }).then((response) => {
+                    }).then((response) => {
                         if (response.data.success) {
-                            alert("working")
-                                navigate("../myProductsPage")
+                            alert("uploaded successfully!")
+                            navigate("../myProductsPage")
                         }else {
-                            alert("not working")
+                            setErrorCode(response.data.errorCode)
                         }
-                })
+                    })
+                } else {
+                    setErrorCode(1010);
+                }
+
         }
 
     return (
@@ -49,6 +57,9 @@ const CreateProduct = () => {
             <input type={"number"} value={initialPrice} min={0} onChange={(event)=>{setInitialPrice(event.target.value)}} />
             <br/><br/>
             <button onClick={submit}>Submit</button>
+            {
+                errorCode!=0 && <Error message={errorCode} />
+            }
         </div>
     );
 };

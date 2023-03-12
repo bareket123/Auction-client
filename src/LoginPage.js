@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import ErrorMessage from "./ErrorMessage";
+import Error from "./Error";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 import Statistics from "./Statistics";
@@ -94,7 +94,7 @@ function LoginPage () {
                     <td>
                         {
                             type == "signUp" && password.length < 6 &&  password.length > 0 &&
-                            <ErrorMessage message={"Password too weak"} lineBreak={false}/>
+                            <Error message={"Password too weak"} lineBreak={false}/>
                         }
                     </td>
                 </tr>
@@ -106,7 +106,7 @@ function LoginPage () {
                         <td>
                             {
                                 password != password2 &&
-                                <ErrorMessage message={"Passwords Don't match"} lineBreak={true}/>
+                                <Error message={"Passwords Don't match"} lineBreak={true}/>
                             }
                         </td>
                     </tr>
@@ -114,7 +114,7 @@ function LoginPage () {
             </table>
             {
                 errorCode > 0 &&
-                <ErrorMessage message={errorCode} lineBreak={true}/>
+                <Error message={errorCode} lineBreak={true}/>
             }
             <button onClick={submit} disabled={
                 password.length < 6 ||
