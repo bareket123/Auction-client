@@ -113,7 +113,11 @@ const addNewOffer=()=>{
 
             }
             <div>
-                <button onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
+                {
+                    !isPublisher &&
+                    <button onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
+
+                }
                 {
                     addProposal &&
                     <div>

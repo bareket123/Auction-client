@@ -3,24 +3,21 @@ import {useEffect, useState} from "react";
 import UserMenu from "./UserMenu";
 import Cookies from "js-cookie";
 import axios from "axios";
+import {NavLink} from "react-router-dom";
 
 function MyProposalsPage() {
-    const[productName, setProductName] = useState("");
-    const[amountOffer, setAmountOffer] = useState(0);
-    const[tenderStatus, setTenderStatus] = useState(0);
-    const[proposalsStatus, setProposalsStatus] = useState(0);
+
     const[myProposals, setMyProposals] = useState([]);
-    const[myAuctions, setMyAuctions] = useState([]);
+
     const[token, setToken] = useState("");
     const[saleOfferToAuction, setSaleOfferToAuction] = useState([]);
 
     useEffect(() => {
         const token = Cookies.get("token");
         setToken(token);
-        console.log(token);
         axios.get("http://localhost:8989/get-my-offers-model?token="+token).then(response=>{
             setMyProposals(response.data.myOffersModels)
-           setSaleOfferToAuction(response.data.myOffersModels.saleOfferModels)
+           // setSaleOfferToAuction(response.data.myOffersModels.saleOfferModels)
         })
     }, []);
 
@@ -38,9 +35,11 @@ function MyProposalsPage() {
                 {
                     myProposals.map((offer) =>{
                       // getSaleOffers(auction.id)
+                        const link = offer.auctionId;
                         return (
+                            <NavLink to={"/product/"+link}>
                             <tr>
-                                <td> {offer.productName}</td>
+                                 <td> {offer.productName}</td>
                                 <td>{offer.saleOfferModel.offerPrice}</td>
                                 <td> {offer.auctionStatus?"open":"close"}</td>
                                 {
@@ -49,7 +48,9 @@ function MyProposalsPage() {
                                         :
                                         <td>{offer.won?"won":"not won"}</td>
                                 }
+
                             </tr>
+                    </NavLink>
                         )
                     })
                 }

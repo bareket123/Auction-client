@@ -5,16 +5,12 @@ import UserMenu from "./UserMenu";
 import axios from "axios";
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
-    const [productName, setProductName] = useState(0);
     const [amountOfferHighest, setAmountOfferHighest] = useState(0);
     const [myAuctions, setMyAuctions] = useState([]);
-    const [auctionStatus, setAuctionStatus] = useState(0);
-    const [proposalStatusOpen, setProposalStatusOpen] = useState(0);
-    const [test, setTest] = useState([]);
     const navigate = useNavigate();
 
     const CustomButton = styled(Button)({
@@ -32,7 +28,6 @@ function MyProductsPage() {
             .then(response => {
                 if (response.data!=null){
                     setMyAuctions(response.data)
-                    console.log(response.data.shift().productName)
 
                 }else {
                     alert("response is null")
@@ -85,8 +80,10 @@ function MyProductsPage() {
                 </tr>
                 {
                 myAuctions.map((auction)=>{
+                    const link = auction.auctionId;
                     //getHighestOffer(auction.id)
                         return(
+                            <NavLink to={"/product/"+link}>
                             <tr>
                                 <td> {auction.productName}</td>
                                 {
@@ -106,6 +103,7 @@ function MyProductsPage() {
                                    End</button>
                                </td>
                             </tr>
+                            </NavLink>
                         );
                     })
                 }
