@@ -13,6 +13,7 @@ function MyProductsPage() {
     const [myAuctions, setMyAuctions] = useState([]);
     const navigate = useNavigate();
 
+
     const CustomButton = styled(Button)({
         backgroundColor: 'red',
         color: 'white',
@@ -40,19 +41,6 @@ function MyProductsPage() {
         navigate("../createProduct");
     }
 
-    const getHighestOffer=(auctionId)=>{
-        let currentHighest=0;
-        axios.get("http://localhost:8989/get-sorted-sale-offres-by-auction?auctionId="+auctionId).then((res)=>{
-            // setAmountOfferHighest(res.data.saleOfferList.get(0).offerPrice);
-            if(res.data.success){
-                currentHighest=res.data.saleOfferList.shift().offerPrice;
-                setAmountOfferHighest(currentHighest)
-            }else {
-                alert("not ok")
-            }
-
-        });
-    }
 
     const endAuction=(auctionId)=>{
         axios.post("http://localhost:8989/close-exist-auction?auctionId="+auctionId,null,{
@@ -111,59 +99,6 @@ function MyProductsPage() {
                     </td>
                 </tr>
             </table>
-
-                {/*<CustomButton variant="contained">*/}
-                {/*    Click me!*/}
-                {/*</CustomButton>*/}
-
-
-
-
-
-            {/*<table style={{border:"1px solid black"}} border={1} >*/}
-            {/*    <tr>*/}
-            {/*        <th> Product Name</th>*/}
-            {/*        <th> Highest proposal</th>*/}
-            {/*        <th> Auction status</th>*/}
-            {/*        <th> Proposal status open</th>*/}
-            {/*    </tr>*/}
-            {/*        {*/}
-            {/*            myAuctions.map((auction, index) => {*/}
-            {/*            return (*/}
-            {/*                 <tr>*/}
-            {/*                <NavLink to={"/product" + index}>*/}
-            {/*                   <td> {auction.product.name}</td>*/}
-            {/*                                 <td> {auction.open ? "true" : "false"}</td>*/}
-            {/*                                <td>*/}
-            {/*                                    ---*/}
-            {/*                                    {auction.open &&*/}
-            {/*                                        <button>End Auction</button>*/}
-            {/*                                    }*/}
-            {/*                                </td>*/}
-            {/*                            <td>{auction.product.name}</td>*/}
-            {/*                </NavLink>*/}
-            {/*                 </tr>*/}
-            {/*            )*/}
-            {/*            })*/}
-            {/*             }*/}
-            {/*    /!*<button onClick={onClickAdd}>Add Product</button>*!/*/}
-            {/*    /!*<CustomButton variant="contained">*!/*/}
-            {/*    /!*    Click me!*!/*/}
-            {/*    /!*</CustomButton>*!/*/}
-            {/*</table>*/}
-            {/*{*/}
-
-
-
-                {/*myAuctions.map((auction, index) => {*/}
-                {/*    return (*/}
-                {/*        <BrowserRouter>*/}
-                {/*            <Router>*/}
-                {/*                <Routes path={"/product" + index} render={() => <Auction data={auction} />} />*/}
-                {/*            </Router>*/}
-                {/*        </BrowserRouter>*/}
-                {/*    )  })*/}
-
         </div>
     );
 }

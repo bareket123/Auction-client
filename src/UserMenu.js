@@ -25,9 +25,6 @@ const UserMenu = () => {
         {to:"/openAuctions",text:"Open Auctions"},
         {to:"/MyNotifications",text:"My Notifications "}
     ]
-    // useEffect(() => {
-    //     setToken(Cookies.get("token"));
-    // },[]);
 
     useEffect(() => {
         if (token!==""){
@@ -36,16 +33,12 @@ const UserMenu = () => {
                 if (response.data.success) {
                     setUserCredit(response.data.credit)
                 }
-                // }else {
-                //     alert("there is a problem and the token is: " + token)
-                // }
             })
         }
     });
 
     return (
         <div>
-
             <table border={1}>
                 <tr>
                     {
@@ -64,8 +57,8 @@ const UserMenu = () => {
                     }}>log out</button></th>
                 </tr>
             </table>
-
         </div>
     );
 };
+
 export default UserMenu;

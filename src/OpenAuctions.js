@@ -8,7 +8,7 @@ import Error from "./Error";
 const OpenAuctions = () => {
 
     const[openAuctions, setOpenAuctions] = useState([]);
-    const[filteredList, setFilteredList] = useState([]);
+    // const[filteredList, setFilteredList] = useState([]);
     const [search,setSearch] = useState("");
     const [errorCode,setErrorCode]=useState(0);
 

@@ -4,20 +4,22 @@ import UserMenu from "./UserMenu";
 import Cookies from "js-cookie";
 import axios from "axios";
 import {NavLink} from "react-router-dom";
+import Error from "./Error";
 
 function MyProposalsPage() {
 
     const[myProposals, setMyProposals] = useState([]);
 
     const[token, setToken] = useState("");
-    const[saleOfferToAuction, setSaleOfferToAuction] = useState([]);
+    const[errorCode, setErrorCode] = useState(0);
+
 
     useEffect(() => {
         const token = Cookies.get("token");
         setToken(token);
         axios.get("http://localhost:8989/get-my-offers-model?token="+token).then(response=>{
             setMyProposals(response.data.myOffersModels)
-           // setSaleOfferToAuction(response.data.myOffersModels.saleOfferModels)
+            setErrorCode(response.data.errorCode)
         })
     }, []);
 
@@ -50,6 +52,10 @@ function MyProposalsPage() {
                                 }
 
                             </tr>
+                                {
+                                    errorCode!==0&&
+                                    <Error message={errorCode}/>
+                                }
                     </NavLink>
                         )
                     })

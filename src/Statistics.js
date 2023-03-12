@@ -28,7 +28,6 @@ function Statistics() {
             })
     },[])
 
-
     useEffect(() => {
         axios.get("http://localhost:8989/get-all-sale-offers-size")
             .then(response => {
@@ -54,22 +53,6 @@ function Statistics() {
                 </tr>
             </table>
         </div>
-
-
-        // <Paper>
-        //     <Chart
-        //         data={2}
-        //     >
-        //         <PieSeries
-        //             valueField="area"
-        //             argumentField="country"
-        //         />
-        //         <Title
-        //             text="Area of Countries"
-        //         />
-        //         <Animation />
-        //     </Chart>
-        // </Paper>
         );
 }
 
