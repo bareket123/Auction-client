@@ -22,24 +22,31 @@ const CreateProduct = () => {
         }, [])
 
         const submit = () => {
-                if (name!=="" && description!=="" && photo!==""){
-                    axios.post("http://localhost:8989/create-new-auction", null, {
-                        params: {
-                            submitUser, initialPrice, productName:name ,productPhoto:photo ,productDescription:description
-                        }
-                    }).then((response) => {
-                        if (response.data.success) {
-                            alert("uploaded successfully!")
-                            navigate("../myProductsPage")
-                        }else {
-                            setErrorCode(response.data.errorCode)
-                        }
-                    })
-                } else {
-                    setErrorCode(1010);
-                }
+            if (name !== "" && description !== "" && photo !== "") {
+                axios.post("http://localhost:8989/create-new-auction", null, {
+                    params: {
+                        submitUser,
+                        initialPrice,
+                        productName: name,
+                        productPhoto: photo,
+                        productDescription: description
+                    }
+                }).then((response) => {
+                    if (response.data.success) {
+                        alert("uploaded successfully!")
+                        navigate("../myProductsPage")
+                    } else {
+                        setErrorCode(response.data.errorCode)
+                    }
+                })
+            } else {
+                setErrorCode(1010);
+            }
+
 
         }
+
+
 
     return (
         <div>

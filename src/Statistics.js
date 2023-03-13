@@ -10,30 +10,32 @@ function Statistics() {
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-users-size")
+
             .then(response => {
-                    setUsers(response.data)
+                setUsers(response.data)
             })
     },[])
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-open-auction-size")
             .then(response => {
-                    setOpenAuctions(response.data)
+                setOpenAuctions(response.data)
+
 
             })
 
         axios.get("http://localhost:8989/get-close-auction-size")
-            .then(response => {
-                setCloseAuctions(response.data)
+            .then(response => {setCloseAuctions(response.data)
             })
     },[])
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-all-sale-offers-size")
             .then(response => {
-                    setProposals(response.data)
+                setProposals(response.data)
+                //window.location.reload(false)
             })
-    },[])
+    })
 
     return (
         <div>

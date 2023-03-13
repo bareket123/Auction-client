@@ -21,7 +21,7 @@ const Auction = () => {
 
     useEffect(()=>{
         setToken ( Cookies.get("token") );
-        if (token!=undefined)
+        if (token!==undefined)
         axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
             if (response.data.success){
                 setAuction(response.data.productModels)
@@ -48,6 +48,22 @@ const addNewOffer=()=>{
              }else setErrorCode(res.data.errorCode)
         })
     setOfferPrice(0);
+    const sse = new EventSource("http://localhost:8989/sse-handler");
+    sse.onmessage = (message) => {
+        const data = message.data;
+        if (data === "1") {
+            alert("added new offer")
+
+            setTimeout(() => {
+            }, 1000)
+        }
+}
+     axios.post(("http://localhost:8989/added-new-offer"),null,{
+         params:{
+             token,auctionId:id
+         }
+     })
+
 }
     const endAuction=()=>{
         axios.post("http://localhost:8989/close-exist-auction",null,{

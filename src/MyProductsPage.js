@@ -5,7 +5,7 @@ import UserMenu from "./UserMenu";
 import axios from "axios";
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
-import {NavLink, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
@@ -70,9 +70,8 @@ function MyProductsPage() {
                 myAuctions.map((auction)=>{
                     const link = auction.auctionId;
                         return(
-                            <NavLink to={"/product/"+link}>
                             <tr>
-                                <td> {auction.productName}</td>
+                                <td><Link to={"/product/" + link}>{auction.productName}</Link></td>
                                 {
                                     auction.highestOffer!=null ?
                                         <td>{auction.highestOffer.offerPrice} </td>
@@ -89,7 +88,7 @@ function MyProductsPage() {
                                    End</button>
                                </td>
                             </tr>
-                            </NavLink>
+
                         );
                     })
                 }

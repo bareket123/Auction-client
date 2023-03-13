@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import UserMenu from "./UserMenu";
 import Cookies from "js-cookie";
 import axios from "axios";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Error from "./Error";
 
 function MyProposalsPage() {
@@ -39,9 +39,9 @@ function MyProposalsPage() {
                       // getSaleOffers(auction.id)
                         const link = offer.auctionId;
                         return (
-                            <NavLink to={"/product/"+link}>
                             <tr>
-                                 <td> {offer.productName}</td>
+                                <td><Link to={"/product/" + link}>{offer.productName}</Link></td>
+                                {/*<td><Link to={"/product/"+link}></Link> {offer.productName}</td>*/}
                                 <td>{offer.saleOfferModel.offerPrice}</td>
                                 <td> {offer.auctionStatus?"open":"close"}</td>
                                 {
@@ -51,12 +51,13 @@ function MyProposalsPage() {
                                         <td>{offer.won?"won":"not won"}</td>
                                 }
 
-                            </tr>
+
                                 {
                                     errorCode!==0&&
                                     <Error message={errorCode}/>
                                 }
-                    </NavLink>
+                    {/*</NavLink>*/}
+                        </tr>
                         )
                     })
                 }

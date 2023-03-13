@@ -9,6 +9,7 @@ function ManagePage () {
     const[users, setUsers] = useState([]);
     const navigate = useNavigate();
     const [errorCode,setErrorCode]=useState(0);
+    const[totalSystemPayments, setTotalSystemPayments] = useState(0);
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-all-users")
@@ -18,6 +19,15 @@ function ManagePage () {
                 }else setErrorCode(response.data.errorCode)
             })
     },[])
+
+    useEffect(() => {
+        axios.get("http://localhost:8989/get-total-system-payments")
+            .then(response => {
+                setTotalSystemPayments(response.data)
+
+            })
+    },[])
+
 
     const loginAs = (token) => {
         Cookies.set("token", token);
@@ -41,6 +51,7 @@ function ManagePage () {
                     })
                 }
             </table>
+            <div>total system payments: {totalSystemPayments}</div>
             {
                 errorCode!=0 && <Error message={errorCode} />
             }
