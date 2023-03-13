@@ -3,38 +3,48 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 function Statistics() {
-    const[users, setUsers] = useState(0);
-    const[openAuctions, setOpenAuctions] = useState(0);
-    const[closeAuctions, setCloseAuctions] = useState(0);
+    const[users, setUsers] = useState("");
+    const[allAuctionsSize, setAllAuctionsSize] = useState(0);
     const[proposals, setProposals] = useState(0);
 
-    useEffect(() => {
-        axios.get("http://localhost:8989/get-users-size")
-
-            .then(response => {
-                setUsers(response.data)
-            })
-    },[])
-
-    useEffect(() => {
-        axios.get("http://localhost:8989/get-open-auction-size")
-            .then(response => {
-                setOpenAuctions(response.data)
-
-
-            })
-
-        axios.get("http://localhost:8989/get-close-auction-size")
-            .then(response => {setCloseAuctions(response.data)
-            })
-    },[])
+    // useEffect((e) => {
+    //         axios.get("http://localhost:8989/get-users-size").then((response) => {
+    //             setUsers(response.data)
+    //             console.log("running")
+    //             e.preventDefault();
+    //         })
+    //
+    // })
+    useEffect((e)=>{
+        axios.get("http://localhost:8989/get-users-size").then((res)=>{
+            setUsers(res.data)
+            e.preventDefault();
+        });
+    } );
 
     useEffect(() => {
-        axios.get("http://localhost:8989/get-all-sale-offers-size")
-            .then(response => {
-                setProposals(response.data)
-                //window.location.reload(false)
-            })
+        if (allAuctionsSize!==undefined){
+            axios.get("http://localhost:8989/get-all-auctions-size")
+                .then((response) => {
+                    setAllAuctionsSize(response.data)
+
+
+
+
+                })
+        }
+
+    })
+
+    useEffect(() => {
+        if (proposals!==undefined){
+            axios.get("http://localhost:8989/get-all-sale-offers-size")
+                .then((response) => {
+                    setProposals(response.data)
+
+                })
+        }
+
     })
 
     return (
@@ -50,7 +60,7 @@ function Statistics() {
                 </tr>
                 <tr>
                     <td> {users}</td>
-                    <td> {openAuctions+closeAuctions}</td>
+                    <td> {allAuctionsSize}</td>
                     <td> {proposals}</td>
                 </tr>
             </table>

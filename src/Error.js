@@ -1,29 +1,23 @@
 function Error(props) {
     let message = props.message;
     switch (message) {
-        case 1000:
-            message = "ERROR_MISSING_USERNAME!";
-            break;
-        case 1001:
-            message = "ERROR_MISSING_PASSWORD";
-            break;
         case 1002:
-            message = "ERROR_WEAK_PASSWORD!";
+            message = "Password too weak";
             break;
         case 1003:
-            message = "ERROR_USERNAME_ALREADY_EXISTS";
+            message = "username already exist";
             break;
         case 1004:
-            message = "ERROR_WRONG_LOGIN_CREDS";
+            message = "username or password isn't correct";
             break;
         case 1005:
             message = "" // no such token
             break;
-        case 1006:
-            message = "ERROR_NO_SUCH_AUCTION";
-            break;
+        // case 1006:
+        //     message = "ERROR_NO_SUCH_AUCTION";
+        //     break;
         case 1007:
-            message = "ERROR_NOT_ENOUGH_OFFERS";
+            message = "you need at least 3 offer to end auction";
             break;
         case 1008:
             message = "ERROR_NOT_ENOUGH_MONEY";

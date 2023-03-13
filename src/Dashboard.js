@@ -17,8 +17,8 @@ function Dashboard () {
 
     useEffect(() => {
         const token = Cookies.get("token");
-        if (token == undefined) {
-            navigate("../login");
+        if (token === undefined) {
+            navigate("../");
         } else {
             setToken(token);
             axios.get("http://localhost:8989/get-username-by-token?token="+token).then((response)=>{

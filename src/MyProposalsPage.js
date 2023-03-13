@@ -32,7 +32,7 @@ function MyProposalsPage() {
                     <th> product name</th>
                     <th> offer Price</th>
                     <th>  Auction status</th>
-                    <th> Whether the bid was won or not (closed tender)</th>
+                    <th>offer status</th>
                 </tr>
                 {
                     myProposals.map((offer) =>{
@@ -45,7 +45,7 @@ function MyProposalsPage() {
                                 <td>{offer.saleOfferModel.offerPrice}</td>
                                 <td> {offer.auctionStatus?"open":"close"}</td>
                                 {
-                                    offer.auctionStatus.open?
+                                    offer.auctionStatus?
                                     <td> auction still open</td>
                                         :
                                         <td>{offer.won?"won":"not won"}</td>

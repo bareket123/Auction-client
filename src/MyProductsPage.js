@@ -6,11 +6,13 @@ import axios from "axios";
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
 import {Link, NavLink, useNavigate} from "react-router-dom";
+import Error from "./Error";
 
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
     const [amountOfferHighest, setAmountOfferHighest] = useState(0);
     const [myAuctions, setMyAuctions] = useState([]);
+    const[errorCode, setErrorCode] = useState(0);
     const navigate = useNavigate();
 
 
@@ -27,8 +29,10 @@ function MyProductsPage() {
         setToken(token);
         axios.get("http://localhost:8989/get-Model-all-auctions-by-token?token="+token)
             .then(response => {
+
                 if (response.data!=null){
                     setMyAuctions(response.data)
+
 
                 }else {
                     alert("response is null")
@@ -48,7 +52,9 @@ function MyProductsPage() {
                 auctionId
             }
         }).then((res)=>{
+            setErrorCode(res.data.errorCode)
             if(res.data.success){
+                setErrorCode(0);
             }else {
                 alert("not end ok")
             }
@@ -86,6 +92,7 @@ function MyProductsPage() {
                                        }
                                    }>
                                    End</button>
+
                                </td>
                             </tr>
 
@@ -98,6 +105,10 @@ function MyProductsPage() {
                     </td>
                 </tr>
             </table>
+            {
+                errorCode!==0&&
+             <Error message={errorCode}/>
+            }
         </div>
     );
 }

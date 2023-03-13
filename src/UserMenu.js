@@ -14,7 +14,7 @@ const UserMenu = () => {
 
     useEffect(()=>{
        setToken(Cookies.get("token")) ;
-        if (token == undefined) {
+        if (token === undefined) {
             navigate("../");
         }
     },[])

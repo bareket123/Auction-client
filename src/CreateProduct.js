@@ -43,7 +43,6 @@ const CreateProduct = () => {
                 setErrorCode(1010);
             }
 
-
         }
 
 
