@@ -17,15 +17,17 @@ function Statistics() {
             setUsers(res.data)
             // e.preventDefault();
         });
-    } );
+    });
 
     useEffect(() => {
-        if (allAuctionsSize!==undefined){
+        // if (allAuctionsSize!==undefined){
             axios.get("http://localhost:8989/get-all-auctions-size")
                 .then((response) => {
                     setAllAuctionsSize(response.data)
+                     // e.preventDefault();
+
                 })
-        }
+        //}
 
     })
 

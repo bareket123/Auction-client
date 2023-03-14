@@ -49,6 +49,9 @@ function LoginPage () {
             }).then((response) => {
                 if (response.data.success) {
                     setErrorCode(0)
+                    setUsername("")
+                    setPassword("")
+                    setPassword2("")
                     alert ("OK")
                 } else {
                     setErrorCode(response.data.errorCode);
@@ -126,6 +129,7 @@ function LoginPage () {
                 username.length == 0
             }>{type == "signUp" ? "Sign Up" : "Login"}</button>
             <Statistics/>
+
         </div>
     )
 }

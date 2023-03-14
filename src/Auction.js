@@ -19,25 +19,39 @@ const Auction = () => {
 
 
 
-    // useEffect(()=>{
-    //
-    //
-    // })
-    const publisherAlert = () => {
-        if (isPublisher){
-            const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token + "&auctionId=" + id);
-            sse.onmessage = (message) => {
-                const data = message.data;
-                debugger
-                if (data == 1002) {
+    useEffect(()=>{
+        const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token + "&auctionId=" + id);
+        sse.onmessage = (message) => {
+            const data = message.data;
+            if (data ==1002) {
+                if (isPublisher){
                     alert("added new offer")
-                    setTimeout(() => {
-                    }, 1000)
                 }
+
+
+                setTimeout(() => {
+                }, 1000)
             }
         }
 
-    }
+    },[])
+    // const publisherAlert = () => {
+    //    console.log(isPublisher)
+    //     debugger
+    //     if (isPublisher){
+    //         const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token + "&auctionId=" + id);
+    //         sse.onmessage = (message) => {
+    //             const data = message.data;
+    //
+    //             if (data == 1002) {
+    //                 alert("added new offer")
+    //                 setTimeout(() => {
+    //                 }, 1000)
+    //             }
+    //         }
+    //     }
+    //
+    // }
 
     useEffect(()=>{
         setToken ( Cookies.get("token") );
@@ -45,6 +59,7 @@ const Auction = () => {
             axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
                 if (response.data.success){
                     setAuction(response.data.productModels)
+
                     setIsPublisher(response.data.publisher)
                     setOfferByUser(response.data.productModels.saleOffersByUser)
 
@@ -52,11 +67,31 @@ const Auction = () => {
                     setErrorCode(response.data.errorCode)
                 }
 
-            }))
-        publisherAlert();
+        }))
+
     })
 
+const addNewOffer=()=> {
+    axios.post(("http://localhost:8989/create-sale-offer"), null, {
+        params: {
+            token: token, offerPrice: offerPrice, auctionId: id
+        }
+    }).then((res) => {
+        if (res.data.success) {
+            alert("added successfully")
+            setErrorCode(0)
+        } else setErrorCode(res.data.errorCode)
+    })
+    setOfferPrice(0);
 
+    axios.post(("http://localhost:8989/added-new-offer"), null, {
+        params: {
+            token, auctionId: id
+        }
+
+    })
+
+}
 
 
     const endAuction=()=>{
@@ -71,27 +106,6 @@ const Auction = () => {
             }
         });
     }
-
-    const addNewOffer =() =>{
-        axios.post(("http://localhost:8989/create-sale-offer"), null, {
-            params: {
-                token:token, offerPrice:offerPrice, auctionId: id
-            }
-        }).then((res) =>{
-            if (res.data.success){
-                alert("added successfully")
-                setErrorCode(0)
-            }else setErrorCode(res.data.errorCode)
-        })
-        setOfferPrice(0);
-
-        axios.post(("http://localhost:8989/added-new-offer"), null, {
-            params: {
-                token, auctionId: id
-            }
-        })
-    }
-
 
     return (
         <div>

@@ -34,7 +34,13 @@ const CreateProduct = () => {
                 }).then((response) => {
                     if (response.data.success) {
                         alert("uploaded successfully!")
+                        // setName("")
+                        // setDescription("")
+                        // setPhoto("")
+                        // setInitialPrice(0)
+
                         navigate("../myProductsPage")
+
                     } else {
                         setErrorCode(response.data.errorCode)
                     }
@@ -62,7 +68,10 @@ const CreateProduct = () => {
             <div>Minimum starting bid price: </div>
             <input type={"number"} value={initialPrice} min={0} onChange={(event)=>{setInitialPrice(event.target.value)}} />
             <br/><br/>
-            <button onClick={submit}>Submit</button>
+
+
+
+            <button onClick={()=>{submit(); window.location.reload(false)}} >Submit</button>
             {
                 errorCode!=0 && <Error message={errorCode} />
             }
