@@ -19,53 +19,46 @@ const Auction = () => {
 
 
 
+    // useEffect(()=>{
+    //
+    //
+    // })
+    const publisherAlert = () => {
+        if (isPublisher){
+            const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token + "&auctionId=" + id);
+            sse.onmessage = (message) => {
+                const data = message.data;
+                debugger
+                if (data == 1002) {
+                    alert("added new offer")
+                    setTimeout(() => {
+                    }, 1000)
+                }
+            }
+        }
+
+    }
+
     useEffect(()=>{
         setToken ( Cookies.get("token") );
         if (token!==undefined)
-        axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
-            if (response.data.success){
-                setAuction(response.data.productModels)
-                setIsPublisher(response.data.publisher)
-                setOfferByUser(response.data.productModels.saleOffersByUser)
+            axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
+                if (response.data.success){
+                    setAuction(response.data.productModels)
+                    setIsPublisher(response.data.publisher)
+                    setOfferByUser(response.data.productModels.saleOffersByUser)
 
-            }else{
-                setErrorCode(response.data.errorCode)
-            }
+                }else{
+                    setErrorCode(response.data.errorCode)
+                }
 
-        }))
-
+            }))
+        publisherAlert();
     })
 
-        const addNewOffer=()=>{
-        axios.post(("http://localhost:8989/create-sale-offer"), null, {
-            params: {
-                token:token, offerPrice:offerPrice, auctionId: id
-            }
-         }).then((res) =>{
-             if (res.data.success){
-                 alert("added successfully")
-                 setErrorCode(0)
-             }else setErrorCode(res.data.errorCode)
-        })
-    setOfferPrice(0);
-    const sse = new EventSource("http://localhost:8989/sse-handler");
-    sse.onmessage = (message) => {
-        const data = message.data;
-        if (data === "1") {
-            alert("added new offer")
-            setTimeout(() => {
-            }, 1000)
-        }
 
 
-        }
-     axios.post(("http://localhost:8989/added-new-offer"),null,{
-         params:{
-             token,auctionId:id
-         }
-     })
 
-}
     const endAuction=()=>{
         axios.post("http://localhost:8989/close-exist-auction",null,{
             params:{
@@ -78,6 +71,27 @@ const Auction = () => {
             }
         });
     }
+
+    const addNewOffer =() =>{
+        axios.post(("http://localhost:8989/create-sale-offer"), null, {
+            params: {
+                token:token, offerPrice:offerPrice, auctionId: id
+            }
+        }).then((res) =>{
+            if (res.data.success){
+                alert("added successfully")
+                setErrorCode(0)
+            }else setErrorCode(res.data.errorCode)
+        })
+        setOfferPrice(0);
+
+        axios.post(("http://localhost:8989/added-new-offer"), null, {
+            params: {
+                token, auctionId: id
+            }
+        })
+    }
+
 
     return (
         <div>
@@ -103,9 +117,9 @@ const Auction = () => {
 
             <div> publisher : {auction.publisher} </div>
             <br/>
+
             {
                 isPublisher ?
-
                         <div>
                             All proposals :
                             <table border={3}>
@@ -152,6 +166,7 @@ const Auction = () => {
                             )
                         })}
                         </ol>
+
                     </table>
                 </div>
 
@@ -171,7 +186,12 @@ const Auction = () => {
                 {
                     addProposal &&
                     <div>
-                        <input type={"number"} onChange={(event)=>setOfferPrice(event.target.value)} value={offerPrice} />
+                        <input type={"number"} onChange={(event) => {
+                            setOfferPrice(event.target.value);
+
+                        }
+
+                        } value={offerPrice} />
                         <button onClick={addNewOffer} > send </button>
                     </div>
                 }
