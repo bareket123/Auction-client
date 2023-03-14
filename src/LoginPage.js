@@ -22,6 +22,10 @@ function LoginPage () {
         }
     }, [])
 
+    // useEffect((e)=>{
+    //     e.preventDefault();
+    // })
+
     const usernameChanged = (event) => {
         setUsername(event.target.value)
     }

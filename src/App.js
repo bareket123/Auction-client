@@ -9,6 +9,7 @@ import MyProductsPage from "./MyProductsPage";
 import UserMenu from "./UserMenu";
 import MyProposalsPage from "./MyProposalsPage";
 import Auction from "./Auction";
+import MyNotifications from "./MyNotifications";
 
 
 
@@ -27,7 +28,9 @@ function App() {
                 <Route path={"/user"} element={<UserMenu/>}></Route>
                 <Route path={"/openAuctions"} element={<OpenAuctions/>}></Route>
                 <Route path={"/myProposalsPage"} element={<MyProposalsPage/>}></Route>
-            <Route exact path={"/product/:id"} element={<Auction/>}/>
+                <Route exact path={"/product/:id"} element={<Auction/>}/>
+                <Route path={"/myNotifications"} element={<MyNotifications/>}></Route>
+
 
 
         </Routes>

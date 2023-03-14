@@ -23,7 +23,7 @@ const UserMenu = () => {
         {to:"/myProposalsPage",text:"My Proposals"},
         {to:"/myProductsPage",text:"My Products"},
         {to:"/openAuctions",text:"Open Auctions"},
-        {to:"/MyNotifications",text:"My Notifications "}
+        {to:"/myNotifications",text:"My Notifications "}
     ]
 
     useEffect(() => {

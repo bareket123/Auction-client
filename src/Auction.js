@@ -36,7 +36,7 @@ const Auction = () => {
 
     })
 
-const addNewOffer=()=>{
+        const addNewOffer=()=>{
         axios.post(("http://localhost:8989/create-sale-offer"), null, {
             params: {
                 token:token, offerPrice:offerPrice, auctionId: id
@@ -53,11 +53,12 @@ const addNewOffer=()=>{
         const data = message.data;
         if (data === "1") {
             alert("added new offer")
-
             setTimeout(() => {
             }, 1000)
         }
-}
+
+
+        }
      axios.post(("http://localhost:8989/added-new-offer"),null,{
          params:{
              token,auctionId:id

@@ -7,18 +7,15 @@ function Statistics() {
     const[allAuctionsSize, setAllAuctionsSize] = useState(0);
     const[proposals, setProposals] = useState(0);
 
-    // useEffect((e) => {
-    //         axios.get("http://localhost:8989/get-users-size").then((response) => {
-    //             setUsers(response.data)
-    //             console.log("running")
-    //             e.preventDefault();
-    //         })
+    // useEffect(()=>{
     //
-    // })
-    useEffect((e)=>{
+    // },[users,allAuctionsSize,proposals])
+
+
+    useEffect(()=>{
         axios.get("http://localhost:8989/get-users-size").then((res)=>{
             setUsers(res.data)
-            e.preventDefault();
+            // e.preventDefault();
         });
     } );
 
@@ -27,10 +24,6 @@ function Statistics() {
             axios.get("http://localhost:8989/get-all-auctions-size")
                 .then((response) => {
                     setAllAuctionsSize(response.data)
-
-
-
-
                 })
         }
 
