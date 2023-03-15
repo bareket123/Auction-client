@@ -97,14 +97,10 @@ function Dashboard () {
 
     return (
         <div>
-            {/*<div id={"header"}>*/}
                 <UserMenu/>
-
-            {/*    This is the header*/}
-                Hello {username} :) <br/><br/>
-
-            <div> Welcome to our website !</div>
-            <div> Have a fun experience. </div>
+            <h3>    Hello {username} !</h3>
+            <h3> Welcome to our website !</h3>
+            <h3> Have a fun experience. </h3>
 
             <Statistics/>
             {/*</div>*/}

@@ -57,21 +57,21 @@ const CreateProduct = () => {
         <div>
           <UserMenu/>
             <div>Product Name:</div>
-            <input type={"text"} value={name} onChange={(event)=>{setName(event.target.value)}} />
+            <input className={"inputStyle"} type={"text"} value={name} onChange={(event)=>{setName(event.target.value)}} />
             <br/><br/>
             <div> Product description:</div>
-            <input type={"text"}  value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
+            <input className={"inputStyle"} type={"text"}  value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
             <br/><br/>
             <div>Link for product image:</div>
-            <input type={"url"}  value={photo} onChange={(event)=>{setPhoto(event.target.value)}}/>
+            <input className={"inputStyle"} type={"url"}  value={photo} onChange={(event)=>{setPhoto(event.target.value)}}/>
             <br/><br/>
             <div>Minimum starting bid price: </div>
-            <input type={"number"} value={initialPrice} min={0} onChange={(event)=>{setInitialPrice(event.target.value)}} />
+            <input className={"inputStyle"} type={"number"} value={initialPrice} min={0} onChange={(event)=>{setInitialPrice(event.target.value)}} />
             <br/><br/>
 
 
 
-            <button onClick={()=>{submit(); window.location.reload(false)}} >Submit</button>
+            <button className={"button"} onClick={()=>{submit(); window.location.reload(false)}} >Submit</button>
             {
                 errorCode!=0 && <Error message={errorCode} />
             }

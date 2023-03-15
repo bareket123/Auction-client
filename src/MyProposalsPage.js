@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import {Link, NavLink} from "react-router-dom";
 import Error from "./Error";
+import './Table.css';
+
 
 function MyProposalsPage() {
 
@@ -26,8 +28,10 @@ function MyProposalsPage() {
     return (
         <div>
             <UserMenu/>
+            <h1> my proposals: </h1>
+
             <br/>
-            <table border={1}>
+            <table border={1} className={"fl-table"}>
                 <tr>
                     <th> product name</th>
                     <th> offer Price</th>

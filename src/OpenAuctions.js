@@ -2,8 +2,12 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import UserMenu from "./UserMenu";
 import axios from "axios";
-import {BrowserRouter, NavLink, Route, Routes,Router,Switch} from "react-router-dom";
+import {BrowserRouter, NavLink, Route, Routes, Router, Switch, Link} from "react-router-dom";
 import Error from "./Error";
+import './Table.css';
+import './Input.css';
+
+
 
 const OpenAuctions = () => {
 
@@ -36,42 +40,47 @@ const OpenAuctions = () => {
 
     }
 
+
     return (
         <div>
-            <UserMenu/>
-            <h1> open auctions: </h1>
-            <table border={1}>
-                <tr>
-                    <td>
-                        search product :  <input placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
-                    </td>
-                </tr>
-                <div className="wrapper" >
-                            {
-                                filter().map((auction)=>{
-                                        const link = auction.auctionId;
-                                        return(
-                                                <div>
-                                                    <div style={{background:"pink"}}>
-                                                    <NavLink to={"/product/"+link} >
-                                                        <div>{auction.productName} </div>
-                                                        <img src={auction.productPhoto} alt={"no picture"}  />
-                                                        <div> Open date : <br/> {auction.creationDate}   </div>
-                                                        <div> Amount of offers : {auction.amountOfSaleOffers}   </div>
-                                                    </NavLink>
-                                                </div>
-                                                </div>
-                                        );
-                                    }
-                                )
-                            }
-                </div>
-            </table>
 
-            {
-                errorCode!=0 && <Error message={errorCode} />
-            }
-        </div>
-    );
+        <UserMenu/>
+             <h1> open auctions: </h1>
+            <br/>
+           <h2>
+               search product :  <input className={"inputStyle"} placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
+           </h2>
+
+            <table border={1} className={"fl-table"}>
+
+                 <tr> <th> productName</th>
+                     <th> productPhoto</th>
+                     <th> Open date</th>
+                     <th>  Amount of offers</th>
+                 </tr>
+
+                             {
+                                 filter().map((auction)=>{
+                                         const link = auction.auctionId;
+
+                                        return(
+                                                <tr>
+                                                    <td><Link to={"/product/" + link}>{auction.productName}</Link></td>
+
+
+                                                    <td>   <img src={auction.productPhoto} alt={"no picture"}  /></td>
+                                                    <td> {auction.creationDate}</td>
+                                                    <td>  {auction.amountOfSaleOffers}</td>
+                                            </tr>
+
+                                        );} )}
+
+             </table>
+             {
+                 errorCode!=0 && <Error message={errorCode} />
+             }
+         </div>
+     );
 };
+
 export default OpenAuctions;

@@ -4,6 +4,12 @@ import Error from "./Error";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 import Statistics from "./Statistics";
+import './Table.css';
+import './Button.css';
+import './Input.css';
+import './Selectors.css';
+
+
 
 function LoginPage () {
     const[username, setUsername] = useState("");
@@ -76,19 +82,20 @@ function LoginPage () {
         <div style={{margin: "25px"}}>
             <div>
                  <span style={{marginRight: "5px"}}>
-                     <input type={"radio"} name={"type"} value={"login"}
+                     <input className={"inputStyle"}  type={"radio"} name={"type"} value={"login"}
                             checked={type == "login"} onChange={typeChanged} />Login
                  </span>
-                 <input type={"radio"} name={"type"} value={"signUp"}
+                 <input className={"inputStyle"}  type={"radio"} name={"type"} value={"signUp"}
                                checked={type == "signUp"} onChange={typeChanged}/>Sign Up
             </div>
-            <table>
+
+            <table className={"selectTeamsTable"} className={"positionTable"}>
                 <tr>
                     <td>
                         Username:
                     </td>
                     <td>
-                        <input type={"text"} value={username} onChange={usernameChanged}/>
+                        <input className={"inputStyle"} placeholder={"Enter your username"} type={"text"} value={username} onChange={usernameChanged}/>
                     </td>
                 </tr>
                 <tr>
@@ -96,7 +103,7 @@ function LoginPage () {
                         Password:
                     </td>
                     <td>
-                        <input type={"password"} value={password} onChange={passwordChanged}/>
+                        <input  className={"inputStyle"}  placeholder={"Enter your password"} type={"password"} value={password} onChange={passwordChanged}/>
                     </td>
                     <td>
                         {
@@ -109,7 +116,7 @@ function LoginPage () {
                     type == "signUp" &&
                     <tr>
                         <td>Repeat Password:</td>
-                        <td><input type={"password"} value={password2} onChange={password2Changed}/></td>
+                        <td><input className={"inputStyle"} type={"password"}  placeholder={"Enter repeat password"} value={password2} onChange={password2Changed}/></td>
                         <td>
                             {
                                 password != password2 &&
@@ -123,7 +130,7 @@ function LoginPage () {
                 errorCode > 0 &&
                 <Error message={errorCode} lineBreak={true}/>
             }
-            <button onClick={submit} disabled={
+            <button onClick={submit} className={"button"} disabled={
                 password.length < 6 ||
                 (password != password2 && type == "signUp") ||
                 username.length == 0

@@ -7,6 +7,10 @@ import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import Error from "./Error";
+import './Table.css';
+import './Button.css';
+
+
 
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
@@ -64,8 +68,9 @@ function MyProductsPage() {
     return (
         <div>
             <UserMenu />
+            <h1> my products: </h1>
             <br />
-            <table style={{border:"1px solid black"}}>
+            <table style={{border:"1px solid black"}}  className={"fl-table"}>
                 <tr>
                     <th style={{fontWeight:"bold"}}>Product Name</th>
                     <th style={{fontWeight: "bold"}}>Highest proposal</th>
@@ -99,12 +104,11 @@ function MyProductsPage() {
                         );
                     })
                 }
-                <tr>
-                    <td>
-                        <button onClick={onClickAdd}>Add Product</button>
-                    </td>
-                </tr>
+
             </table>
+
+                <button className={"button"} onClick={onClickAdd}>Add Product </button>
+
             {
                 errorCode!==0&&
              <Error message={errorCode}/>

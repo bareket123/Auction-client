@@ -5,6 +5,9 @@ import UserMenu from "./UserMenu";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Error from "./Error";
+import './Table.css';
+import './Button.css';
+
 
 const Auction = () => {
 
@@ -16,7 +19,7 @@ const Auction = () => {
     const [isPublisher,setIsPublisher]=useState(false);
     const {id} = useParams();
     const [errorCode,setErrorCode]=useState(0);
-
+    const [isAdmin,setIsAdmin]=useState(false);
 
 
     useEffect(()=>{
@@ -136,7 +139,7 @@ const addNewOffer=()=> {
                 isPublisher ?
                         <div>
                             All proposals :
-                            <table border={3}>
+                            <table border={3} >
                                 <tr >
                                     <th>Submitter Username</th>
                                     <th>offerPrice</th>
@@ -156,7 +159,8 @@ const addNewOffer=()=> {
                                         })}
                                 </ol>
                             </table>
-                       <button onClick={endAuction}> finish auction </button>
+                            <br/>
+                       <button disabled={isAdmin} onClick={endAuction} className={"button"}> finish auction </button>
                         </div>
 
 
@@ -169,7 +173,7 @@ const addNewOffer=()=> {
 
                 <div>
                     my proposals :
-                    <table border={3}>
+                    <table border={3} >
                         <ol>
                         {
                             auction.saleOffersByUser.map((proposal)=>{
@@ -194,7 +198,7 @@ const addNewOffer=()=> {
             <div>
                 {
                     !isPublisher &&
-                    <button onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
+                    <button disabled={isAdmin} className={"button"} onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
 
                 }
                 {
@@ -206,7 +210,7 @@ const addNewOffer=()=> {
                         }
 
                         } value={offerPrice} />
-                        <button onClick={addNewOffer} > send </button>
+                        <button className={"button"} onClick={addNewOffer} > send </button>
                     </div>
                 }
 

@@ -4,6 +4,7 @@ import {useState,useEffect} from "react";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import './UserMenu.css';
 
 const UserMenu = () => {
 
@@ -13,7 +14,7 @@ const UserMenu = () => {
     const [userCredit,setUserCredit]=useState(0);
 
     useEffect(()=>{
-       setToken(Cookies.get("token")) ;
+        setToken(Cookies.get("token")) ;
         if (token === undefined) {
             navigate("../");
         }
@@ -28,24 +29,24 @@ const UserMenu = () => {
 
     useEffect(() => {
         if (token!==""){
-        axios.get("http://localhost:8989/get-user-credits?userToken="+token)
-            .then(response => {
-                if (response.data.success) {
-                    setUserCredit(response.data.credit)
-                }
-            })
+            axios.get("http://localhost:8989/get-user-credits?userToken="+token)
+                .then(response => {
+                    if (response.data.success) {
+                        setUserCredit(response.data.credit)
+                    }
+                })
         }
     });
 
     return (
         <div>
-            <table border={1}>
-                <tr>
+            <table id={"nav-bar"} border={1}>
+                <tr >
                     {
                         links.map((link)=>{
                             return (
                                 <th>
-                                    <NavLink to={link.to} > {link.text} </NavLink>
+                                    <NavLink id={"font-nav"} to={link.to} > {link.text} </NavLink>
                                 </th>
                             )
                         })
@@ -60,5 +61,4 @@ const UserMenu = () => {
         </div>
     );
 };
-
 export default UserMenu;

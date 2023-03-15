@@ -1,0 +1,53 @@
+/* Table Styles */
+/*sign in table */
+.table-wrapper{
+    box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    float: left;
+    margin: 80px auto 0px 30%;
+}
+
+/*for the add teams table */
+.selectTeamsTable{
+    font-size: 20px;
+    text-align:center;
+    float: left;
+    margin: -35px auto 0px 10%;
+    height:50px;
+    font-weight: bold;
+}
+
+/*table page2 and page3*/
+.fl-table {
+    margin: 150px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 50%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: #f12fff;
+}
+
+.fl-table tr:hover {
+    background-color: #c42fff
+}
+
+.fl-table td, .fl-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.fl-table thead th {
+    color: rgba(197, 132, 229, 0.8);
+    background: #c42fff;
+}
+
+.fl-table thead th:nth-child(odd) {
+    color: #f12fff;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #e7c6d9;
+}

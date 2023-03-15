@@ -10,6 +10,7 @@ import UserMenu from "./UserMenu";
 import MyProposalsPage from "./MyProposalsPage";
 import Auction from "./Auction";
 import MyNotifications from "./MyNotifications";
+import UserPage from "./UserPage";
 
 
 
@@ -30,7 +31,7 @@ function App() {
                 <Route path={"/myProposalsPage"} element={<MyProposalsPage/>}></Route>
                 <Route exact path={"/product/:id"} element={<Auction/>}/>
                 <Route path={"/myNotifications"} element={<MyNotifications/>}></Route>
-
+                <Route path={"/UserPage"} element={<UserPage/>}></Route>
 
 
         </Routes>
