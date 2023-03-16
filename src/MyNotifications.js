@@ -13,6 +13,7 @@ const MyNotifications = () => {
 
         <div>
 
+
         </div>
     );
 };

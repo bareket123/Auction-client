@@ -1,6 +1,7 @@
 import React from 'react';
 import {useEffect, useState} from "react";
 import UserMenu from "./UserMenu";
+import Cookies from "js-cookie";
 import axios from "axios";
 import {BrowserRouter, NavLink, Route, Routes, Router, Switch, Link} from "react-router-dom";
 import Error from "./Error";
@@ -15,6 +16,7 @@ const OpenAuctions = () => {
     // const[filteredList, setFilteredList] = useState([]);
     const [search,setSearch] = useState("");
     const [errorCode,setErrorCode]=useState(0);
+    const isAdmin=Cookies.get("isAdmin");
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-open-auctions")
@@ -43,8 +45,7 @@ const OpenAuctions = () => {
 
     return (
         <div>
-
-        <UserMenu/>
+                <UserMenu/>
              <h1> open auctions: </h1>
             <br/>
            <h2>

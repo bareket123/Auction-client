@@ -2,7 +2,7 @@ import React from 'react';
 import {useState,useEffect} from "react";
 import Cookies from "js-cookie";
 import UserMenu from "./UserMenu";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import Error from "./Error";
 import './Table.css';
@@ -18,22 +18,22 @@ const Auction = () => {
     const[offerByUser, setOfferByUser] = useState([]);
     const [isPublisher,setIsPublisher]=useState(false);
     const {id} = useParams();
+    const navigate = useNavigate();
     const [errorCode,setErrorCode]=useState(0);
     const [isAdmin,setIsAdmin]=useState(false);
 
 
     useEffect(()=>{
-        const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token + "&auctionId=" + id);
+        const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token);
         sse.onmessage = (message) => {
             const data = message.data;
             if (data ==1002) {
-                if (isPublisher){
                     alert("added new offer")
-                }
 
-
-                setTimeout(() => {
-                }, 1000)
+                // setTimeout(() => {
+                // }, 1000)
+            }else if (data==1003){
+                alert("auction was closed")
             }
         }
 
@@ -58,6 +58,7 @@ const Auction = () => {
 
     useEffect(()=>{
         setToken ( Cookies.get("token") );
+        setIsAdmin(Cookies.get("isAdmin"));
         if (token!==undefined)
             axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
                 if (response.data.success){
@@ -114,6 +115,7 @@ const addNewOffer=()=> {
         <div>
 
             <UserMenu/>
+
             <div>   Product Name:   {auction.productName} </div>
                 <br/>
 

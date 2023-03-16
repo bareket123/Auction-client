@@ -39,6 +39,8 @@ function MyProposalsPage() {
                     <th>offer status</th>
                 </tr>
                 {
+
+                    myProposals!==undefined &&
                     myProposals.map((offer) =>{
                       // getSaleOffers(auction.id)
                         const link = offer.auctionId;
@@ -60,10 +62,10 @@ function MyProposalsPage() {
                                     errorCode!==0&&
                                     <Error message={errorCode}/>
                                 }
-                    {/*</NavLink>*/}
                         </tr>
                         )
                     })
+
                 }
             </table>
         </div>
