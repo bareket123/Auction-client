@@ -8,34 +8,46 @@ import './UserMenu.css';
 
 const UserMenu = () => {
 
-    const[token, setToken] = useState("");
-    const activeMenuClass=({isActive})=>(isActive ? "active-menu":"non-active-menu")
+    const[token, setToken] = useState(undefined);
+    const[isAdmin, setIsAdmin] = useState(undefined);
+    // const activeMenuClass=({isActive})=>(isActive ? "active-menu":"non-active-menu")
     const navigate = useNavigate();
-    const [userCredit,setUserCredit]=useState(0);
+    const [credits,setCredits]=useState(0);
 
     useEffect(()=>{
         setToken(Cookies.get("token")) ;
-        if (token === undefined) {
-            navigate("../");
-        }
+        setIsAdmin(Cookies.get("isAdmin"))
+        // if (token === undefined && isAdmin===false) {
+        //     navigate("../");
+        // }else if (isAdmin) navigate("../manage");
     },[])
 
-    const links=[{to:"/dashboard",text:"Home"},
+    const links =[{to:"/dashboard",text:"Home"},
+        {to:"/openAuctions",text:"Open Auctions"}
+    ]
+    const userLinks=[
         {to:"/myProposalsPage",text:"My Proposals"},
         {to:"/myProductsPage",text:"My Products"},
-        {to:"/openAuctions",text:"Open Auctions"}
-
     ]
 
     useEffect(() => {
-        if (token!==""){
-            axios.get("http://localhost:8989/get-user-credits?userToken="+token)
+        if (isAdmin) {
+            axios.get("http://localhost:8989/get-total-system-payments")
                 .then(response => {
-                    if (response.data.success) {
-                        setUserCredit(response.data.credit)
-                    }
+                    setCredits(response.data)
+
                 })
+        }else {
+            if (token!==undefined){
+                axios.get("http://localhost:8989/get-user-credits?userToken="+token)
+                    .then(response => {
+                        if (response.data.success) {
+                            setCredits(response.data.credit)
+                        }
+                    })
+            }
         }
+
     });
 
     return (
@@ -43,7 +55,17 @@ const UserMenu = () => {
             <table id={"nav-bar"} border={1}>
                 <tr >
                     {
-                        links.map((link)=>{
+                        links.map((link) => {
+                            return (
+                                <th>
+                                    <NavLink id={"font-nav"} to={link.to}> {link.text} </NavLink>
+                                </th>
+                            )
+                        })
+                    }
+                    {
+                        !isAdmin &&
+                        userLinks.map((link)=>{
                             return (
                                 <th>
                                     <NavLink id={"font-nav"} to={link.to} > {link.text} </NavLink>
@@ -51,7 +73,7 @@ const UserMenu = () => {
                             )
                         })
                     }
-                    <th>my credit : {userCredit}</th>
+                    <th>{isAdmin ? "System Credits :" : "my credit :" }{credits}</th>
                     <th><button onClick={()=>{
                         Cookies.remove("token"); Cookies.remove("isAdmin")
                         navigate("../");

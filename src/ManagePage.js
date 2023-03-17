@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import {Link, useNavigate} from "react-router-dom";
 import Error from "./Error";
 import React from "react";
+import UserMenu from "./UserMenu";
 
 function ManagePage () {
     const[users, setUsers] = useState([]);
@@ -23,27 +24,21 @@ function ManagePage () {
             })
     },[])
 
-    useEffect(() => {
-        axios.get("http://localhost:8989/get-total-system-payments")
-            .then(response => {
-                setTotalSystemPayments(response.data)
-
-            })
-    },[])
 
 
 
 
     return  (
         <div>
+            <UserMenu/>
             Users: {users.length}
             <table>
                 {
-                    users.map((item) => {
+                    users.map((user) => {
                         return (
                             <tr>
-                                <td>{item.id}</td>
-                                <td><Link to={"/UserPage/"} onClick={()=>{Cookies.set("isAdmin",true);Cookies.set("token",item.token)}}>{item.username}</Link></td>
+                                <td>{user.id}</td>
+                                <td><Link to={"/UserPage/"+user.token} onClick={()=>{Cookies.set("isAdmin",true);Cookies.set("token",user.token)}}>{user.username}</Link></td>
                                 {/*<td><button onClick={() => loginAs(item.token)}>Login As</button></td>*/}
                             </tr>
                         )
@@ -51,10 +46,10 @@ function ManagePage () {
                 }
             </table>
 
-            <td><Link to={"/openAuctions/"} >click to move to open auction</Link></td>
+            {/*<td><Link to={"/openAuctions/"} >click to move to open auction</Link></td>*/}
 
 
-            <div>total system payments: {totalSystemPayments}</div>
+            {/*<div>total system payments: {totalSystemPayments}</div>*/}
             {
                 errorCode!=0 && <Error message={errorCode} />
             }
