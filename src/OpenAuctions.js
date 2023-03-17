@@ -69,7 +69,7 @@ const OpenAuctions = () => {
                                                     <td><Link to={"/product/" + link}>{auction.productName}</Link></td>
 
 
-                                                    <td>   <img src={auction.productPhoto} alt={"no picture"}  /></td>
+                                                    <td>   <img width="30" height="40"   src={auction.productPhoto} alt={"no picture"}  /></td>
                                                     <td> {auction.creationDate}</td>
                                                     <td>  {auction.amountOfSaleOffers}</td>
                                             </tr>

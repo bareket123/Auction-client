@@ -11,16 +11,42 @@ function Dashboard () {
     const [isAdmin,setIsAdmin]=useState(false);
     const [credit,setCredit]=useState(0);
     const[username, setUsername] = useState("");
-    const[token, setToken] = useState("");
     const navigate = useNavigate();
+    const token = Cookies.get("token");
+
+    useEffect(()=>{
+        /*
+        evtSource.onmessage = (event) => {
+  const newElement = document.createElement("li");
+  const eventList = document.getElementById("list");
+
+  newElement.textContent = `message: ${event.data}`;
+  eventList.appendChild(newElement);
+};
+
+         */
+        const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token);
+        sse.onmessage = (message) => {
+            const data = message.data;
+            console.log("data is: " +data)
+            if (data ==="1") {
+                alert("added new offer")
+
+                // setTimeout(() => {
+                // }, 1000)
+            }else if (data==="2"){
+                alert("auction was closed")
+            }
+        }
+
+    },[])
 
 
     useEffect(() => {
-        const token = Cookies.get("token");
         if (token === undefined) {
             navigate("../");
         } else {
-            setToken(token);
+
             axios.get("http://localhost:8989/get-username-by-token?token="+token).then((response)=>{
                 setUsername(response.data)
             })

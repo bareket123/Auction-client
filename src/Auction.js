@@ -23,21 +23,7 @@ const Auction = () => {
     const [isAdmin,setIsAdmin]=useState(false);
 
 
-    useEffect(()=>{
-        const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token);
-        sse.onmessage = (message) => {
-            const data = message.data;
-            if (data ==1002) {
-                    alert("added new offer")
 
-                // setTimeout(() => {
-                // }, 1000)
-            }else if (data==1003){
-                alert("auction was closed")
-            }
-        }
-
-    },[])
     // const publisherAlert = () => {
     //    console.log(isPublisher)
     //     debugger
