@@ -23,8 +23,8 @@ const UserMenu = () => {
     const links=[{to:"/dashboard",text:"Home"},
         {to:"/myProposalsPage",text:"My Proposals"},
         {to:"/myProductsPage",text:"My Products"},
-        {to:"/openAuctions",text:"Open Auctions"},
-        {to:"/myNotifications",text:"My Notifications "}
+        {to:"/openAuctions",text:"Open Auctions"}
+
     ]
 
     useEffect(() => {

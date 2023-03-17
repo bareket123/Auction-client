@@ -71,7 +71,7 @@ const CreateProduct = () => {
 
 
 
-            <button className={"button"}  onClick={()=>{submit(); window.location.reload(false)}} >Submit</button>
+            <button className={"button"}  onClick={()=>{submit();}} >Submit</button>
             {
                 errorCode!=0 && <Error message={errorCode} />
             }

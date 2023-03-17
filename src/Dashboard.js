@@ -15,28 +15,21 @@ function Dashboard () {
     const token = Cookies.get("token");
 
     useEffect(()=>{
-        /*
-        evtSource.onmessage = (event) => {
-  const newElement = document.createElement("li");
-  const eventList = document.getElementById("list");
+        if (token !==undefined){
+            const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token);
+            sse.onmessage = (message) => {
+                const data = message.data;
+                console.log("data is: " +data)
+                if (data ==="1") {
+                    alert("added new offer")
 
-  newElement.textContent = `message: ${event.data}`;
-  eventList.appendChild(newElement);
-};
-
-         */
-        const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token);
-        sse.onmessage = (message) => {
-            const data = message.data;
-            console.log("data is: " +data)
-            if (data ==="1") {
-                alert("added new offer")
-
-                // setTimeout(() => {
-                // }, 1000)
-            }else if (data==="2"){
-                alert("auction was closed")
+                    // setTimeout(() => {
+                    // }, 1000)
+                }else if (data==="2"){
+                    alert("auction was closed")
+                }
             }
+
         }
 
     },[])

@@ -20,7 +20,7 @@ const Auction = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [errorCode,setErrorCode]=useState(0);
-    const [isAdmin,setIsAdmin]=useState(false);
+    // const [isAdmin,setIsAdmin]=useState(false);
 
 
 
@@ -44,7 +44,7 @@ const Auction = () => {
 
     useEffect(()=>{
         setToken ( Cookies.get("token") );
-        setIsAdmin(Cookies.get("isAdmin"));
+        // setIsAdmin(Cookies.get("isAdmin"));
         if (token!==undefined)
             axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
                 if (response.data.success){
@@ -105,7 +105,7 @@ const addNewOffer=()=> {
             <div>   Product Name:   {auction.productName} </div>
                 <br/>
 
-            <img src={auction.productPhoto} alt={"no picture"}/>
+            <img width="100" height="100" src={auction.productPhoto} alt={"no picture"}/>
             <br/>
 
             <div> Product description:  {auction.productDescription} </div>
@@ -148,7 +148,7 @@ const addNewOffer=()=> {
                                 </ol>
                             </table>
                             <br/>
-                       <button disabled={isAdmin} onClick={endAuction} className={"button"}> finish auction </button>
+                       <button  onClick={endAuction} className={"button"}> finish auction </button>
                         </div>
 
 
@@ -186,7 +186,7 @@ const addNewOffer=()=> {
             <div>
                 {
                     !isPublisher &&
-                    <button disabled={isAdmin} className={"button"} onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
+                    <button  className={"button"} onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
 
                 }
                 {

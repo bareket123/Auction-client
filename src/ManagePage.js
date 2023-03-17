@@ -13,6 +13,8 @@ function ManagePage () {
 
 
     useEffect(() => {
+        Cookies.set("isAdmin",true)
+        Cookies.remove("token")
         axios.get("http://localhost:8989/get-all-users")
             .then(response => {
                 if (response.data.success) {
@@ -49,7 +51,7 @@ function ManagePage () {
                 }
             </table>
 
-            <td><Link to={"/openAuctions/"} onClick={Cookies.set("isAdmin",true)}>click to move to open auction</Link></td>
+            <td><Link to={"/openAuctions/"} >click to move to open auction</Link></td>
 
 
             <div>total system payments: {totalSystemPayments}</div>
