@@ -135,6 +135,12 @@ function LoginPage () {
                 (password != password2 && type == "signUp") ||
                 username.length == 0
             }>{type == "signUp" ? "Sign Up" : "Login"}</button>
+
+            {
+                type=="login" && <button  className={"button"} onClick={()=>{
+                navigate("../manage")}
+                }>Admin Login</button>
+            }
             <Statistics/>
 
         </div>
