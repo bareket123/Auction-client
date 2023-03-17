@@ -23,7 +23,9 @@ const OpenAuctions = () => {
             .then(response => {
                 if (response.data.success)
                 setOpenAuctions(response.data.auctions)
-                else setErrorCode(response.data.errorCode)
+                else{
+                    setErrorCode(response.data.errorCode)
+                }
             })
     },[])
 

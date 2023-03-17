@@ -11,7 +11,6 @@ import './Table.css';
 function MyProposalsPage() {
 
     const[myProposals, setMyProposals] = useState([]);
-
     const[token, setToken] = useState("");
     const[errorCode, setErrorCode] = useState(0);
 

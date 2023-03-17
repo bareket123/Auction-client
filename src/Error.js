@@ -2,7 +2,7 @@ function Error(props) {
     let message = props.message;
     switch (message) {
         case 1002:
-            message = "Password too weak";
+            message = "password too weak";
             break;
         case 1003:
             message = "username already exist";
@@ -20,22 +20,22 @@ function Error(props) {
             message = "you need at least 3 offer to end auction";
             break;
         case 1008:
-            message = "ERROR_NOT_ENOUGH_MONEY";
+            message = "not enough money ";
             break;
         case 1009:
-            message = "ERROR_TOO_LOWER_OFFER_PRICE";
+            message = "the bid price is too low";
             break;
         case 1010:
-            message = "ERROR_PRODUCT_DETAILS_NOT_SEND";
+            message = "product details not send";
             break;
         case 1011:
-            message = "ERROR_NOT_VALID_OFFER_USER";
+            message = "not valid offer user";
             break;
         case 1012:
-            message = "ERROR_NO_OFFERS";
+            message = "no offers";
             break;
         case 1013:
-            message = "ERROR_AUCTION_IS_CLOSED";
+            message = "auction is closed";
             break;
     }
 

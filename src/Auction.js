@@ -49,7 +49,6 @@ const Auction = () => {
             axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
                 if (response.data.success){
                     setAuction(response.data.productModels)
-
                     setIsPublisher(response.data.publisher)
                     setOfferByUser(response.data.productModels.saleOffersByUser)
 
@@ -69,7 +68,6 @@ const addNewOffer=()=> {
     }).then((res) => {
         if (res.data.success) {
             alert("added successfully")
-            setErrorCode(0)
         } else setErrorCode(res.data.errorCode)
     })
     setOfferPrice(0);
@@ -91,6 +89,7 @@ const addNewOffer=()=> {
             }
         }).then((res)=>{
             if(res.data.success){
+              alert("end auction success")
             }else {
                 setErrorCode(res.data.errorCode)
             }

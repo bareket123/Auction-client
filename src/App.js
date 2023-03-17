@@ -9,7 +9,6 @@ import MyProductsPage from "./MyProductsPage";
 import UserMenu from "./UserMenu";
 import MyProposalsPage from "./MyProposalsPage";
 import Auction from "./Auction";
-import MyNotifications from "./MyNotifications";
 import UserPage from "./UserPage";
 
 
