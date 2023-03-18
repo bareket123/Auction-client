@@ -8,6 +8,8 @@ import './Table.css';
 import './Button.css';
 import './Input.css';
 import './Selectors.css';
+import {SIGN_UP_SUCCESSFULLY} from "./Constans";
+import SnackBarAlert from "./SnackBarAlert";
 
 
 
@@ -16,7 +18,7 @@ function LoginPage () {
     const[password, setPassword] = useState("");
     const[password2, setPassword2] = useState("");
     const[type, setType] = useState("login");
-    const[errorCode, setErrorCode] = useState(0);
+    const[messageCode, setMessageCode] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,7 +28,7 @@ function LoginPage () {
         } else {
             navigate("../dashboard")
         }
-    }, [])
+    }, [type])
 
     // useEffect((e)=>{
     //     e.preventDefault();
@@ -54,28 +56,34 @@ function LoginPage () {
                 params: {username,  password}
             }).then((response) => {
                 if (response.data.success) {
-                    setErrorCode(0)
+
                     setUsername("")
                     setPassword("")
                     setPassword2("")
-                    alert ("OK")
+                    setMessageCode(SIGN_UP_SUCCESSFULLY)
+                     setType("Login")
+
+
                 } else {
-                    setErrorCode(response.data.errorCode);
+                    setMessageCode(response.data.errorCode);
                 }
+
+
             })
         } else {
             axios.post("http://localhost:8989/login", null, {
                 params: {username,  password}
             }).then((response) => {
                 if (response.data.success) {
-                    setErrorCode(0)
+                    setMessageCode(0)
                     Cookies.set("token", response.data.token);
                     navigate("../dashboard")
                 } else {
-                    setErrorCode(response.data.errorCode);
+                    setMessageCode(response.data.errorCode);
                 }
             })
         }
+        setMessageCode(0)
     }
 
     return (
@@ -108,7 +116,8 @@ function LoginPage () {
                     <td>
                         {
                             type == "signUp" && password.length < 6 &&  password.length > 0 &&
-                            <Error message={"Password too weak"} lineBreak={false}/>
+                            // <Error message={"Password too weak"} lineBreak={false}/>
+                            <div style={{color: "red" ,fontSize:"30px"}}>Password too weak</div>
                         }
                     </td>
                 </tr>
@@ -119,29 +128,35 @@ function LoginPage () {
                         <td><input className={"inputStyle"} type={"password"}  placeholder={"Enter repeat password"} value={password2} onChange={password2Changed}/></td>
                         <td>
                             {
-                                password != password2 &&
-                                <Error message={"Passwords Don't match"} lineBreak={true}/>
+                                ( password != password2 && password2.length>0) &&
+                                <div style={{color: "red" ,fontSize:"30px"}}> Passwords Don't match </div>
+
+                                // <Error message={"Passwords Don't match"} lineBreak={true}/>
                             }
                         </td>
                     </tr>
                 }
             </table>
-            {
-                errorCode > 0 &&
-                <Error message={errorCode} lineBreak={true}/>
-            }
+            {/*{*/}
+            {/*    messageCode > 0 &&*/}
+            {/*    <Error message={messageCode} lineBreak={true}/>*/}
+            {/*}*/}
             <button onClick={submit} className={"button"} disabled={
                 password.length < 6 ||
                 (password != password2 && type == "signUp") ||
                 username.length == 0
-            }>{type == "signUp" ? "Sign Up" : "Login"}</button>
-
+            }>{type == "signUp" ? "Sign Up" : "Login"}
+            </button>
             {
                 type=="login" && <button  className={"button"} onClick={()=>{
                 navigate("../manage")}
                 }>Admin Login</button>
             }
             <Statistics/>
+            {
+                messageCode!==0&&
+                <SnackBarAlert message={messageCode}/>
+            }
 
         </div>
     )

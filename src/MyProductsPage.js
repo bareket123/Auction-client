@@ -9,12 +9,14 @@ import {Link, NavLink, useNavigate} from "react-router-dom";
 import Error from "./Error";
 import './Table.css';
 import './Button.css';
+import {CLOSED_AUCTION_SUCCESSFULLY} from "./Constans";
+import SnackBarAlert from "./SnackBarAlert";
 
 
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
     const [myAuctions, setMyAuctions] = useState([]);
-    const[errorCode, setErrorCode] = useState();
+    const[messageCode, setMessageCode] = useState(0);
     const navigate = useNavigate();
 
 
@@ -51,16 +53,18 @@ function MyProductsPage() {
                 auctionId
             }
         }).then((res)=>{
-            setErrorCode(res.data.errorCode)
-            setErrorCode(0);
+
             if(res.data.success){
-
-                alert("end success")
+                setMessageCode(CLOSED_AUCTION_SUCCESSFULLY)
             }else {
-
-                alert("not end ok")
+                setMessageCode(res.data.errorCode)
             }
         });
+        setMessageCode(0);
+        setTimeout(() => {
+            window.location.reload()
+        }, 2000);
+
     }
 
 
@@ -115,7 +119,7 @@ function MyProductsPage() {
                                <td>
                                    <button className={"button"} disabled={!auction.auctionOpen} onClick={
                                        ()=>{ endAuction(auction.auctionId);
-                                           window.location.reload(false)
+
                                        }
                                    }>
                                    End</button>
@@ -131,9 +135,13 @@ function MyProductsPage() {
 
                 <button className={"button"} onClick={onClickAdd}>Add</button>
             {
-                errorCode!==undefined&&
-             <Error message={errorCode}/>
+                messageCode!==0&&
+                <SnackBarAlert message={messageCode}/>
             }
+            {/*{*/}
+            {/*    messageCode!==undefined&&*/}
+            {/* <Error message={messageCode}/>*/}
+            {/*}*/}
         </div>
     );
 }

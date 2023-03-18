@@ -7,45 +7,35 @@ import axios from "axios";
 import Error from "./Error";
 import './Table.css';
 import './Button.css';
-import {Button, IconButton, Snackbar} from "@mui/material";
+import SnackBarAlert from "./SnackBarAlert";
+ import {CLOSED_AUCTION_SUCCESSFULLY, ADD_NEW_OFFER} from "./Constans";
+
 
 
 
 const Auction = () => {
 
     const[addProposal, setAddProposal] = useState(false);
-    const[token, setToken] = useState("");
+    const token = Cookies.get("token");
     const[offerPrice, setOfferPrice] = useState(0);
     const[auction, setAuction] = useState({});
     const[offerByUser, setOfferByUser] = useState([]);
     const [isPublisher,setIsPublisher]=useState(false);
     const {id} = useParams();
     const navigate = useNavigate();
-    const [errorCode,setErrorCode]=useState(0);
+    // const [errorCode,setErrorCode]=useState(0);
     // const [isAdmin,setIsAdmin]=useState(false);
-    const [open, setOpen] = useState(false);
+    const [messageCode, setMessageCode] = useState(0);
+    const isAdmin=Cookies.get("isAdmin");
+
+    useEffect(()=>{
+    },[messageCode])
 
 
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false);
-    };
-    const action = (
-        <>
-            <Button color="secondary" size="small" onClick={handleClose}>
-                X
-            </Button>
-        </>
-
-    );
 
 
     useEffect(()=>{
-        setToken ( Cookies.get("token") );
+
         if (token!==undefined)
             axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
                 if (response.data.success){
@@ -54,7 +44,7 @@ const Auction = () => {
                     setOfferByUser(response.data.productModels.saleOffersByUser)
 
                 }else{
-                    setErrorCode(response.data.errorCode)
+                    setMessageCode(response.data.errorCode)
                 }
 
         }))
@@ -68,10 +58,13 @@ const addNewOffer=()=> {
         }
     }).then((res) => {
         if (res.data.success) {
-            alert("added successfully")
-        } else setErrorCode(res.data.errorCode)
+            setMessageCode(ADD_NEW_OFFER)
+
+        } else setMessageCode(res.data.errorCode)
     })
     setOfferPrice(0);
+    setMessageCode(0);
+
 
     axios.post(("http://localhost:8989/added-new-offer"), null, {
         params: {
@@ -90,28 +83,27 @@ const addNewOffer=()=> {
             }
         }).then((res)=>{
             if(res.data.success){
-                setOpen(true);
+                setMessageCode(CLOSED_AUCTION_SUCCESSFULLY)
              // alert("end auction success")
             }else {
-                setErrorCode(res.data.errorCode)
+                setMessageCode(res.data.errorCode)
             }
         });
+       setMessageCode(0)
     }
+
+
 
     return (
         <div>
 
             <UserMenu/>
+             {
+                ( messageCode!==0 && messageCode!==1005) &&
+                <SnackBarAlert message={messageCode}/>
 
-                <Snackbar
-                // style={{ top: '50px', left: '1600px', backgroundColor: 'red' }}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                message="end auction success"
-                action={action}
-            />
+            }
+
 
 
             <div><u>Product Name:</u> {auction.productName} </div>
@@ -160,7 +152,11 @@ const addNewOffer=()=> {
 
                             </table>
                             <br/>
-                       <button  onClick={endAuction} className={"button"}> End Auction </button>
+                            {
+                                !isAdmin&&
+                                <button  onClick={endAuction} className={"button"}> End Auction </button>
+                            }
+
                         </div>
 
                     :
@@ -195,7 +191,7 @@ const addNewOffer=()=> {
             }
             <div>
                 {
-                    !isPublisher &&
+                    (!isPublisher && !isAdmin) &&
                     <button  className={"button"} onClick={ ()=>{setAddProposal(!addProposal)}} > Add </button>
 
                 }
@@ -214,9 +210,9 @@ const addNewOffer=()=> {
 
             </div>
             <div>
-            {
-                errorCode!==0 && <Error message={errorCode} />
-            }
+            {/*{*/}
+            {/*    errorCode!==0 && <Error messageCode={errorCode} />*/}
+            {/*}*/}
             </div>
         </div>
     );

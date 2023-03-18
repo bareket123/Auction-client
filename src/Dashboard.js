@@ -5,11 +5,15 @@ import axios from "axios";
 import UserMenu from "./UserMenu";
 import React from 'react';
 import Statistics from "./Statistics";
+import {ADD_NEW_OFFER_TO_AUCTION, AUCTION_WAS_CLOSED} from "./Constans";
+import SnackBarAlert from "./SnackBarAlert";
+
 
 function Dashboard () {
 
     const[username, setUsername] = useState("");
     const navigate = useNavigate();
+    const[messageCode, setMessageCode] = useState(0);
     const token = Cookies.get("token");
 
     useEffect(()=>{
@@ -19,9 +23,11 @@ function Dashboard () {
                 const data = message.data;
                 console.log("data is: " +data)
                 if (data ==="1") {
-                    alert("added new offer")
+                    setMessageCode(ADD_NEW_OFFER_TO_AUCTION)
+                    // alert("added new offer")
                 }else if (data==="2"){
-                    alert("auction was closed")
+                    setMessageCode(AUCTION_WAS_CLOSED)
+                    // alert("auction was closed")
                 }
             }
 
@@ -48,6 +54,10 @@ function Dashboard () {
             <h3>    Hello {username} !</h3>
             <h3> Welcome to our website !</h3>
             <h3> Have a fun experience. </h3>
+            {
+                messageCode!==0&&
+                <SnackBarAlert message={messageCode}/>
+            }
 
             <Statistics/>
 

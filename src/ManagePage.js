@@ -8,6 +8,8 @@ import UserMenu from "./UserMenu";
 
 function ManagePage () {
     const[users, setUsers] = useState([]);
+    const [search,setSearch] = useState("");
+
     const navigate = useNavigate();
     const [errorCode,setErrorCode]=useState(0);
 
@@ -23,6 +25,20 @@ function ManagePage () {
             })
     },[])
 
+    const filter=()=>{
+        const originalArray=users
+        if (originalArray.length>0){
+            let filterArray=originalArray.filter((user)=>{
+                let allow=false;
+                if (user.username.includes(search)){
+                    allow=true;
+                }
+                return allow;
+            })
+            return filterArray;
+        }else return originalArray;
+
+    }
 
 
 
@@ -31,9 +47,12 @@ function ManagePage () {
         <div>
             <UserMenu/>
             Users: {users.length}
+            <h2 style={{textAlign :"left"}}>
+                Search User :  <input className={"inputStyle"}  placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
+            </h2>
             <table>
                 {
-                    users.map((user) => {
+                    filter().map((user) => {
                         return (
                             <tr>
                                 <td>{user.id}</td>
