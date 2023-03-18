@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import {useState,useEffect} from "react";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
@@ -17,12 +17,11 @@ const UserMenu = () => {
     useEffect(()=>{
         setToken(Cookies.get("token")) ;
         setIsAdmin(Cookies.get("isAdmin"))
-        // if (token === undefined && isAdmin===false) {
-        //     navigate("../");
-        // }else if (isAdmin) navigate("../manage");
+
     },[])
 
-    const links =[{to:"/dashboard",text:"Home"},
+    const homeTo = isAdmin? "/manage" : "/dashboard";
+    const links =[{to:homeTo,text:"Home"},
         {to:"/openAuctions",text:"Open Auctions"}
     ]
     const userLinks=[
@@ -73,8 +72,8 @@ const UserMenu = () => {
                             )
                         })
                     }
-                    <th>{isAdmin ? "System Credits :" : "my credit :" }{credits}</th>
-                    <th><button onClick={()=>{
+                    <th>{isAdmin ? "System Credits : " : "My Credit : " }{credits}</th>
+                    <th><button className={"button"} onClick={()=>{
                         Cookies.remove("token"); Cookies.remove("isAdmin")
                         navigate("../");
                     }}>log out</button></th>

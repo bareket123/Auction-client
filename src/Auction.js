@@ -23,28 +23,8 @@ const Auction = () => {
     // const [isAdmin,setIsAdmin]=useState(false);
 
 
-
-    // const publisherAlert = () => {
-    //    console.log(isPublisher)
-    //     debugger
-    //     if (isPublisher){
-    //         const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token + "&auctionId=" + id);
-    //         sse.onmessage = (message) => {
-    //             const data = message.data;
-    //
-    //             if (data == 1002) {
-    //                 alert("added new offer")
-    //                 setTimeout(() => {
-    //                 }, 1000)
-    //             }
-    //         }
-    //     }
-    //
-    // }
-
-    useEffect(()=>{
+   useEffect(()=>{
         setToken ( Cookies.get("token") );
-        // setIsAdmin(Cookies.get("isAdmin"));
         if (token!==undefined)
             axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
                 if (response.data.success){
@@ -101,35 +81,35 @@ const addNewOffer=()=> {
 
             <UserMenu/>
 
-            <div>   Product Name:   {auction.productName} </div>
+            <div><u>Product Name:</u> {auction.productName} </div>
                 <br/>
 
-            <img width="100" height="100" src={auction.productPhoto} alt={"no picture"}/>
+            <img width="200" height="200" src={auction.productPhoto} alt={"no picture"}/>
             <br/>
 
-            <div> Product description:  {auction.productDescription} </div>
+            <div><u> Product Description:</u> {auction.productDescription} </div>
             <br/>
 
-            <div> creation date : {auction.creationDate}   </div>
+            <div> <u>Creation Date:</u> {auction.creationDate}   </div>
             <br/>
 
-            <div> start price : {auction.initialPrice}   </div>
+            <div><u> Start Price:</u> {auction.initialPrice}$ </div>
             <br/>
 
-            <div>amount proposals : { auction.allOffers!=undefined ? auction.allOffers.length : "0"} </div>
+            <div><u>Amount Proposals:</u> { auction.allOffers!=undefined ? auction.allOffers.length : "0"} </div>
             <br/>
 
-            <div> publisher : {auction.publisher} </div>
+            <div><u> Publisher:</u> {auction.publisher} </div>
             <br/>
 
             {
                 isPublisher ?
                         <div>
-                            All proposals :
-                            <table border={3} >
+                        <u> All Proposals:</u>
+                            <table className={"fl-table"}>
                                 <tr >
                                     <th>Submitter Username</th>
-                                    <th>offerPrice</th>
+                                    <th>Offer Price</th>
                                 </tr>
                                 <ol>
                                     {
@@ -139,7 +119,6 @@ const addNewOffer=()=> {
                                                     <li>
                                                         <td>{proposal.submitterUserName}</td>
                                                         <td> {proposal.offerPrice}</td>
-
                                                         </li>
                                                 </tr>
                                             )
@@ -147,10 +126,8 @@ const addNewOffer=()=> {
                                 </ol>
                             </table>
                             <br/>
-                       <button  onClick={endAuction} className={"button"}> finish auction </button>
+                       <button  onClick={endAuction} className={"button"}> End Auction </button>
                         </div>
-
-
 
                     :
 
@@ -159,8 +136,8 @@ const addNewOffer=()=> {
                     <div>
 
                 <div>
-                    my proposals :
-                    <table border={3} >
+                <u> My Proposals:</u>
+                    <table className={"fl-table"} >
                         <ol>
                         {
                             auction.saleOffersByUser.map((proposal)=>{
@@ -174,10 +151,6 @@ const addNewOffer=()=> {
 
                     </table>
                 </div>
-
-
-
-
 
                 </div>
 
@@ -202,9 +175,11 @@ const addNewOffer=()=> {
                 }
 
             </div>
+            <div>
             {
                 errorCode!==0 && <Error message={errorCode} />
             }
+            </div>
         </div>
     );
 }

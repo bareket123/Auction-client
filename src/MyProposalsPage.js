@@ -22,45 +22,44 @@ function MyProposalsPage() {
             setMyProposals(response.data.myOffersModels)
             setErrorCode(response.data.errorCode)
         })
-    }, []);
+    });
 
     return (
         <div>
             <UserMenu/>
-            <h1> my proposals: </h1>
+            <h1> My Proposals: </h1>
 
             <br/>
             <table border={1} className={"fl-table"}>
                 <tr>
-                    <th> product name</th>
-                    <th> offer Price</th>
-                    <th>  Auction status</th>
-                    <th>offer status</th>
+                    <th> Product Name</th>
+                    <th> Offer Price</th>
+                    <th> Auction Status</th>
+                    <th>Offer Status</th>
                 </tr>
                 {
 
                     myProposals!==undefined &&
                     myProposals.map((offer) =>{
-                      // getSaleOffers(auction.id)
                         const link = offer.auctionId;
                         return (
                             <tr>
                                 <td><Link to={"/product/" + link}>{offer.productName}</Link></td>
-                                {/*<td><Link to={"/product/"+link}></Link> {offer.productName}</td>*/}
                                 <td>{offer.saleOfferModel.offerPrice}</td>
                                 <td> {offer.auctionStatus?"open":"close"}</td>
                                 {
                                     offer.auctionStatus?
                                     <td> auction still open</td>
                                         :
-                                        <td>{offer.won?"won":"not won"}</td>
+                                        <td>{offer.saleOfferModel.won ?"won":"not won"}</td>
                                 }
 
-
+                                <div>
                                 {
                                     errorCode!==0&&
                                     <Error message={errorCode}/>
                                 }
+                                </div>
                         </tr>
                         )
                     })

@@ -32,7 +32,7 @@ function App() {
                 <Route path={"/openAuctions"} element={<OpenAuctions/>}></Route>
                 <Route path={"/myProposalsPage"} element={<MyProposalsPage/>}></Route>
                 <Route exact path={"/product/:id"} element={<Auction/>}/>
-                <Route exact path={"/UserPage/:token"} element={<UserPage/>}/>
+                <Route exact path={"/UserPage/:username"} element={<UserPage/>}/>
 
         </Routes>
 

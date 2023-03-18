@@ -48,16 +48,16 @@ const OpenAuctions = () => {
     return (
         <div>
                 <UserMenu/>
-             <h1> open auctions: </h1>
+             <h1> Open Auctions: </h1>
             <br/>
            <h2>
-               search product :  <input className={"inputStyle"} placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
+               Search Product :  <input className={"inputStyle"} placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
            </h2>
 
             <table border={1} className={"fl-table"}>
 
-                 <tr> <th> productName</th>
-                     <th> productPhoto</th>
+                 <tr> <th> Product Name</th>
+                     <th> Product Photo</th>
                      <th> Open date</th>
                      <th>  Amount of offers</th>
                  </tr>
@@ -71,7 +71,7 @@ const OpenAuctions = () => {
                                                     <td><Link to={"/product/" + link}>{auction.productName}</Link></td>
 
 
-                                                    <td>   <img width="30" height="40"   src={auction.productPhoto} alt={"no picture"}  /></td>
+                                                    <td>  <img width="250" height="200"   src={auction.productPhoto} alt={"no picture"}  /></td>
                                                     <td> {auction.creationDate}</td>
                                                     <td>  {auction.amountOfSaleOffers}</td>
                                             </tr>

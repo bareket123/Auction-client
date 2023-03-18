@@ -56,25 +56,27 @@ const CreateProduct = () => {
     return (
         <div>
           <UserMenu/>
-            <div>Product Name:</div>
-            <input className={"inputStyle"} type={"text"} value={name} onChange={(event)=>{setName(event.target.value)}} />
+            <div>Product Name :</div>
+            <input placeholder={"Enter name"} className={"inputStyle"} type={"text"} value={name} onChange={(event)=>{setName(event.target.value)}} />
             <br/><br/>
-            <div> Product description:</div>
-            <input className={"inputStyle"} type={"text"}  value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
+            <div> Product Description :</div>
+            <input placeholder={"Enter Description"}className={"inputStyle"} type={"text"}  value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
             <br/><br/>
-            <div>Link for product image:</div>
-            <input className={"inputStyle"} type={"url"}  value={photo} onChange={(event)=>{setPhoto(event.target.value)}}/>
+            <div>Link For Image :</div>
+            <input placeholder={"Enter Photo Link"} className={"inputStyle"} type={"url"}  value={photo} onChange={(event)=>{setPhoto(event.target.value)}}/>
             <br/><br/>
-            <div>Minimum starting bid price: </div>
-            <input className={"inputStyle"} type={"number"} value={initialPrice} min={0} onChange={(event)=>{setInitialPrice(event.target.value)}} />
+            <div>Starting Price : </div>
+            <input className={"inputStyle"} type={"number"} value={initialPrice} min={0}  onChange={(event)=>{setInitialPrice(event.target.value)}} />
             <br/><br/>
 
 
 
-            <button className={"button"}  onClick={()=>{submit();}} >Submit</button>
+            <button className={"button"}  onClick={()=>{submit()}} >Submit</button>
+            <div>
             {
                 errorCode!=0 && <Error message={errorCode} />
             }
+            </div>
         </div>
     );
 };

@@ -13,11 +13,9 @@ import './Button.css';
 
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
-    const [amountOfferHighest, setAmountOfferHighest] = useState(0);
     const [myAuctions, setMyAuctions] = useState([]);
     const[errorCode, setErrorCode] = useState(0);
     const navigate = useNavigate();
-    // const [open, setOpen] = useState(false);
 
 
     const CustomButton = styled(Button)({
@@ -92,9 +90,9 @@ function MyProductsPage() {
             {/*    message="This alert will disappear after 10 seconds"*/}
             {/*/>*/}
 
-            <h1> my products: </h1>
+            <h1> My Products: </h1>
             <br />
-            <table style={{border:"1px solid black"}}  className={"fl-table"}>
+            <table  className={"fl-table"}>
                 <tr>
                     <th style={{fontWeight:"bold"}}>Product Name</th>
                     <th style={{fontWeight: "bold"}}>Highest proposal</th>
@@ -113,9 +111,9 @@ function MyProductsPage() {
                                         :
                                         <td> no offers</td>
                                 }
-                                <td> {auction.auctionOpen ? "open" : "close"}</td>
+                                <td> {auction.auctionOpen ? "Open" : "Close"}</td>
                                <td>
-                                   <button disabled={!auction.auctionOpen} onClick={
+                                   <button className={"button"} disabled={!auction.auctionOpen} onClick={
                                        ()=>{ endAuction(auction.auctionId);
                                            window.location.reload(false)
                                        }
@@ -131,7 +129,7 @@ function MyProductsPage() {
 
             </table>
 
-                <button className={"button"} onClick={onClickAdd}>Add Product </button>
+                <button className={"button"} onClick={onClickAdd}>Add</button>
             {
                 errorCode!==0&&
              <Error message={errorCode}/>

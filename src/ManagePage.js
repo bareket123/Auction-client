@@ -10,7 +10,6 @@ function ManagePage () {
     const[users, setUsers] = useState([]);
     const navigate = useNavigate();
     const [errorCode,setErrorCode]=useState(0);
-    const[totalSystemPayments, setTotalSystemPayments] = useState(0);
 
 
     useEffect(() => {
@@ -38,21 +37,21 @@ function ManagePage () {
                         return (
                             <tr>
                                 <td>{user.id}</td>
-                                <td><Link to={"/UserPage/"+user.token} onClick={()=>{Cookies.set("isAdmin",true);Cookies.set("token",user.token)}}>{user.username}</Link></td>
-                                {/*<td><button onClick={() => loginAs(item.token)}>Login As</button></td>*/}
+                                <td><Link to={"/UserPage/"+user.username} onClick={
+                                    ()=>{Cookies.set("isAdmin",true);Cookies.set("token",user.token)}}>
+                                    {user.username}</Link></td>
                             </tr>
                         )
                     })
                 }
             </table>
 
-            {/*<td><Link to={"/openAuctions/"} >click to move to open auction</Link></td>*/}
 
-
-            {/*<div>total system payments: {totalSystemPayments}</div>*/}
+            <div>
             {
                 errorCode!=0 && <Error message={errorCode} />
             }
+            </div>
         </div>
     )
 }

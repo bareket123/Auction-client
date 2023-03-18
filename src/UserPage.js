@@ -2,7 +2,7 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate,useParams} from "react-router-dom";
 import UserMenu from "./UserMenu";
 import Error from "./Error";
 
@@ -12,7 +12,7 @@ function UserPage(){
     const [myOpenAuctions,setMyOpenAuctions]=useState(0);
     const [credit,setCredit]=useState(0);
     const [userCredit,setUserCredit]=useState(0);
-
+    const {username} = useParams();
     const navigate = useNavigate();
     const[errorCode, setErrorCode] = useState(0);
 
@@ -61,16 +61,18 @@ function UserPage(){
     return(
         <div>
             <UserMenu/>
-            <h1>  {myOpenAuctions} Open Auctions</h1>
-            <h2> Current credit : {userCredit}</h2>
+            <h2><u>User:</u>  {username}</h2>
+            <h1>Open Auctions: {myOpenAuctions} </h1>
+            <h2> Current credit : {userCredit} $</h2>
 
-               <h4>  Update User Credit  <input type={"number"} min={0} value={credit} onChange={(event)=>{setCredit(event.target.value)}} placeholder={"Enter new credit"}/>
-                   <button onClick={updateCredit}>update</button></h4>
-                <div style={{fontWeight:"bold"}}> logged as admin <br/> </div>
+               <h2>  Update {username} Credit  <input type={"number"} min={0} value={credit} onChange={(event)=>{setCredit(event.target.value)}} placeholder={"Enter new credit"}/>
+                   <button onClick={updateCredit}>update</button></h2>
+                <div>
                 {
                     errorCode > 0 &&
                     <Error message={errorCode} lineBreak={true}/>
                 }
+                </div>
 
 
         </div>
