@@ -62,6 +62,9 @@ function SnackBarAlert(props) {
         case 1016:
             message="sign up successfully"
             break;
+        case 1017:
+            message="updated user credit successfully"
+            break;
         case "1":
             message="added new offer to your auction"
             break;

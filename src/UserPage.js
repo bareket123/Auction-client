@@ -4,7 +4,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import {useNavigate,useParams} from "react-router-dom";
 import UserMenu from "./UserMenu";
-import Error from "./Error";
+import { UPDATED_USER_CREDIT_SUCCESSFULLY} from "./Constans";
+import SnackBarAlert from "./SnackBarAlert";
 
 
 function UserPage(){
@@ -14,7 +15,7 @@ function UserPage(){
     const [userCredit,setUserCredit]=useState(0);
     const {username} = useParams();
     const navigate = useNavigate();
-    const[errorCode, setErrorCode] = useState(0);
+    const[messageCode, setMessageCode] = useState(0);
 
 
 
@@ -36,7 +37,7 @@ function UserPage(){
              if (response.data.success){
                  setUserCredit(response.data.credit)
              }else {
-                 setErrorCode(response.data.errorCode)
+                 setMessageCode(response.data.errorCode)
              }
 
         })
@@ -50,12 +51,13 @@ function UserPage(){
             }
         }).then((response) => {
             if (response.data.success) {
-                alert("success")
+                setMessageCode(UPDATED_USER_CREDIT_SUCCESSFULLY)
                 Cookies.remove("isAdmin")
                 Cookies.remove("token")
-                navigate("../")
+                // navigate("../")
             }
         })
+        setMessageCode(0)
     }
 
     return(
@@ -65,14 +67,18 @@ function UserPage(){
             <h1>Open Auctions: {myOpenAuctions} </h1>
             <h2> Current credit : {userCredit} $</h2>
 
-               <h2>  Update {username} Credit  <input type={"number"} min={0} value={credit} onChange={(event)=>{setCredit(event.target.value)}} placeholder={"Enter new credit"}/>
-                   <button onClick={updateCredit}>update</button></h2>
+               <h2>  Update {username} Credit  <input className={"inputStyle"} type={"number"} min={0} value={credit} onChange={(event)=>{setCredit(event.target.value)}} placeholder={"Enter new credit"}/>
+                   <button className={"button"} onClick={updateCredit}>update</button></h2>
                 <div>
-                {
-                    errorCode > 0 &&
-                    <Error message={errorCode} lineBreak={true}/>
-                }
+                {/*{*/}
+                {/*    messageCode > 0 &&*/}
+                {/*    <Error message={messageCode} lineBreak={true}/>*/}
+                {/*}*/}
                 </div>
+            {
+               ( messageCode!==0 && messageCode!==1005)&&
+                <SnackBarAlert message={messageCode}/>
+            }
 
 
         </div>

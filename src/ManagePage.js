@@ -25,7 +25,7 @@ function ManagePage () {
             })
     },[])
 
-    const filter=()=>{
+    const filterUsersByName=()=>{
         const originalArray=users
         if (originalArray.length>0){
             let filterArray=originalArray.filter((user)=>{
@@ -52,7 +52,7 @@ function ManagePage () {
             </h2>
             <table>
                 {
-                    filter().map((user) => {
+                    filterUsersByName().map((user) => {
                         return (
                             <tr>
                                 <td>{user.id}</td>
