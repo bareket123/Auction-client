@@ -46,12 +46,12 @@ function MyProposalsPage() {
                             <tr>
                                 <td><Link to={"/product/" + link}>{offer.productName}</Link></td>
                                 <td>{offer.saleOfferModel.offerPrice}</td>
-                                <td> {offer.auctionStatus?"open":"close"}</td>
+                                <td> {offer.auctionStatus?"Open":"Close"}</td>
                                 {
                                     offer.auctionStatus?
-                                    <td> auction still open</td>
+                                    <td>Auction Is Still Open </td>
                                         :
-                                        <td>{offer.saleOfferModel.won ?"won":"not won"}</td>
+                                        <td>{offer.saleOfferModel.won ?"Won":"Not Won"}</td>
                                 }
 
                                 <div>
