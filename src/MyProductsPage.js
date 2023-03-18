@@ -92,7 +92,7 @@ function MyProductsPage() {
 
             <h1> My Products: </h1>
             <br />
-            <table  className={"fl-table"}>
+            <table className={"fl-table"}>
                 <tr>
                     <th style={{fontWeight:"bold"}}>Product Name</th>
                     <th style={{fontWeight: "bold"}}>Highest proposal</th>

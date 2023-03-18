@@ -13,10 +13,8 @@ import './Input.css';
 const OpenAuctions = () => {
 
     const[openAuctions, setOpenAuctions] = useState([]);
-    // const[filteredList, setFilteredList] = useState([]);
     const [search,setSearch] = useState("");
     const [errorCode,setErrorCode]=useState(0);
-    const isAdmin=Cookies.get("isAdmin");
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-open-auctions")
@@ -54,7 +52,7 @@ const OpenAuctions = () => {
                Search Product :  <input className={"inputStyle"} placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
            </h2>
 
-            <table border={1} className={"fl-table"}>
+            <table  className={"fl-table"}>
 
                  <tr> <th> Product Name</th>
                      <th> Product Photo</th>

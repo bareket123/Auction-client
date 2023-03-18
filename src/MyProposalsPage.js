@@ -30,7 +30,7 @@ function MyProposalsPage() {
             <h1> My Proposals: </h1>
 
             <br/>
-            <table border={1} className={"fl-table"}>
+            <table className={"fl-table"}>
                 <tr>
                     <th> Product Name</th>
                     <th> Offer Price</th>
