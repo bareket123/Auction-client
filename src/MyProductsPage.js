@@ -14,7 +14,7 @@ import './Button.css';
 function MyProductsPage() {
     const [token, setToken] = useState(" ");
     const [myAuctions, setMyAuctions] = useState([]);
-    const[errorCode, setErrorCode] = useState(0);
+    const[errorCode, setErrorCode] = useState();
     const navigate = useNavigate();
 
 
@@ -131,7 +131,7 @@ function MyProductsPage() {
 
                 <button className={"button"} onClick={onClickAdd}>Add</button>
             {
-                errorCode!==0&&
+                errorCode!==undefined&&
              <Error message={errorCode}/>
             }
         </div>

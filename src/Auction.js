@@ -7,6 +7,8 @@ import axios from "axios";
 import Error from "./Error";
 import './Table.css';
 import './Button.css';
+import {Button, IconButton, Snackbar} from "@mui/material";
+
 
 
 const Auction = () => {
@@ -21,9 +23,28 @@ const Auction = () => {
     const navigate = useNavigate();
     const [errorCode,setErrorCode]=useState(0);
     // const [isAdmin,setIsAdmin]=useState(false);
+    const [open, setOpen] = useState(false);
 
 
-   useEffect(()=>{
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+    const action = (
+        <>
+            <Button color="secondary" size="small" onClick={handleClose}>
+                X
+            </Button>
+        </>
+
+    );
+
+
+    useEffect(()=>{
         setToken ( Cookies.get("token") );
         if (token!==undefined)
             axios.get("http://localhost:8989/get-product-by-id?auctionId="+id+"&token="+token).then((response=>{
@@ -69,7 +90,8 @@ const addNewOffer=()=> {
             }
         }).then((res)=>{
             if(res.data.success){
-              alert("end auction success")
+                setOpen(true);
+             // alert("end auction success")
             }else {
                 setErrorCode(res.data.errorCode)
             }
@@ -80,6 +102,17 @@ const addNewOffer=()=> {
         <div>
 
             <UserMenu/>
+
+                <Snackbar
+                // style={{ top: '50px', left: '1600px', backgroundColor: 'red' }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message="end auction success"
+                action={action}
+            />
+
 
             <div><u>Product Name:</u> {auction.productName} </div>
                 <br/>
@@ -108,22 +141,23 @@ const addNewOffer=()=> {
                         <u> All Proposals:</u>
                             <table className={"fl-table"}>
                                 <tr >
+                                    <th></th>
                                     <th>Submitter Username</th>
                                     <th>Offer Price</th>
                                 </tr>
-                                <ol>
+
                                     {
-                                        auction.allOffers.map((proposal)=>{
+                                        auction.allOffers.map((proposal,index)=>{
                                             return(
                                                 <tr>
-                                                    <li>
+                                                        <td>{index+1}</td>
                                                         <td>{proposal.submitterUserName}</td>
                                                         <td> {proposal.offerPrice}</td>
-                                                        </li>
+
                                                 </tr>
                                             )
                                         })}
-                                </ol>
+
                             </table>
                             <br/>
                        <button  onClick={endAuction} className={"button"}> End Auction </button>
@@ -138,16 +172,20 @@ const addNewOffer=()=> {
                 <div>
                 <u> My Proposals:</u>
                     <table className={"fl-table"} >
-                        <ol>
+                       <tr>
+                           <th></th>
+                           <th>Offered Price</th>
+                       </tr>
                         {
-                            auction.saleOffersByUser.map((proposal)=>{
+                            auction.saleOffersByUser.map((proposal,index)=>{
                             return(
                                 <tr>
-                                    <td><li>{proposal.offerPrice}</li></td>
+                                    <td>{index+1}</td>
+                                    <td>{proposal.offerPrice + " $"}</td>
                                 </tr>
                             )
                         })}
-                        </ol>
+
 
                     </table>
                 </div>
@@ -158,7 +196,7 @@ const addNewOffer=()=> {
             <div>
                 {
                     !isPublisher &&
-                    <button  className={"button"} onClick={ ()=>{setAddProposal(!addProposal)}} > add proposal </button>
+                    <button  className={"button"} onClick={ ()=>{setAddProposal(!addProposal)}} > Add </button>
 
                 }
                 {

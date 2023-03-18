@@ -1,3 +1,6 @@
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 function Error(props) {
     let message = props.message;
     switch (message) {
@@ -37,6 +40,9 @@ function Error(props) {
         case 1013:
             message = "auction is closed";
             break;
+        case 60:
+            message="test"
+            break
     }
 
     return (
