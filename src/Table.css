@@ -1,12 +1,9 @@
-/* Table Styles */
-/*sign in table */
 .table-wrapper{
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
     float: left;
     margin: 80px auto 0px 30%;
 }
 
-/*for the add teams table */
 .selectTeamsTable{
     font-size: 20px;
     text-align:center;
@@ -16,7 +13,6 @@
     font-weight: bold;
 }
 
-/*table page2 and page3*/
 .fl-table{
     border-radius: 5px;
     font-size: 25px;

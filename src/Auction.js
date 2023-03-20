@@ -4,34 +4,26 @@ import Cookies from "js-cookie";
 import UserMenu from "./UserMenu";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
-import Error from "./Error";
 import './Table.css';
 import './Button.css';
 import SnackBarAlert from "./SnackBarAlert";
  import {CLOSED_AUCTION_SUCCESSFULLY, ADD_NEW_OFFER} from "./Constans";
 
-
-
-
 const Auction = () => {
 
     const[addProposal, setAddProposal] = useState(false);
-    const token = Cookies.get("token");
+    let token = Cookies.get("token");
     const[offerPrice, setOfferPrice] = useState(0);
     const[auction, setAuction] = useState({});
     const[offerByUser, setOfferByUser] = useState([]);
     const [isPublisher,setIsPublisher]=useState(false);
     const {id} = useParams();
     const navigate = useNavigate();
-    // const [errorCode,setErrorCode]=useState(0);
-    // const [isAdmin,setIsAdmin]=useState(false);
     const [messageCode, setMessageCode] = useState(0);
     const isAdmin=Cookies.get("isAdmin");
 
     useEffect(()=>{
     },[messageCode])
-
-
 
 
     useEffect(()=>{
@@ -42,13 +34,10 @@ const Auction = () => {
                     setAuction(response.data.productModels)
                     setIsPublisher(response.data.publisher)
                     setOfferByUser(response.data.productModels.saleOffersByUser)
-
                 }else{
                     setMessageCode(response.data.errorCode)
                 }
-
         }))
-
     })
 
 const addNewOffer=()=> {
@@ -64,17 +53,12 @@ const addNewOffer=()=> {
     })
     setOfferPrice(0);
     setMessageCode(0);
-
-
     axios.post(("http://localhost:8989/added-new-offer"), null, {
         params: {
             token, auctionId: id
         }
-
     })
-
 }
-
 
     const endAuction=()=>{
         axios.post("http://localhost:8989/close-exist-auction",null,{
@@ -84,7 +68,6 @@ const addNewOffer=()=> {
         }).then((res)=>{
             if(res.data.success){
                 setMessageCode(CLOSED_AUCTION_SUCCESSFULLY)
-             // alert("end auction success")
             }else {
                 setMessageCode(res.data.errorCode)
             }
@@ -92,23 +75,15 @@ const addNewOffer=()=> {
        setMessageCode(0)
     }
 
-
-
     return (
         <div>
-
             <UserMenu/>
              {
                 ( messageCode!==0 && messageCode!==1005) &&
                 <SnackBarAlert message={messageCode}/>
-
             }
-
-
-
             <div><u>Product Name:</u> {auction.productName} </div>
                 <br/>
-
             <img width="200" height="200" src={auction.productPhoto} alt={"no picture"}/>
             <br/>
 
@@ -128,7 +103,7 @@ const addNewOffer=()=> {
             <br/>
 
             {
-                isPublisher ?
+                (isPublisher && !isAdmin) ?
                         <div>
                         <u> All Proposals:</u>
                             <table className={"fl-table"}>
@@ -137,7 +112,6 @@ const addNewOffer=()=> {
                                     <th>Submitter Username</th>
                                     <th>Offer Price</th>
                                 </tr>
-
                                     {
                                         auction.allOffers.map((proposal,index)=>{
                                             return(
@@ -145,26 +119,16 @@ const addNewOffer=()=> {
                                                         <td>{index+1}</td>
                                                         <td>{proposal.submitterUserName}</td>
                                                         <td> {proposal.offerPrice}</td>
-
                                                 </tr>
                                             )
                                         })}
-
                             </table>
                             <br/>
-                            {
-                                !isAdmin&&
-                                <button  onClick={endAuction} className={"button"}> End Auction </button>
-                            }
-
+                            <button  onClick={endAuction} className={"button"}> End Auction </button>
                         </div>
-
                     :
-
-                 offerByUser.length !== 0 &&
-
+                ( offerByUser.length !== 0 && !isAdmin )&&
                     <div>
-
                 <div>
                 <u> My Proposals:</u>
                     <table className={"fl-table"} >
@@ -181,38 +145,29 @@ const addNewOffer=()=> {
                                 </tr>
                             )
                         })}
-
-
                     </table>
                 </div>
-
                 </div>
-
             }
             <div>
                 {
-                    (!isPublisher && !isAdmin) &&
+                    (!isPublisher && !isAdmin && auction.open) &&
                     <button  className={"button"} onClick={ ()=>{setAddProposal(!addProposal)}} > Add </button>
-
+                }
+                {
+                    (!auction.open&& !isPublisher)&&
+                    <div style={{color: "red" ,fontSize:"30px"}}>The auction is closed, no bids can be submitted</div>
                 }
                 {
                     addProposal &&
                     <div>
-                        <input type={"number"} onChange={(event) => {
+                        <input className={"inputStyle"} type={"number"} onChange={(event) => {
                             setOfferPrice(event.target.value);
-
                         }
-
                         } value={offerPrice} />
                         <button className={"button"} onClick={addNewOffer} > send </button>
                     </div>
                 }
-
-            </div>
-            <div>
-            {/*{*/}
-            {/*    errorCode!==0 && <Error messageCode={errorCode} />*/}
-            {/*}*/}
             </div>
         </div>
     );

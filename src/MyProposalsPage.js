@@ -4,15 +4,12 @@ import UserMenu from "./UserMenu";
 import Cookies from "js-cookie";
 import axios from "axios";
 import {Link, NavLink} from "react-router-dom";
-import Error from "./Error";
 import './Table.css';
-
 
 function MyProposalsPage() {
 
     const[myProposals, setMyProposals] = useState([]);
     const[token, setToken] = useState("");
-    const[errorCode, setErrorCode] = useState(0);
 
 
     useEffect(() => {
@@ -20,7 +17,7 @@ function MyProposalsPage() {
         setToken(token);
         axios.get("http://localhost:8989/get-my-offers-model?token="+token).then(response=>{
             setMyProposals(response.data.myOffersModels)
-            setErrorCode(response.data.errorCode)
+
         })
     });
 
@@ -54,12 +51,7 @@ function MyProposalsPage() {
                                         <td>{offer.saleOfferModel.won ?"Won":"Not Won"}</td>
                                 }
 
-                                <div>
-                                {
-                                    errorCode!==0&&
-                                    <Error message={errorCode}/>
-                                }
-                                </div>
+
                         </tr>
                         )
                     })

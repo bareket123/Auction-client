@@ -52,12 +52,13 @@ function UserPage(){
         }).then((response) => {
             if (response.data.success) {
                 setMessageCode(UPDATED_USER_CREDIT_SUCCESSFULLY)
-                Cookies.remove("isAdmin")
-                Cookies.remove("token")
-                // navigate("../")
+
+                // Cookies.remove("isAdmin")
+                //Cookies.remove("token")
             }
         })
         setMessageCode(0)
+        setCredit(0)
     }
 
     return(
@@ -66,31 +67,16 @@ function UserPage(){
             <h2><u>User:</u>  {username}</h2>
             <h1>Open Auctions: {myOpenAuctions} </h1>
             <h2> Current credit : {userCredit} $</h2>
-
                <h2>  Update {username} Credit  <input className={"inputStyle"} type={"number"} min={0} value={credit} onChange={(event)=>{setCredit(event.target.value)}} placeholder={"Enter new credit"}/>
-                   <button className={"button"} onClick={updateCredit}>update</button></h2>
+                   <button className={"button"} onClick={()=>{updateCredit()}}>update</button></h2>
                 <div>
-                {/*{*/}
-                {/*    messageCode > 0 &&*/}
-                {/*    <Error message={messageCode} lineBreak={true}/>*/}
-                {/*}*/}
                 </div>
             {
                ( messageCode!==0 && messageCode!==1005)&&
                 <SnackBarAlert message={messageCode}/>
             }
-
-
         </div>
 
     )
-
-
-
-
-
-
-
-
 }
 export default UserPage;

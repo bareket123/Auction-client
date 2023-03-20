@@ -4,7 +4,9 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import UserMenu from "./UserMenu";
-import Error from "./Error";
+import {UPLOADED_NEW_PRODUCT_SUCCESSFULLY} from "./Constans";
+import SnackBarAlert from "./SnackBarAlert";
+
 
 const CreateProduct = () => {
 
@@ -14,8 +16,7 @@ const CreateProduct = () => {
         const [photo,setPhoto]=useState("");
         const [initialPrice,setInitialPrice]=useState(0);
         const navigate = useNavigate();
-        const [errorCode,setErrorCode]=useState(0);
-
+        const [messageCode,setMessageCode]=useState(0);
 
     useEffect(() => {
             setSubmitUser(Cookies.get("token"));
@@ -33,25 +34,18 @@ const CreateProduct = () => {
                     }
                 }).then((response) => {
                     if (response.data.success) {
-                        alert("uploaded successfully!")
-                        // setName("")
-                        // setDescription("")
-                        // setPhoto("")
-                        // setInitialPrice(0)
-
-                        navigate("../myProductsPage")
+                        setMessageCode(UPLOADED_NEW_PRODUCT_SUCCESSFULLY)
+                        setTimeout(()=>{
+                            navigate("../myProductsPage")
+                        },1000)
 
                     } else {
-                        setErrorCode(response.data.errorCode)
+                        setMessageCode(response.data.errorCode)
                     }
                 })
-            } else {
-                setErrorCode(1010);
             }
-
+         setMessageCode(0)
         }
-
-
 
     return (
         <div>
@@ -69,14 +63,11 @@ const CreateProduct = () => {
             <input className={"inputStyle"} type={"number"} value={initialPrice} min={0}  onChange={(event)=>{setInitialPrice(event.target.value)}} />
             <br/><br/>
 
-
-
             <button className={"button"}  onClick={()=>{submit()}} >Submit</button>
-            <div>
             {
-                errorCode!=0 && <Error message={errorCode} />
+                messageCode!==0&&
+                <SnackBarAlert message={messageCode}/>
             }
-            </div>
         </div>
     );
 };

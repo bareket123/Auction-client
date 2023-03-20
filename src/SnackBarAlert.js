@@ -2,16 +2,6 @@ import React, {useState} from 'react';
 import {Button, Snackbar} from "@mui/material";
 
 
-/*
-
-מטרנו היום:
-- על כל לחיצה של כפתור שיוצג התראה בהתאם אם זה עבד או לא (הצלחות)
--  שדה בולאיני של open/close שיוצג בהתאם להודעה
-- כפתורים מסוג button אמור להציג את X
-
-
- */
-
 function SnackBarAlert(props) {
     const [open, setOpen] = useState(true);
     let message = props.message;
@@ -27,11 +17,8 @@ function SnackBarAlert(props) {
             message = "username or password isn't correct";
             break;
         case 1005:
-            message = "no such token" // no such token
+            message = "no such token"
             break;
-        // case 1006:
-        //     message = "ERROR_NO_SUCH_AUCTION";
-        //     break;
         case 1007:
             message = "you need at least 3 offer to end auction";
             break;
@@ -65,6 +52,9 @@ function SnackBarAlert(props) {
         case 1017:
             message="updated user credit successfully"
             break;
+        case 1018:
+            message="uploaded successfully"
+            break;
         case "1":
             message="added new offer to your auction"
             break;
@@ -72,8 +62,6 @@ function SnackBarAlert(props) {
             message="the auction you submitted an offer was closed"
             break;
     }
-
-
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -91,9 +79,7 @@ function SnackBarAlert(props) {
     );
 
     return (
-
         <Snackbar
-            // style={{ top: '50px', left: '1600px', backgroundColor: 'red' }}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             open={open}
             autoHideDuration={6000}

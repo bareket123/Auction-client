@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import {Link, useNavigate} from "react-router-dom";
-import Error from "./Error";
 import React from "react";
 import UserMenu from "./UserMenu";
 
@@ -10,18 +9,22 @@ function ManagePage () {
     const[users, setUsers] = useState([]);
     const [search,setSearch] = useState("");
 
-    const navigate = useNavigate();
-    const [errorCode,setErrorCode]=useState(0);
+    // const navigate = useNavigate();
+    // const [errorCode,setErrorCode]=useState(0);
+    // const [credit,setCredit]=useState(0);
+    // const token=Cookies.get("token")
+    const adminToken="Admin";
 
 
     useEffect(() => {
         Cookies.set("isAdmin",true)
-        Cookies.remove("token")
+        Cookies.set("token",adminToken);
         axios.get("http://localhost:8989/get-all-users")
             .then(response => {
                 if (response.data.success) {
                     setUsers(response.data.users)
-                }else setErrorCode(response.data.errorCode)
+                }
+                // } else setErrorCode(response.data.errorCode)
             })
     },[])
 
@@ -41,17 +44,23 @@ function ManagePage () {
     }
 
 
-
-
     return  (
         <div>
             <UserMenu/>
+
+            {
+                users.length===0 ?
+
+                    <h2 style={{textAlign :"center" ,color:"white"}}>No users have been added yet</h2>
+            :
+                    <div>
             Users: {users.length}
             <h2 style={{textAlign :"left"}}>
                 Search User :  <input className={"inputStyle"}  placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
             </h2>
             <table>
                 {
+
                     filterUsersByName().map((user) => {
                         return (
                             <tr>
@@ -65,12 +74,8 @@ function ManagePage () {
                 }
             </table>
 
-
-            <div>
-            {
-                errorCode!=0 && <Error message={errorCode} />
+                    </div>
             }
-            </div>
         </div>
     )
 }

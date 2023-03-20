@@ -20,23 +20,3 @@
     box-shadow: 0 5px 50px 0 #600080 inset, 0 5px 50px 0 #c42fff, 0 5px 50px 0 #7c0080 inset, 0 5px 50px 0 #80005c;
     text-shadow: 0 5px 50px 0 #f12fff,0 5px 50px 0 rgba(124, 0, 128, 0.75);
 }
-/*.snackbar-root {*/
-/*    position: 'top';*/
-/*    left: 0;*/
-/*    right: 0;*/
-/*    bottom: 0;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.snackbar {*/
-/*    max-width: 100%;*/
-/*    padding: 15px;*/
-/*    background: #333;*/
-/*    color: white;*/
-/*    font-family: sans-serif;*/
-/*}*/
-
-
-

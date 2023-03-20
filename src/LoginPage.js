@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import Error from "./Error";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router-dom";
 import Statistics from "./Statistics";
@@ -10,7 +9,6 @@ import './Input.css';
 import './Selectors.css';
 import {SIGN_UP_SUCCESSFULLY} from "./Constans";
 import SnackBarAlert from "./SnackBarAlert";
-
 
 
 function LoginPage () {
@@ -29,10 +27,6 @@ function LoginPage () {
             navigate("../dashboard")
         }
     }, [type])
-
-    // useEffect((e)=>{
-    //     e.preventDefault();
-    // })
 
     const usernameChanged = (event) => {
         setUsername(event.target.value)
@@ -86,6 +80,7 @@ function LoginPage () {
         setMessageCode(0)
     }
 
+
     return (
         <div style={{margin: "25px"}}>
             <div>
@@ -116,7 +111,6 @@ function LoginPage () {
                     <td>
                         {
                             type == "signUp" && password.length < 6 &&  password.length > 0 &&
-                            // <Error message={"Password too weak"} lineBreak={false}/>
                             <div style={{color: "red" ,fontSize:"30px"}}>Password too weak</div>
                         }
                     </td>
@@ -130,17 +124,11 @@ function LoginPage () {
                             {
                                 ( password != password2 && password2.length>0) &&
                                 <div style={{color: "red" ,fontSize:"30px"}}> Passwords Don't match </div>
-
-                                // <Error message={"Passwords Don't match"} lineBreak={true}/>
                             }
                         </td>
                     </tr>
                 }
             </table>
-            {/*{*/}
-            {/*    messageCode > 0 &&*/}
-            {/*    <Error message={messageCode} lineBreak={true}/>*/}
-            {/*}*/}
             <button onClick={submit} className={"button"} disabled={
                 password.length < 6 ||
                 (password != password2 && type == "signUp") ||
@@ -148,8 +136,8 @@ function LoginPage () {
             }>{type == "signUp" ? "Sign Up" : "Login"}
             </button>
             {
-                type=="login" && <button  className={"button"} onClick={()=>{
-                navigate("../manage")}
+                type=="login" && <button   className={"button"} onClick={()=>{
+                navigate("../manage");}
                 }>Admin Login</button>
             }
             <Statistics/>

@@ -24,15 +24,11 @@ function Dashboard () {
                 console.log("data is: " +data)
                 if (data ==="1") {
                     setMessageCode(ADD_NEW_OFFER_TO_AUCTION)
-                    // alert("added new offer")
                 }else if (data==="2"){
                     setMessageCode(AUCTION_WAS_CLOSED)
-                    // alert("auction was closed")
                 }
             }
-
         }
-
     },[])
 
 
@@ -47,7 +43,6 @@ function Dashboard () {
     }, []);
 
 
-
     return (
         <div>
             <UserMenu/>
@@ -58,9 +53,7 @@ function Dashboard () {
                 messageCode!==0&&
                 <SnackBarAlert message={messageCode}/>
             }
-
             <Statistics/>
-
         </div>
     )
 }
