@@ -4,7 +4,7 @@ import axios from "axios";
 import './Table.css';
 
 function Statistics() {
-    const[users, setUsers] = useState("");
+    const[users, setUsers] = useState(0);
     const[allAuctionsSize, setAllAuctionsSize] = useState(0);
     const[proposals, setProposals] = useState(0);
 
