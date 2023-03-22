@@ -30,17 +30,19 @@ const UserMenu = () => {
         {to:"/myProductsPage",text:"My Products"},
     ]
 
-    useEffect(()=>{
+
+    useEffect(() => {
         if (isAdmin) {
-
-            axios.get("http://localhost:8989/get-total-system-payments")
-                .then(response => {
-                    setCredits(response.data)
-                })
-            console.log(credits)
+            const interval = setInterval(() => {
+                axios.get("http://localhost:8989/get-total-system-payments")
+                    .then(response => {
+                        setCredits(response.data)
+                    })
+            }, 1000)
+            return () => clearInterval(interval)
         }
+    }, [isAdmin])
 
-    })
 
     useEffect(() => {
             if (token!==undefined && !isAdmin){
@@ -51,7 +53,6 @@ const UserMenu = () => {
                         }
                     })
             }
-
     });
 
     return (

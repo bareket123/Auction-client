@@ -23,13 +23,16 @@ function Statistics() {
     })
 
     useEffect(() => {
-        if (proposals!==undefined){
+        const intervalId = setInterval(() => {
             axios.get("http://localhost:8989/get-all-sale-offers-size")
                 .then((response) => {
-                    setProposals(response.data)
-                })
-        }
-    })
+                    setProposals(response.data);
+                });
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+
+    }, []);
 
     return (
         <div>
