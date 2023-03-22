@@ -88,14 +88,18 @@ h2 {
 
 h3 {
   position: relative;
-  font-size:20px;
-   color: #000000;
-  line-height: 48px;
+  font-size:25px;
+  font-weight: bold;
+  line-height: 40px;
   font-family: 'Trocchi', serif;
-  text-shadow: 2px 4px 3px rgba(0,1,0,0.5);
+
 }
 
+h3,h2,h1{
+  color: #897887;
+  text-decoration: underline ;
 
+}
 
 .divErrorCode{
   font-weight: bold;
