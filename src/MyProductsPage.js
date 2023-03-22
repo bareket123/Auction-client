@@ -51,7 +51,8 @@ function MyProductsPage() {
         });
         setMessageCode(0);
 
-    }
+
+            }
 
 
 
@@ -83,11 +84,8 @@ function MyProductsPage() {
                                 <td> {auction.auctionOpen ? "Open" : "Close"}</td>
                                <td>
                                    <button className={"button"} disabled={!auction.auctionOpen} onClick={
-                                       ()=>{ endAuction(auction.auctionId);
-
-                                       }
-                                   }>
-                                   End</button>
+                                       ()=>{ endAuction(auction.auctionId);}}>
+                                       {auction.auctionOpen? "End":"Closed"}</button>
 
                                </td>
                             </tr>

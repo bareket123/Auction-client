@@ -53,8 +53,6 @@ function UserPage(){
             if (response.data.success) {
                 setMessageCode(UPDATED_USER_CREDIT_SUCCESSFULLY)
 
-                // Cookies.remove("isAdmin")
-                //Cookies.remove("token")
             }
         })
         setMessageCode(0)

@@ -4,19 +4,18 @@ import Cookies from "js-cookie";
 import {Link, useNavigate} from "react-router-dom";
 import React from "react";
 import UserMenu from "./UserMenu";
+import {ADD_NEW_OFFER_TO_AUCTION, AUCTION_WAS_CLOSED} from "./Constans";
 
 function ManagePage () {
     const[users, setUsers] = useState([]);
     const [search,setSearch] = useState("");
-
-    // const navigate = useNavigate();
-    // const [errorCode,setErrorCode]=useState(0);
-    // const [credit,setCredit]=useState(0);
-    // const token=Cookies.get("token")
     const adminToken="Admin";
 
 
+
+
     useEffect(() => {
+
         Cookies.set("isAdmin",true)
         Cookies.set("token",adminToken);
         axios.get("http://localhost:8989/get-all-users")
