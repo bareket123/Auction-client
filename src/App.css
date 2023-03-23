@@ -70,7 +70,7 @@ h1 {
   color: black;
   line-height: 48px;
   font-family: 'Trocchi', serif;
-  text-shadow: 2px 4px 3px rgba(0,1,0,0.5);
+  /*text-shadow: 2px 4px 3px rgba(0,1,0,0.5);*/
 
 }
 h2 {
@@ -80,7 +80,7 @@ h2 {
    color: #000000;
    line-height: 48px;
    font-family: 'Trocchi', serif;
-   text-shadow: 2px 4px 3px rgba(0,1,0,0.5);
+   /*text-shadow: 2px 4px 3px rgba(0,1,0,0.5);*/
  }
 
 

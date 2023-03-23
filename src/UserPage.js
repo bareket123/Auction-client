@@ -22,7 +22,7 @@ function UserPage(){
     useEffect(() => {
         const token = Cookies.get("token");
         setToken(token);
-        if (token!=undefined){
+        if (token!==undefined){
             getUserCredits()
 
         }

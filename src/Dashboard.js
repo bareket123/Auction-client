@@ -5,15 +5,11 @@ import axios from "axios";
 import UserMenu from "./UserMenu";
 import React from 'react';
 import Statistics from "./Statistics";
-import {ADD_NEW_OFFER_TO_AUCTION, AUCTION_WAS_CLOSED} from "./Constans";
-import SnackBarAlert from "./SnackBarAlert";
-
 
 function Dashboard () {
 
     const[username, setUsername] = useState("");
     const navigate = useNavigate();
-    const[messageCode, setMessageCode] = useState(0);
     const token = Cookies.get("token");
 
 
@@ -35,11 +31,6 @@ function Dashboard () {
             <h3>    Hello {username} !</h3>
             <h3> Welcome to our website !</h3>
             <h3> Have a fun experience. </h3>
-            <div> message: {messageCode}</div>
-            {/*{*/}
-            {/*    messageCode!==0&&*/}
-            {/*    <SnackBarAlert message={messageCode}/>*/}
-            {/*}*/}
             <Statistics/>
         </div>
     )

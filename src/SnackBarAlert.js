@@ -6,6 +6,8 @@ function SnackBarAlert(props) {
     const [open, setOpen] = useState(true);
     let message = props.message;
 
+
+
     switch (message) {
         case 1002:
             message = "password too weak";
@@ -55,12 +57,7 @@ function SnackBarAlert(props) {
         case 1018:
             message="uploaded successfully"
             break;
-        case "1":
-            message="added new offer to your auction"
-            break;
-        case "2":
-            message="the auction you submitted an offer was closed"
-            break;
+
     }
 
     const handleClose = (event, reason) => {

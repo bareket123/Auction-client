@@ -9,12 +9,10 @@ import './Table.css';
 function MyProposalsPage() {
 
     const[myProposals, setMyProposals] = useState([]);
-    const[token, setToken] = useState("");
-
+    const token = Cookies.get("token");
 
     useEffect(() => {
-        const token = Cookies.get("token");
-        setToken(token);
+
         axios.get("http://localhost:8989/get-my-offers-model?token="+token).then(response=>{
             setMyProposals(response.data.myOffersModels)
 

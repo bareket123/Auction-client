@@ -8,18 +8,12 @@ import './UserMenu.css';
 
 const UserMenu = () => {
 
-    // const[token, setToken] = useState("");
-    //const[isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
     const [credits,setCredits]=useState(0);
     const token=Cookies.get("token");
     const isAdmin=Cookies.get("isAdmin")
 
-    useEffect(()=>{
-      //  setToken(Cookies.get("token")) ;
-      //   setIsAdmin(Cookies.get("isAdmin"))
 
-    })
 
     const homeTo = isAdmin? "/manage" : "/dashboard";
     const links =[{to:homeTo,text:"Home"},
