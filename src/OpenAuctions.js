@@ -29,7 +29,7 @@ const OpenAuctions = () => {
             const data = message.data;
             console.log("data is: " + data);
             if (data === "1") {
-                toast.success("New offer added to auction", { autoClose: 3000 });
+                toast.success("New offer added to auction you submitted", { autoClose: 3000 });
             } else if (data === "2") {
                 toast.error("Auction was closed", { autoClose: 3000 });
             }
