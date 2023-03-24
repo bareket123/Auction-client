@@ -21,7 +21,7 @@ function LoginPage () {
 
     useEffect(() => {
         const token = Cookies.get("token");
-        if (token == undefined) {
+        if (token === undefined) {
             navigate("../")
         } else {
             navigate("../dashboard")
@@ -45,7 +45,7 @@ function LoginPage () {
     }
 
     const submit = () => {
-        if (type == "signUp") {
+        if (type === "signUp") {
             axios.post("http://localhost:8989/sign-up", null, {
                 params: {username,  password}
             }).then((response) => {
@@ -86,10 +86,10 @@ function LoginPage () {
             <div>
                  <span style={{marginRight: "5px"}}>
                      <input className={"inputStyle"}  type={"radio"} name={"type"} value={"login"}
-                            checked={type == "login"} onChange={typeChanged} />Login
+                            checked={type === "login"} onChange={typeChanged} />Login
                  </span>
                  <input className={"inputStyle"}  type={"radio"} name={"type"} value={"signUp"}
-                               checked={type == "signUp"} onChange={typeChanged}/>Sign Up
+                               checked={type === "signUp"} onChange={typeChanged}/>Sign Up
             </div>
 
             <table className={"selectTeamsTable"} className={"positionTable"}>

@@ -16,12 +16,9 @@ const OpenAuctions = () => {
 
     const[openAuctions, setOpenAuctions] = useState([]);
     const [search,setSearch] = useState("");
-    const[messageCode, setMessageCode] = useState(0);
     const token=Cookies.get("token");
 
-    useEffect(()=>{
 
-    },[messageCode])
 
     useEffect(() => {
         const sse = new EventSource("http://localhost:8989/sse-handler?submitUserToken=" + token);
@@ -29,19 +26,22 @@ const OpenAuctions = () => {
             const data = message.data;
             console.log("data is: " + data);
             if (data === "1") {
-                toast.success("New offer added to auction you submitted", { autoClose: 3000 });
+                toast.success("New offer added to auction", { autoClose: 3000 });
             } else if (data === "2") {
                 toast.error("Auction was closed", { autoClose: 3000 });
             }
         };
-        setMessageCode(0);
+
     }, []);
 
 
     useEffect(() => {
         axios.get("http://localhost:8989/get-open-auctions?token="+token)
             .then(response => {
-                setOpenAuctions(response.data)
+                if (response.data.success){
+                    setOpenAuctions(response.data.auctions)
+                }
+
             })
 
     })

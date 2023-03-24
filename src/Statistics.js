@@ -15,12 +15,23 @@ function Statistics() {
         });
     });
 
+    // useEffect(() => {
+    //         axios.get("http://localhost:8989/get-all-auctions-size")
+    //             .then((response) => {
+    //                 setAllAuctionsSize(response.data)
+    //             })
+    // })
     useEffect(() => {
+        const intervalId = setInterval(() => {
             axios.get("http://localhost:8989/get-all-auctions-size")
-                .then((response) => {
-                    setAllAuctionsSize(response.data)
-                })
-    })
+                        .then((response) => {
+                            setAllAuctionsSize(response.data)
+                        })
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+
+    }, []);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
