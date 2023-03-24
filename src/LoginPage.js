@@ -83,22 +83,23 @@ function LoginPage () {
 
     return (
         <div style={{margin: "25px"}}>
-            <div>
+            <div className={"login-font"}>
                  <span style={{marginRight: "5px"}}>
                      <input className={"inputStyle"}  type={"radio"} name={"type"} value={"login"}
                             checked={type === "login"} onChange={typeChanged} />Login
                  </span>
+                <span>
                  <input className={"inputStyle"}  type={"radio"} name={"type"} value={"signUp"}
                                checked={type === "signUp"} onChange={typeChanged}/>Sign Up
-            </div>
+          </span>  </div>
 
-            <table className={"selectTeamsTable"} className={"positionTable"}>
+            <table className={"login-font"} >
                 <tr>
-                    <td>
+                    <td className={"login-font"}>
                         Username:
                     </td>
-                    <td>
-                        <input className={"inputStyle"} placeholder={"Enter your username"} type={"text"} value={username} onChange={usernameChanged}/>
+                    <td >
+                        <input className={"inputStyle"} placeholder={"Enter Username"} type={"text"} value={username} onChange={usernameChanged}/>
                     </td>
                 </tr>
                 <tr>
@@ -106,23 +107,23 @@ function LoginPage () {
                         Password:
                     </td>
                     <td>
-                        <input  className={"inputStyle"}  placeholder={"Enter your password"} type={"password"} value={password} onChange={passwordChanged}/>
+                        <input  className={"inputStyle"}  placeholder={"Enter Password"} type={"password"} value={password} onChange={passwordChanged}/>
                     </td>
                     <td>
                         {
-                            type == "signUp" && password.length < 6 &&  password.length > 0 &&
+                            type === "signUp" && password.length < 6 &&  password.length > 0 &&
                             <div style={{color: "red" ,fontSize:"30px"}}>Password too weak</div>
                         }
                     </td>
                 </tr>
                 {
-                    type == "signUp" &&
+                    type === "signUp" &&
                     <tr>
                         <td>Repeat Password:</td>
-                        <td><input className={"inputStyle"} type={"password"}  placeholder={"Enter repeat password"} value={password2} onChange={password2Changed}/></td>
+                        <td><input className={"inputStyle"} type={"password"}  placeholder={"Repeat password"} value={password2} onChange={password2Changed}/></td>
                         <td>
                             {
-                                ( password != password2 && password2.length>0) &&
+                                ( password !== password2 && password2.length>0) &&
                                 <div style={{color: "red" ,fontSize:"30px"}}> Passwords Don't match </div>
                             }
                         </td>
@@ -131,14 +132,15 @@ function LoginPage () {
             </table>
             <button onClick={submit} className={"button"} disabled={
                 password.length < 6 ||
-                (password != password2 && type == "signUp") ||
-                username.length == 0
-            }>{type == "signUp" ? "Sign Up" : "Login"}
+                (password !== password2 && type === "signUp") ||
+                username.length === 0
+            }>{type === "signUp" ? "Sign Up" : "Login"}
             </button>
             {
-                type=="login" && <button   className={"button"} onClick={()=>{
+                type==="login" &&
+                <button   className={"button"} onClick={()=>{
                 navigate("../manage");}
-                }>Admin Login</button>
+                }>Admin Page</button>
             }
             <Statistics/>
             {

@@ -49,12 +49,12 @@ const CreateProduct = () => {
 
     return (
         <div>
-          <UserMenu/>
+          <UserMenu />
             <div>Product Name :</div>
             <input placeholder={"Enter name"} className={"inputStyle"} type={"text"} value={name} onChange={(event)=>{setName(event.target.value)}} />
             <br/><br/>
             <div> Product Description :</div>
-            <input placeholder={"Enter Description"}className={"inputStyle"} type={"text"}  value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
+            <input placeholder={"Enter Description"} className={"inputStyle"} type={"text"}  value={description} onChange={(event)=>{setDescription(event.target.value)}}/>
             <br/><br/>
             <div>Link For Image :</div>
             <input placeholder={"Enter Photo Link"} className={"inputStyle"} type={"url"}  value={photo} onChange={(event)=>{setPhoto(event.target.value)}}/>

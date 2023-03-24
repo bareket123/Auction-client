@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import UserMenu from "./UserMenu";
 import Cookies from "js-cookie";
 import axios from "axios";
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './Table.css';
 
 function MyProposalsPage() {
@@ -24,7 +24,6 @@ function MyProposalsPage() {
             <UserMenu/>
             <h1> My Proposals: </h1>
 
-            <br/>
             <table className={"fl-table"}>
                 <tr>
                     <th> Product Name</th>

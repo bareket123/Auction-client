@@ -1,10 +1,8 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import {Link, useNavigate} from "react-router-dom";
-import React from "react";
+import {Link} from "react-router-dom";
 import UserMenu from "./UserMenu";
-import {ADD_NEW_OFFER_TO_AUCTION, AUCTION_WAS_CLOSED} from "./Constans";
 
 function ManagePage () {
     const[users, setUsers] = useState([]);
@@ -23,21 +21,19 @@ function ManagePage () {
                 if (response.data.success) {
                     setUsers(response.data.users)
                 }
-                // } else setErrorCode(response.data.errorCode)
             })
     },[])
 
     const filterUsersByName=()=>{
         const originalArray=users
         if (originalArray.length>0){
-            let filterArray=originalArray.filter((user)=>{
-                let allow=false;
-                if (user.username.includes(search)){
-                    allow=true;
+            return originalArray.filter((user) => {
+                let allow = false;
+                if (user.username.includes(search)) {
+                    allow = true;
                 }
                 return allow;
-            })
-            return filterArray;
+            });
         }else return originalArray;
 
     }
@@ -50,21 +46,21 @@ function ManagePage () {
             {
                 users.length===0 ?
 
-                    <h2 style={{textAlign :"center" ,color:"white"}}>No users have been added yet</h2>
+                    <h2>No users have been added yet</h2>
             :
-                    <div>
-            Users: {users.length}
+                    <div className={"login-font"}>
+           <h3 style={{textAlign :"left"}}>Users: {users.length}</h3>
             <h2 style={{textAlign :"left"}}>
-                Search User :  <input className={"inputStyle"}  placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
+                Search User: <input className={"inputStyle"}  placeholder={"search"} value={search} type={"text"} onChange={ (event)=>{setSearch(event.target.value)}}/>
             </h2>
-            <table>
+            <table className={"login-font"}>
                 {
 
                     filterUsersByName().map((user) => {
                         return (
                             <tr>
-                                <td>{user.id}</td>
-                                <td><Link to={"/UserPage/"+user.username} onClick={
+                                <td>{user.id}.</td>
+                                <td ><Link className={"login-font"} to={"/UserPage/"+user.username} onClick={
                                     ()=>{Cookies.set("isAdmin",true);Cookies.set("token",user.token)}}>
                                     {user.username}</Link></td>
                             </tr>

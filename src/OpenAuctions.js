@@ -1,15 +1,12 @@
-import React from 'react';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
 import UserMenu from "./UserMenu";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './Table.css';
 import './Input.css';
-import { ToastContainer, toast } from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 
 
 const OpenAuctions = () => {
@@ -49,18 +46,17 @@ const OpenAuctions = () => {
     const filter=()=>{
         const originalArray=openAuctions
         if (originalArray.length>0){
-            let filterArray=originalArray.filter((auction)=>{
-                let allow=false;
-                if (auction.productName.includes(search)){
-                    allow=true;
+            return originalArray.filter((auction) => {
+                let allow = false;
+                if (auction.productName.includes(search)) {
+                    allow = true;
                 }
                 return allow;
-            })
-            return filterArray;
+            });
         }else return originalArray;
 
     }
-    const notify = () => toast("Wow so easy!");
+
 
     return (
         <div>

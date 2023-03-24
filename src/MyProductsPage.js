@@ -60,14 +60,15 @@ function MyProductsPage() {
     return (
         <div>
             <UserMenu />
-            <h1> My Products: </h1>
-            <br />
+            <h1 > My Products: </h1>
+
+
             <table className={"fl-table"}>
                 <tr>
                     <th style={{fontWeight:"bold"}}>Product Name</th>
-                    <th style={{fontWeight: "bold"}}>Highest proposal</th>
-                    <th style={{fontWeight: "bold"}}>Auction status</th>
-                    <th style={{fontWeight: "bold"}}> Close auction</th>
+                    <th style={{fontWeight: "bold"}}>Highest Proposal</th>
+                    <th style={{fontWeight: "bold"}}>Auction Status</th>
+                    <th style={{fontWeight: "bold"}}> Close Auction</th>
                 </tr>
                 {
                 myAuctions.map((auction)=>{

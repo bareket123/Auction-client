@@ -48,7 +48,7 @@ function Statistics() {
     return (
         <div>
             <br/>
-          <h2 style={{textDecoration:"underline"}}>  Statistics :    </h2>
+          <h2 style={{textDecoration:"underline"}}>  Statistics:</h2>
             <table border={1} className={"fl-table"}>
                 <tr>
                     <th> Users</th>

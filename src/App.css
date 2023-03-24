@@ -70,7 +70,6 @@ h1 {
   color: black;
   line-height: 48px;
   font-family: 'Trocchi', serif;
-  /*text-shadow: 2px 4px 3px rgba(0,1,0,0.5);*/
 
 }
 h2 {
@@ -80,7 +79,6 @@ h2 {
    color: #000000;
    line-height: 48px;
    font-family: 'Trocchi', serif;
-   /*text-shadow: 2px 4px 3px rgba(0,1,0,0.5);*/
  }
 
 
@@ -96,8 +94,8 @@ h3 {
 }
 
 h3,h2,h1{
-  color: #897887;
-  text-decoration: underline ;
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0,1,0,0.5);
 
 }
 
@@ -132,7 +130,23 @@ div{
   position: center;
   text-align: center;
 }
+#auction-font{
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Droid serif', serif;
+  position: center;
+  text-align: center;
+}
 
 table{
   text-align: center;
+}
+
+.login-font{
+  font-weight: bold;
+  font-size: 30px;
+  font-family: 'Droid serif', serif;
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0,1,0,0.5);
 }

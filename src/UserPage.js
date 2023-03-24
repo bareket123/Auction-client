@@ -2,7 +2,7 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import {useNavigate,useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import UserMenu from "./UserMenu";
 import { UPDATED_USER_CREDIT_SUCCESSFULLY} from "./Constans";
 import SnackBarAlert from "./SnackBarAlert";
@@ -11,10 +11,10 @@ import SnackBarAlert from "./SnackBarAlert";
 function UserPage(){
     const[token, setToken] = useState(undefined);
     const [myOpenAuctions,setMyOpenAuctions]=useState(0);
-    const [credit,setCredit]=useState(0);
+    const [credit,setCredit]=useState("");
     const [userCredit,setUserCredit]=useState(0);
     const {username} = useParams();
-    const navigate = useNavigate();
+
     const[messageCode, setMessageCode] = useState(0);
 
 
@@ -56,15 +56,15 @@ function UserPage(){
             }
         })
         setMessageCode(0)
-        setCredit(0)
+        setCredit("")
     }
 
     return(
         <div>
             <UserMenu/>
-            <h2><u>User:</u>  {username}</h2>
-            <h1>Open Auctions: {myOpenAuctions} </h1>
-            <h2> Current credit : {userCredit} $</h2>
+            <h2>User: {username}</h2>
+            <h2>Open Auctions: {myOpenAuctions} </h2>
+            <h2> Current Credit: {userCredit} $</h2>
                <h2>  Update {username} Credit  <input className={"inputStyle"} type={"number"} min={0} value={credit} onChange={(event)=>{setCredit(event.target.value)}} placeholder={"Enter new credit"}/>
                    <button className={"button"} onClick={()=>{updateCredit()}}>update</button></h2>
                 <div>

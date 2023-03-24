@@ -2,7 +2,7 @@ import React from 'react';
 import {useState,useEffect} from "react";
 import Cookies from "js-cookie";
 import UserMenu from "./UserMenu";
-import {useNavigate, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import axios from "axios";
 import './Table.css';
 import './Button.css';
@@ -18,7 +18,6 @@ const Auction = () => {
     const[offerByUser, setOfferByUser] = useState([]);
     const [isPublisher,setIsPublisher]=useState(false);
     const {id} = useParams();
-    const navigate = useNavigate();
     const [messageCode, setMessageCode] = useState(0);
     const isAdmin=Cookies.get("isAdmin");
 
@@ -53,11 +52,6 @@ const addNewOffer=()=> {
     })
     setOfferPrice(0);
     setMessageCode(0);
-    axios.post(("http://localhost:8989/added-new-offer"), null, {
-        params: {
-            token, auctionId: id
-        }
-    })
 }
 
     const endAuction=()=>{
@@ -76,36 +70,36 @@ const addNewOffer=()=> {
     }
 
     return (
-        <div>
+        <div >
             <UserMenu/>
              {
                 ( messageCode!==0 && messageCode!==1005) &&
                 <SnackBarAlert message={messageCode}/>
             }
-            <div><u>Product Name:</u> {auction.productName} </div>
+            <div id={"auction-font"}><u>Product Name:</u> {auction.productName} </div>
                 <br/>
-            <img width="200" height="200" src={auction.productPhoto} alt={"no picture"}/>
+            <img id={"auction-font"} width="200" height="200" src={auction.productPhoto} alt={"no picture"}/>
             <br/>
 
-            <div><u> Product Description:</u> {auction.productDescription} </div>
+            <div id={"auction-font"}><u> Product Description:</u> {auction.productDescription} </div>
             <br/>
 
-            <div> <u>Creation Date:</u> {auction.creationDate}   </div>
+            <div id={"auction-font"}> <u>Creation Date:</u> {auction.creationDate}   </div>
             <br/>
 
-            <div><u> Start Price:</u> {auction.initialPrice}$ </div>
+            <div id={"auction-font"}><u> Start Price:</u> {auction.initialPrice}$ </div>
             <br/>
 
-            <div><u>Amount Proposals:</u> { auction.allOffers!=undefined ? auction.allOffers.length : "0"} </div>
+            <div id={"auction-font"}><u>Amount Proposals:</u> { auction.allOffers!=undefined ? auction.allOffers.length : "0"} </div>
             <br/>
 
-            <div><u> Publisher:</u> {auction.publisher} </div>
+            <div id={"auction-font"}><u> Publisher:</u> {auction.publisher} </div>
             <br/>
 
             {
                 (isPublisher && !isAdmin) ?
-                        <div>
-                        <u> All Proposals:</u>
+                        <div >
+                        <u id={"auction-font"}> All Proposals:</u>
                             <table className={"fl-table"}>
                                 <tr >
                                     <th></th>
@@ -124,13 +118,13 @@ const addNewOffer=()=> {
                                         })}
                             </table>
                             <br/>
-                            <button  onClick={endAuction} className={"button"}> End Auction </button>
+                            <button  onClick={endAuction} disabled={!auction.open} className={"button"}> End Auction </button>
                         </div>
                     :
                 ( offerByUser.length !== 0 && !isAdmin )&&
-                    <div>
-                <div>
-                <u> My Proposals:</u>
+
+                <div >
+                <u id={"auction-font"}> My Proposals:</u>
                     <table className={"fl-table"} >
                        <tr>
                            <th></th>
@@ -147,7 +141,7 @@ const addNewOffer=()=> {
                         })}
                     </table>
                 </div>
-                </div>
+
             }
             <div>
                 {

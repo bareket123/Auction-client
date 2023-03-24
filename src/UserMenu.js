@@ -72,7 +72,7 @@ const UserMenu = () => {
                             )
                         })
                     }
-                    <th>{isAdmin ? "System Credits : " : "My Credit : " }{credits}</th>
+                    <th>{isAdmin ? "System Credits : " : "My Credit : " }{credits+"$"}</th>
                     <th><button className={"button"} onClick={()=>{
                         Cookies.remove("token"); Cookies.remove("isAdmin")
                         navigate("../");
